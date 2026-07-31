@@ -1,0 +1,21 @@
+<h1>Welcome to Ruby Gaming</h1>
+
+<%= tag.div(flash[:alert], class: "flash flash-alert") if flash[:alert] %>
+<%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
+
+<p>This site is under construction.</p>
+
+<% if authenticated? %>
+  <p>Hi, <%= Current.user.first_name %>! You're logged in.</p>
+  <p>
+    <%= link_to "Settings", settings_path %>
+    &middot;
+    <%= button_to "Log out", session_path, method: :delete %>
+  </p>
+<% else %>
+  <p>
+    <%= link_to "Log in", new_session_path %>
+    &middot;
+    <%= link_to "Sign up", new_registration_path %>
+  </p>
+<% end %>

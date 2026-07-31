@@ -8,3 +8,129 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  color: #1f2933;
+  background-color: #f9fafb;
+  line-height: 1.5;
+}
+
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+h1, h2 {
+  color: #102a43;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  background-color: #102a43;
+}
+
+.site-nav-brand a {
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.site-nav-links {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.site-nav-links a,
+.site-nav-links button {
+  color: #fff;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.site-nav-links a:hover,
+.site-nav-links button:hover {
+  text-decoration: underline;
+}
+
+.field {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 4px;
+  font-size: 1rem;
+  max-width: 100%;
+}
+
+input[type="submit"],
+button {
+  padding: 0.55rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #2c5282;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background-color: #1a365d;
+}
+
+.flash {
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.flash-notice {
+  background-color: #d3f9d8;
+  color: #1b4332;
+}
+
+.flash-alert {
+  background-color: #ffe3e3;
+  color: #7d1a1a;
+}
+
+.error-messages {
+  background-color: #ffe3e3;
+  color: #7d1a1a;
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.error-messages ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}

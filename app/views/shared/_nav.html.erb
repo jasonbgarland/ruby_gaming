@@ -1,0 +1,14 @@
+<nav class="site-nav">
+  <div class="site-nav-brand">
+    <%= link_to "Ruby Gaming", root_path %>
+  </div>
+  <div class="site-nav-links">
+    <% if authenticated? %>
+      <%= link_to "Settings", settings_path %>
+      <%= button_to "Log out", session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Log in", new_session_path %>
+      <%= link_to "Sign up", new_registration_path %>
+    <% end %>
+  </div>
+</nav>

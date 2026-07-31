@@ -34,6 +34,11 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # Deliver to tmp/mails instead of a real SMTP/provider, so mail is inspectable
+  # without any external mail service configured.
+  config.action_mailer.delivery_method = :file
+  config.action_mailer.perform_deliveries = true
+
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
