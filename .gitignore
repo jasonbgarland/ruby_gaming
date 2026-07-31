@@ -33,3 +33,10 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
+# Multi-agent workflow orchestration artifacts.
+/.claude/workflow/
+/.claude/WORKFLOW_RETRO_LOG.md
+
+# Personal, per-machine Claude Code overrides (not shared team settings).
+/.claude/settings.local.json
+

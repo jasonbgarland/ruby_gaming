@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(crit *)",
+      "Bash(bin/rubocop *)",
+      "Bash(bin/brakeman *)",
+      "Bash(bundle exec bundler-audit *)",
+      "Bash(bin/rails test*)",
+      "Read(tmp/**)",
+      "Read(./tmp/**)"
+    ]
+  }
+}
