@@ -10,8 +10,15 @@ WebMock.disable_net_connect!(allow_localhost: true)
 
 module ActiveSupport
   class TestCase
-    # Run tests in parallel with specified workers
-    parallelize(workers: :number_of_processors)
+    # Run tests in parallel with specified workers.
+    #
+    # macOS + Homebrew's Postgres build (which links Kerberos/GSSAPI) can
+    # deadlock when Rails forks parallel test workers after the `pg` gem
+    # has opened a connection — the child processes inherit non-fork-safe
+    # global state and hang rather than erroring. This doesn't reproduce
+    # on Linux/CI Postgres, so parallelization is only disabled locally on
+    # macOS; other platforms keep the default one-worker-per-core behavior.
+    parallelize(workers: RUBY_PLATFORM.include?("darwin") ? 1 : :number_of_processors)
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
