@@ -1,7 +1,18 @@
 # Plan: Game concept via IGDB
 
 Status: revised 2026-09-16 after crit round 1 — broken into 3 separate
-workflow runs, to be executed in order.
+runs, to be executed in order. Run 1 is done (see `.claude/HANDOFF.md`).
+
+**Process note (2026-09-17):** Run 1 used the formal `/workflow` skill
+(Plan→Design→Build→Review with crit gates). For Run 2 onward, the human
+decided that's too much overhead for well-scoped work like this — see
+`.claude/HANDOFF.md`'s "Process notes worth remembering" for the full
+reasoning. Run 2 and 3 are done as a direct conversation instead: no
+`/workflow` prompt, no separate plan.md/design.md/review.md — just
+implement against the "Details behind each run" sections below, run
+tests live, and review diffs together in-editor. The `/workflow` prompts
+below are kept for reference / in case a future run's scope grows large
+enough to warrant them again.
 
 ## Goal
 
@@ -79,6 +90,13 @@ UX is a future story once a Collection concept exists.
   credentials and network access.
 
 ### 2. Local `Game` model
+
+**Update (2026-09-17):** this section originally assumed Postgres without
+checking — the app was actually still on SQLite at the time of writing.
+That's since been fixed (`251aed5`, primary DB switched to Postgres
+specifically to unblock this), so the array/GIN design below now matches
+reality. See `.claude/HANDOFF.md` "What's built" #5 for the switchover
+details and a macOS-specific test-runner caveat it introduced.
 
 - Fields to start: `name`, `igdb_id`, `cover_image_id` (or full cover
   URL), `summary`, `first_release_date`.
