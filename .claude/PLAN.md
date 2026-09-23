@@ -1,7 +1,8 @@
 # Plan: Game concept via IGDB
 
 Status: revised 2026-09-16 after crit round 1 — broken into 3 separate
-runs, to be executed in order. Run 1 is done (see `.claude/HANDOFF.md`).
+runs, to be executed in order. Runs 1 & 2 are done, Run 3 (search page)
+is next (see `.claude/HANDOFF.md`).
 
 **Process note (2026-09-17):** Run 1 used the formal `/workflow` skill
 (Plan→Design→Build→Review with crit gates). For Run 2 onward, the human

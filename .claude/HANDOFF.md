@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-09-17
+Last updated: 2026-09-23
 
 ## What this project is
 
@@ -60,6 +60,25 @@ leaderboards, matches, etc.) exists yet.
    workaround in `test/test_helper.rb` (Homebrew's Postgres build isn't
    fork-safe with Rails' default parallel test workers; harmless/inert
    on Linux/CI).
+6. **`Game` model — Run 2 of 3** — built as a direct conversation (no
+   `/workflow`, per the process-change decision below).
+   - `db/migrate/..._create_games.rb`: `games` table with `igdb_id`
+     (unique), `name` (indexed), `cover_image_id`/`cover_url`, `summary`,
+     `first_release_date`, `platforms`/`genres` as native Postgres string
+     arrays with GIN indexes, and `refreshed_at` (tracks last IGDB sync,
+     kept separate from `updated_at` so unrelated future writes don't
+     confuse staleness checks).
+   - `app/models/game.rb`: validates `igdb_id`/`name`; `#stale?` (24h
+     `REFRESH_INTERVAL`); `.upsert_from_igdb` (find-or-create by
+     `igdb_id`); `.find_or_refresh(igdb_id, client:)` — the on-read
+     refresh entry point Run 3's search page will call.
+   - Added `IgdbClient#find(igdb_id)` (a `where id = X` Apicalypse
+     lookup) alongside the existing `#search` text search — needed once
+     `find_or_refresh` required refetching one specific game by id,
+     which `#search` (a text search) can't do reliably.
+   - Tests: 12 new `Game` model tests + 4 new `IgdbClient#find` tests,
+     using a small hand-rolled fake client for `Game`'s tests (Minitest 6
+     split `Mock` into a separate gem this project doesn't have).
 
 ## Explicitly deferred (not built yet)
 
@@ -94,7 +113,7 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
   formal workflow. `crit <file>` is still a good tool standalone, on one
   file at a time, when in-chat review would get too dense.
 
-## Suggested next steps — Run 1 done, Run 2 (`Game` model) is next
+## Suggested next steps — Run 1 & 2 done, Run 3 (search page) is next
 
 Decided: the site will use the IGDB.com API for game data, with a local
 `Game` model caching what's needed, plus a future `Collection` model
@@ -106,16 +125,13 @@ has zero or more games) powering wishlist/backlog/now-playing/favorites.
 
 1. **Run 1 — IGDB client + credentials. ✅ Done** (`8589e19`, `411334b`;
    see "What's built" above). Built via `/workflow`.
-2. **Run 2 — `Game` model. Next up.** One row per game (confirmed:
-   IGDB's `igdb_id` is per-game, not per-platform), `platforms`/`genres`
-   as native Postgres array columns with GIN indexes (for future
-   platform search — unblocked now that the DB is Postgres, see "What's
-   built" #5), 24h on-read cache refresh. Migrating fields from a prior
-   Python/SQLAlchemy version of this model — full reference kept in
-   PLAN.md.
-3. **Run 3 — Search page.** Live IGDB search box; selecting a result
-   upserts a local `Game` row by `igdb_id` — just enough to prove the
-   model/client work together, deliberately not "add to library" UX.
+2. **Run 2 — `Game` model. ✅ Done** (see "What's built" #6 above). One
+   row per game (confirmed: IGDB's `igdb_id` is per-game, not
+   per-platform), `platforms`/`genres` as native Postgres array columns
+   with GIN indexes, 24h on-read cache refresh via `Game.find_or_refresh`.
+3. **Run 3 — Search page. Next up.** Live IGDB search box; selecting a
+   result upserts a local `Game` row by `igdb_id` — just enough to prove
+   the model/client work together, deliberately not "add to library" UX.
 
 **Process change for Run 2 (human preference, decided 2026-09-17):** do
 **not** use the formal `/workflow` skill (Plan→Design→Build→Review with
@@ -134,10 +150,10 @@ the formal `/workflow` skill for bigger or more ambiguous work where the
 paper trail itself has lasting value (e.g. this HANDOFF's own multi-month
 gap is exactly the scenario where Run 1's approach paid for itself).
 
-Start the next session by picking up Run 2 directly in conversation
-(no `/workflow` prompt needed) — the field list, Postgres array/GIN
-decision, and 24h refresh strategy are all in `.claude/PLAN.md`'s
-"Local Game model" section.
+Start the next session by picking up Run 3 (search page) directly in
+conversation (no `/workflow` prompt needed) — see PLAN.md's "Search
+page" section for the intended controller/route shape and the
+find-or-create-by-`igdb_id` upsert behavior.
 
 **Noted for later** (not yet a plan): platform-specific ownership (e.g.
 "I own the Xbox copy of Hollow Knight") will live on the future
