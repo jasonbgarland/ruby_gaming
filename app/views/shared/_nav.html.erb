@@ -4,6 +4,7 @@
   </div>
   <div class="site-nav-links">
     <% if authenticated? %>
+      <%= link_to "Search games", games_search_path %>
       <%= link_to "Settings", settings_path %>
       <%= button_to "Log out", session_path, method: :delete %>
     <% else %>

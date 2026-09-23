@@ -1,0 +1,38 @@
+<h1>Search games</h1>
+
+<%= tag.div(flash[:alert], class: "flash flash-alert") if flash[:alert] %>
+<%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
+
+<%= form_with url: games_search_path, method: :get, class: "game-search-form" do %>
+  <%= label_tag :q, "Game name", class: "sr-only" %>
+  <%= text_field_tag :q, @query, placeholder: "Search for a game…" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<% if @query.present? %>
+  <% if @results.empty? %>
+    <p>No results for &ldquo;<%= @query %>&rdquo;.</p>
+  <% else %>
+    <ul class="game-results">
+      <% @results.each do |result| %>
+        <li class="game-result">
+          <% if result.cover_url %>
+            <%= image_tag result.cover_url, alt: result.name, class: "game-cover" %>
+          <% end %>
+          <div class="game-result-details">
+            <h3><%= result.name %></h3>
+            <p>
+              <% if result.release_date %>
+                <%= result.release_date.year %>
+              <% end %>
+              <% if result.platforms.present? %>
+                &middot; <%= result.platforms.join(", ") %>
+              <% end %>
+            </p>
+            <%= button_to "Add", games_path(igdb_id: result.igdb_id, q: @query), method: :post %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

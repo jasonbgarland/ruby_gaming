@@ -1,8 +1,8 @@
 # Plan: Game concept via IGDB
 
 Status: revised 2026-09-16 after crit round 1 — broken into 3 separate
-runs, to be executed in order. Runs 1 & 2 are done, Run 3 (search page)
-is next (see `.claude/HANDOFF.md`).
+runs, to be executed in order. All 3 runs are done (see
+`.claude/HANDOFF.md`) — this plan's scope is complete.
 
 **Process note (2026-09-17):** Run 1 used the formal `/workflow` skill
 (Plan→Design→Build→Review with crit gates). For Run 2 onward, the human
@@ -185,3 +185,21 @@ the Collection story is planned.
 - Run 1: exact stubbing library (webmock/vcr/other) for HTTP tests.
 - Run 2: confirm 24h on-read refresh is sufficient vs. needing a
   scheduled sync job.
+
+## Future ideas backlog
+
+Not scheduled, not planned, no scope/design decided — just one-line
+prompts to pull from and flesh out into a real plan/run when we're ready
+to work on them. Add to this list freely; remove an item once it graduates
+into its own plan section (or its own PLAN.md, for bigger work) above.
+
+- Game details page — a page for a single `Game` (probably
+  `games#show`, `/games/:id`), since right now a selected search result
+  only gets upserted with a flash confirmation, no page to actually view
+  it.
+- Live search-as-you-type on the search page (results update while
+  typing, no explicit submit) instead of the current submit-and-reload
+  form.
+- `Collection` model (wishlist/backlog/now-playing/favorites) — see
+  "Deferred: Collection / library concept" above for the design notes
+  already captured for this one.

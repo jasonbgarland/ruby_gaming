@@ -79,6 +79,40 @@ leaderboards, matches, etc.) exists yet.
    - Tests: 12 new `Game` model tests + 4 new `IgdbClient#find` tests,
      using a small hand-rolled fake client for `Game`'s tests (Minitest 6
      split `Mock` into a separate gem this project doesn't have).
+7. **Search page — Run 3 of 3** — built as a direct conversation (no
+   `/workflow`, continuing the process change from Run 2).
+   - `GamesController#search` (`GET /games/search`): live text search via
+     `IgdbClient.new.search`, no persistence — every query hits the real
+     IGDB API, as intended (the 24h cache only applies to already-saved
+     `Game` rows). `#create` (`POST /games`, `igdb_id` + `q` params):
+     calls `Game.find_or_refresh(igdb_id)` — the exact on-read entry
+     point Run 2 built for this — and redirects back to the search
+     results with a flash notice/alert. Rejects a non-numeric `igdb_id`
+     before hitting IGDB or `Integer()`-raising.
+   - Both actions require authentication (default `Authentication`
+     concern behavior, no `allow_unauthenticated_access`) — decided
+     directly with the human since there's no explicit plan guidance;
+     consistent with the rest of the site's logged-in-gated features.
+   - `app/views/games/search.html.erb`: search box + results list (cover,
+     name, release year, platforms) with a per-result "Add" button
+     (`button_to`) that posts to `#create`. Nav bar gets a "Search games"
+     link (only shown when authenticated).
+   - Tests: `test/integration/games_search_flow_test.rb` (8 tests) —
+     auth-required, blank query, live results, no-results state, upsert
+     on select, duplicate-select doesn't duplicate the row, unknown
+     `igdb_id` shows an alert without creating a row, non-numeric
+     `igdb_id` rejected — all via `webmock` stubs on the Twitch/IGDB
+     endpoints (same pattern as `igdb_client_test.rb`), no real network
+     calls in the normal suite.
+   - Manually verified end-to-end against the **live IGDB API** (not just
+     stubbed tests): started the dev server, signed in as a throwaway dev
+     user, searched "zelda" (got real IGDB results), clicked through the
+     `POST /games` add flow, and confirmed a real `Game` row was upserted
+     with correct name/platforms. Dev user and test row were cleaned up
+     afterward — no browser-automation tool was available in this
+     environment (VSCode extension, not the desktop app), so this was
+     done via `curl` against the running dev server rather than a
+     screenshot-driven check.
 
 ## Explicitly deferred (not built yet)
 
@@ -113,7 +147,7 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
   formal workflow. `crit <file>` is still a good tool standalone, on one
   file at a time, when in-chat review would get too dense.
 
-## Suggested next steps — Run 1 & 2 done, Run 3 (search page) is next
+## Suggested next steps — Runs 1, 2 & 3 done; PLAN.md's 3-run scope is complete
 
 Decided: the site will use the IGDB.com API for game data, with a local
 `Game` model caching what's needed, plus a future `Collection` model
@@ -129,9 +163,10 @@ has zero or more games) powering wishlist/backlog/now-playing/favorites.
    row per game (confirmed: IGDB's `igdb_id` is per-game, not
    per-platform), `platforms`/`genres` as native Postgres array columns
    with GIN indexes, 24h on-read cache refresh via `Game.find_or_refresh`.
-3. **Run 3 — Search page. Next up.** Live IGDB search box; selecting a
-   result upserts a local `Game` row by `igdb_id` — just enough to prove
-   the model/client work together, deliberately not "add to library" UX.
+3. **Run 3 — Search page. ✅ Done** (see "What's built" #7 above). Live
+   IGDB search box; selecting a result upserts a local `Game` row by
+   `igdb_id` — just enough to prove the model/client work together,
+   deliberately not "add to library" UX.
 
 **Process change for Run 2 (human preference, decided 2026-09-17):** do
 **not** use the formal `/workflow` skill (Plan→Design→Build→Review with
@@ -150,10 +185,17 @@ the formal `/workflow` skill for bigger or more ambiguous work where the
 paper trail itself has lasting value (e.g. this HANDOFF's own multi-month
 gap is exactly the scenario where Run 1's approach paid for itself).
 
-Start the next session by picking up Run 3 (search page) directly in
-conversation (no `/workflow` prompt needed) — see PLAN.md's "Search
-page" section for the intended controller/route shape and the
-find-or-create-by-`igdb_id` upsert behavior.
+PLAN.md's 3-run scope (Runs 1–3) is now fully built. The next feature —
+not yet planned — is the `Collection` concept described below
+(wishlist/backlog/now-playing/favorites). Start the next session by
+scoping that as a new plan (likely worth a fresh `/workflow` pass or at
+least a `.claude/PLAN.md`-style write-up, given it introduces a new
+model + join table + real per-user UX, unlike Runs 2–3's narrower scope).
+
+**If there's no specific work queued up** (nothing pending from the
+human, nothing in progress here), read PLAN.md's "Future ideas backlog"
+section, summarize the items there, and propose one to scope into a real
+plan next — don't just pick one and start building.
 
 **Noted for later** (not yet a plan): platform-specific ownership (e.g.
 "I own the Xbox copy of Hollow Knight") will live on the future
