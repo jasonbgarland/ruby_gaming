@@ -278,4 +278,47 @@ class IgdbClientTest < ActiveSupport::TestCase
     assert_not_requested(token_stub)
     assert_not_requested(games_stub)
   end
+
+  # 23 - find builds a where-id Apicalypse query
+  test "find builds a where-id Apicalypse query" do
+    stub_token
+    stub_games(body: [ full_row ].to_json)
+
+    build_client.find(1022)
+
+    assert_requested(:post, GAMES_URL) do |req|
+      req.body.include?("fields id,name,summary,first_release_date,cover.image_id,platforms.name,genres.name;") &&
+        req.body.include?("where id = 1022;") &&
+        !req.body.include?("search")
+    end
+  end
+
+  # 24 - find returns a normalized game
+  test "find returns a normalized game" do
+    stub_token
+    stub_games(body: [ full_row ].to_json)
+
+    game = build_client.find(1022)
+
+    assert_equal 1022, game.igdb_id
+    assert_equal "The Legend of Zelda", game.name
+  end
+
+  # 25 - find returns nil when IGDB has no matching game
+  test "find returns nil when IGDB has no matching game" do
+    stub_token
+    stub_games(body: "[]")
+
+    assert_nil build_client.find(999_999)
+  end
+
+  # 26 - find returns nil without any HTTP for a blank id
+  test "find returns nil without any HTTP for a blank id" do
+    token_stub = stub_token
+    games_stub = stub_games(body: "[]")
+
+    assert_nil build_client.find(nil)
+    assert_not_requested(token_stub)
+    assert_not_requested(games_stub)
+  end
 end

@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_31_194620) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_23_143201) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_catalog.plpgsql"
+
+  create_table "games", force: :cascade do |t|
+    t.string "cover_image_id"
+    t.string "cover_url"
+    t.datetime "created_at", null: false
+    t.date "first_release_date"
+    t.string "genres", default: [], null: false, array: true
+    t.bigint "igdb_id", null: false
+    t.string "name", null: false
+    t.string "platforms", default: [], null: false, array: true
+    t.datetime "refreshed_at", null: false
+    t.text "summary"
+    t.datetime "updated_at", null: false
+    t.index ["genres"], name: "index_games_on_genres", using: :gin
+    t.index ["igdb_id"], name: "index_games_on_igdb_id", unique: true
+    t.index ["name"], name: "index_games_on_name"
+    t.index ["platforms"], name: "index_games_on_platforms", using: :gin
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -28,7 +49,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_31_194620) do
     t.string "password_digest", null: false
     t.datetime "updated_at", null: false
     t.string "username", null: false
-    t.index "lower(username)", name: "index_users_on_lower_username", unique: true
+    t.index "lower((username)::text)", name: "index_users_on_lower_username", unique: true
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

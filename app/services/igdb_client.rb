@@ -1,7 +1,12 @@
 # IgdbClient authenticates with Twitch (IGDB's OAuth provider) using the
-# client-credentials flow, caches the resulting access token, and exposes
-# #search(query, limit:) against IGDB's /games endpoint (Apicalypse syntax),
-# returning an Array of normalized IgdbClient::Game value objects:
+# client-credentials flow, caches the resulting access token, and queries
+# IGDB's /games endpoint using Apicalypse — IGDB's own query DSL (not a
+# Ruby thing; a text-based query syntax specific to IGDB's API), exposing:
+#
+#   #search(query, limit:) — text search
+#   #find(igdb_id)         — lookup by exact IGDB id
+#
+# Both return normalized IgdbClient::Game value objects:
 #
 #   igdb_id, name, cover_image_id, cover_url, summary, release_date,
 #   platforms (Array<String>), genres (Array<String>)
@@ -60,6 +65,21 @@ class IgdbClient
     return [] if query.blank?
 
     body = apicalypse_query(query, limit)
+    perform_games_request(body).first(limit)
+  end
+
+  # Looks up a single game by its IGDB id (not a text search). Returns nil
+  # if IGDB has no game with that id.
+  def find(igdb_id)
+    return nil if igdb_id.blank?
+
+    body = apicalypse_id_query(igdb_id)
+    perform_games_request(body).first
+  end
+
+  private
+
+  def perform_games_request(body)
     retried = false
 
     loop do
@@ -82,8 +102,6 @@ class IgdbClient
       end
     end
   end
-
-  private
 
   def access_token
     @cache.read(token_cache_key) || fetch_token!
@@ -143,6 +161,13 @@ class IgdbClient
       fields #{SEARCH_FIELDS};
       search "#{escape(query)}";
       limit #{limit};
+    QUERY
+  end
+
+  def apicalypse_id_query(igdb_id)
+    <<~QUERY
+      fields #{SEARCH_FIELDS};
+      where id = #{Integer(igdb_id)};
     QUERY
   end
 
