@@ -1,205 +1,136 @@
-# Plan: Game concept via IGDB
+# Plan: Collection model
 
-Status: revised 2026-09-16 after crit round 1 — broken into 3 separate
-runs, to be executed in order. All 3 runs are done (see
-`.claude/HANDOFF.md`) — this plan's scope is complete.
-
-**Process note (2026-09-17):** Run 1 used the formal `/workflow` skill
-(Plan→Design→Build→Review with crit gates). For Run 2 onward, the human
-decided that's too much overhead for well-scoped work like this — see
-`.claude/HANDOFF.md`'s "Process notes worth remembering" for the full
-reasoning. Run 2 and 3 are done as a direct conversation instead: no
-`/workflow` prompt, no separate plan.md/design.md/review.md — just
-implement against the "Details behind each run" sections below, run
-tests live, and review diffs together in-editor. The `/workflow` prompts
-below are kept for reference / in case a future run's scope grows large
-enough to warrant them again.
+Status: model design agreed via direct conversation (2026-09-24), not yet
+built. This plan currently covers **just the model layer** (migrations,
+associations, validations) — the earlier "saving a game just caches it on
+the backend, no real collection concept" gap is what this closes. UI/UX
+for creating and managing collections is explicitly a follow-on, not yet
+discussed (see "Explicitly out of scope" below).
 
 ## Goal
 
-Introduce a local `Game` concept backed by IGDB (igdb.com) data, plus a
-utility for querying IGDB, proven out with a simple search page. This is
-the foundation for later features — a `Collection` concept (a user has
-zero or more collections, each containing zero or more games; powers
-wishlist/now-playing/backlog/favorites) — that are explicitly NOT in scope
-here, just noted as the reason for some of the choices below.
+Give users real persisted collections (e.g. "Wishlist", "Owned", "For
+Sale") that hold zero or more games, each tied to the specific platform
+the user wants/owns it on. Replaces the current "search page upserts a
+bare `Game` row" behavior (from `.claude/plan_archives/igdb-game.md`
+Run 3) with an actual user-facing concept — right now selecting a search
+result has no relationship to any user at all.
 
-## Workflow breakdown
+- A user has zero or more collections.
+- A collection has zero or more games, each paired with a platform.
+- The same game can appear more than once in one collection, at different
+  platforms (e.g. "own on PS4" and "want on PC" both in "Wishlist").
 
-Each run below is independent enough to plan/design/build/review on its
-own via the `workflow` skill. Run in order — run 2 and 3 depend on run 1,
-and run 3 depends on run 2. Copy the prompt under each into `/workflow`
-when ready to start that run.
+## Model design
 
-### Run 1 — IGDB client + credentials
+Three tables. `Game` is unchanged (from the archived plan); `Collection`
+is new; `CollectionGame` is a new **join model** (not a bare
+`has_and_belongs_to_many` join table) because the relationship itself
+carries data — `platform` — that a plain two-FK join table has no room
+for.
 
+| Model | Table | Columns |
+|---|---|---|
+| `Collection` | `collections` | `id`, `user_id` (FK), `title` (string, required), `description` (text, optional), timestamps |
+| `CollectionGame` | `collection_games` | `id`, `collection_id` (FK), `game_id` (FK), `platform` (string, required), timestamps |
+| `Game` | `games` | *(no changes)* |
+
+```ruby
+class User < ApplicationRecord
+  has_many :collections, dependent: :destroy
+end
+
+class Collection < ApplicationRecord
+  belongs_to :user
+  has_many :collection_games, dependent: :destroy
+  has_many :games, through: :collection_games
+
+  validates :title, presence: true, uniqueness: { scope: :user_id }
+end
+
+class CollectionGame < ApplicationRecord
+  belongs_to :collection
+  belongs_to :game
+
+  validates :platform, presence: true
+  # platform must be one of game.platforms (see "Platform" decision below)
+end
+
+class Game < ApplicationRecord
+  has_many :collection_games, dependent: :destroy
+  has_many :collections, through: :collection_games
+end
 ```
-/workflow Add IGDB API credentials to Rails encrypted credentials
-(igdb.client_id / igdb.client_secret) and build an IgdbClient service
-object (app/services/igdb_client.rb) that: (1) fetches and caches a Twitch
-OAuth client-credentials access token (IGDB auth rides on Twitch OAuth;
-tokens last ~60 days, so cache and don't re-fetch per request), and (2)
-exposes a search(query) method using IGDB's Apicalypse query syntax
-against the /games endpoint, returning normalized result data (igdb id,
-name, cover image, summary, release date, platforms, genres). Cover with
-unit tests that stub the HTTP layer (no real API calls in the normal
-suite), plus a separate integration test that hits the real IGDB API as a
-smoke test — tagged/gated so it does NOT run by default (e.g. skipped
-unless an ENV flag is set), since it needs live credentials.
-```
 
-### Run 2 — `Game` model
+### Decisions made (no longer open)
 
-```
-/workflow Add a local Game model + migration to cache IGDB game data.
-See .claude/PLAN.md "Game model" section for the field list and the open
-schema question (one row per game vs. one row per game+platform) to
-resolve during Design.
-```
+- **Platform representation**: `CollectionGame#platform` is a plain
+  string, validated to be one of that row's `game.platforms` (the
+  `Array<String>` `Game` already caches from IGDB's `platforms.name`
+  field — see `.claude/plan_archives/igdb-game.md`). Considered instead
+  fetching IGDB's numeric `platforms.id` and storing that, but rejected
+  for now: IGDB's platform names come from a controlled taxonomy on
+  IGDB's backend (consistent per game), so plain strings support
+  searching/sorting by platform without an extra schema change. Revisit
+  only if platform names ever prove inconsistent in practice.
+- **Duplicate games per collection**: allowed, as long as the platform
+  differs. Uniqueness index is `(collection_id, game_id, platform)`, not
+  `(collection_id, game_id)`.
+- **Title uniqueness**: scoped per user, not global — `validates :title,
+  uniqueness: { scope: :user_id }` plus a matching DB-level unique index
+  on `(user_id, title)`. Two different users can each have a "For Sale"
+  collection; one user cannot have two.
+- **Cascade deletes**: `dependent: :destroy` on both `User → Collection`
+  and `Collection → CollectionGame`, so deleting a user or a collection
+  cleans up orphaned rows automatically. `Game → CollectionGame` also
+  gets `dependent: :destroy` (deleting a cached `Game` row — unlikely,
+  but possible — shouldn't leave dangling join rows).
 
-### Run 3 — Search page
+## Migrations needed
 
-```
-/workflow Add a game search page: a controller/route (e.g. games#search)
-with a search box that calls IgdbClient live and renders results (name,
-cover, release date). Selecting a result upserts a local Game row keyed
-by igdb_id (find_or_create), so we have real persisted data to verify the
-model — this is NOT a "library" or "collection" feature, just enough
-persistence to prove the model/client work together. Full save-to-library
-UX is a future story once a Collection concept exists.
-```
+1. `create_collections`: `user_id` (FK, `null: false`, indexed), `title`
+   (string, `null: false`), `description` (text, nullable). Unique index
+   on `[:user_id, :title]`.
+2. `create_collection_games`: `collection_id` (FK, `null: false`,
+   indexed), `game_id` (FK, `null: false`, indexed), `platform` (string,
+   `null: false`). Unique index on `[:collection_id, :game_id,
+   :platform]`.
 
-## Details behind each run
+## Open questions still for Design
 
-### 1. IGDB API credentials + client
-
-- Add `igdb.client_id` / `igdb.client_secret` via
-  `bin/rails credentials:edit`.
-- For deploy later: `RAILS_MASTER_KEY` needs to reach the Kamal-deployed
-  container via `.kamal/secrets` — not urgent for local dev.
-- **Location convention resolved**: `app/services/igdb_client.rb`. Not an
-  official Rails-core convention, but it's the de facto community
-  standard for POROs wrapping an external API/integration, and with
-  Zeitwerk, anything under `app/` autoloads for free — no reason to reach
-  for top-level `lib/` (that's better reserved for code with no
-  Rails/app dependencies at all, e.g. a gem-like extraction candidate).
-- **Testing**: unit tests stub the HTTP layer (via `webmock`/`vcr` or
-  similar — TBD in Design) so the normal suite never makes real network
-  calls. Additionally, a real-endpoint integration smoke test, gated so
-  it's opt-in (e.g. `RUN_IGDB_INTEGRATION=1 bin/rails test`) rather than
-  part of the default `bin/rails test` run, since it needs live
-  credentials and network access.
-
-### 2. Local `Game` model
-
-**Update (2026-09-17):** this section originally assumed Postgres without
-checking — the app was actually still on SQLite at the time of writing.
-That's since been fixed (`251aed5`, primary DB switched to Postgres
-specifically to unblock this), so the array/GIN design below now matches
-reality. See `.claude/HANDOFF.md` "What's built" #5 for the switchover
-details and a macOS-specific test-runner caveat it introduced.
-
-- Fields to start: `name`, `igdb_id`, `cover_image_id` (or full cover
-  URL), `summary`, `first_release_date`.
-- **Migrating from a prior Python/SQLAlchemy version of this model** —
-  useful reference, reproduced here for Design to adapt rather than
-  copy verbatim:
-  ```python
-  class Game(Base):
-      __tablename__ = "games"
-      id = Column(Integer, primary_key=True, index=True)
-      igdb_id = Column(Integer, unique=True, nullable=True)
-      name = Column(String, nullable=False, index=True)
-      platform = Column(String, nullable=False, index=True)
-      release_date = Column(Date, nullable=True)
-      cover_url = Column(String, nullable=True)
-      genre = Column(String, nullable=True)  # comma-separated
-      __table_args__ = (UniqueConstraint("name", "platform", name="uq_name_platform"),)
-  ```
-- **Resolved**: IGDB's `games` endpoint gives one `id` per game entity,
-  with `platforms` as an array field on that entity (a many-valued
-  attribute, not a separate game per platform) — the same "Witcher 3"
-  game id covers its PC/PS4/Xbox releases. So `igdb_id` unique-per-row is
-  correct, and the Python model's per-(game, platform) row with
-  `uq_name_platform` doesn't map onto IGDB's actual shape. Since platform
-  search is a known future need, store `platforms` as a native Postgres
-  array column (`platforms:string, array: true` with a GIN index) rather
-  than jsonb — arrays support `platforms @> ARRAY['PC']`-style queries
-  and index cleanly for that access pattern.
-- Similarly, `genre` as comma-separated text was a SQLAlchemy pattern —
-  Rails/Postgres has a native array/jsonb type that's a cleaner fit;
-  Design should just pick one, no need to preserve the comma-separated
-  convention.
-- **Caching/staleness strategy**: IGDB game data changes rarely, so a
-  long TTL is fine — recommend refreshing a local `Game` row if it's
-  older than ~24h when it's next looked up (on-read refresh), rather than
-  a background sync job. Design should confirm this is enough or whether
-  a scheduled job is warranted later.
-- Local `Game` rows are a cache, not a live mirror — created on demand
-  (see run 3), not pre-synced in bulk.
-
-### 3. Search page
-
-- Calls `IgdbClient` live for the search box; no persistence required
-  just to browse results. **This means every search query hits the real
-  IGDB API, always** — the 24h cache/refresh window (see above) applies
-  only to already-selected/persisted `Game` rows, not to browsing itself.
-  There's no "cold cache stampede" concern here because search was never
-  meant to be served from the local cache — it's inherently a live
-  lookup, same as it would be on day 1000 as on day 1.
-- Selecting a result upserts a local `Game` row by `igdb_id`
-  (find_or_create) — just enough to validate the model end-to-end.
-  Deliberately not framed as "add to library"; see below.
-
-### Deferred: Collection / library concept
-
-Raised in review: what does "adding" a game actually mean? Answer —
-that's a future story once a `Collection` model exists (a user has zero
-or more collections; a collection has zero or more games; this is what
-wishlist/now-playing/backlog/favorites will be built from). Not part of
-runs 1-3. The search page's upsert-on-select behavior is just plumbing to
-prove the model works, not a stand-in for real collection UX.
-
-**Design note to carry forward to that future story**: since `Game` is
-one row per game with `platforms` as a list (not one row per platform —
-see above), platform-specific ownership (e.g. "I own the Xbox copy of
-Hollow Knight" in my "Owned" collection) doesn't belong on `Game` itself.
-It belongs on the *join* between `Collection` and `Game` — e.g. a
-`CollectionEntry` row with `game_id`, `collection_id`, and its own
-`platform` column (one of the game's available platforms) for the
-specific copy the user owns/wants. This keeps `Game` as a clean shared
-cache while letting per-user, per-copy platform detail live where it
-actually belongs. Not resolved further here — full design happens when
-the Collection story is planned.
+- Exact validation for "`platform` must be one of `game.platforms`" —
+  custom validator on `CollectionGame`, presumably (`errors.add` if
+  `platform` not in `game.platforms`). Need to confirm behavior if
+  `game.platforms` is empty/stale at validation time (block, or allow and
+  let the on-read refresh catch up later?).
+- Whether `collections#index`/`#show`/etc. (the actual UI) is part of
+  this same run or a separate follow-on run — not yet discussed with the
+  human. Current lean, per the process notes below, is that this one
+  (new model + join table + real per-user UX) is big enough to warrant
+  its own Design pass before Build, possibly via the formal `/workflow`
+  skill rather than a direct conversation — TBD when picking this up.
 
 ## Explicitly out of scope for this plan
 
-- Collection / wishlist / now playing / backlog / favorites — future
-  story once `Game` exists.
-- Bulk-syncing or caching IGDB's full catalog locally.
-- Any UI polish beyond basic readable styling (consistent with how the
-  auth feature was scoped).
-
-## Open questions still for Design (per-run)
-
-- Run 1: exact stubbing library (webmock/vcr/other) for HTTP tests.
-- Run 2: confirm 24h on-read refresh is sufficient vs. needing a
-  scheduled sync job.
+- Any UI for creating/viewing/editing collections (`collections`
+  controller/views) — not yet discussed.
+- Wiring the existing search page's "Add" button to create/target a
+  `CollectionGame` instead of a bare `Game` upsert — natural next step
+  after this lands, but not part of this plan.
+- Re-fetching IGDB's numeric platform `id` (see "Platform representation"
+  above) — deferred, string-based for now.
 
 ## Future ideas backlog
 
-Not scheduled, not planned, no scope/design decided — just one-line
-prompts to pull from and flesh out into a real plan/run when we're ready
-to work on them. Add to this list freely; remove an item once it graduates
-into its own plan section (or its own PLAN.md, for bigger work) above.
+Carried forward from `.claude/plan_archives/igdb-game.md` (minus the
+`Collection` item, which is this plan). Not scheduled, not planned — just
+one-line prompts to flesh out when ready.
 
 - Game details page — a page for a single `Game` (probably
   `games#show`, `/games/:id`), since right now a selected search result
   only gets upserted with a flash confirmation, no page to actually view
-  it.
+  it. Natural pairing with this plan once `Collection` exists — a game
+  details page could show/edit which collections a game belongs to.
 - Live search-as-you-type on the search page (results update while
   typing, no explicit submit) instead of the current submit-and-reload
   form.
-- `Collection` model (wishlist/backlog/now-playing/favorites) — see
-  "Deferred: Collection / library concept" above for the design notes
-  already captured for this one.
