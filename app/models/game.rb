@@ -1,6 +1,9 @@
 class Game < ApplicationRecord
   REFRESH_INTERVAL = 24.hours
 
+  has_many :collection_games, dependent: :destroy
+  has_many :collections, through: :collection_games
+
   validates :igdb_id, presence: true, uniqueness: true
   validates :name, presence: true
 

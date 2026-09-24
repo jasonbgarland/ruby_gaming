@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-09-23
+Last updated: 2026-09-24
 
 ## What this project is
 
@@ -114,6 +114,47 @@ leaderboards, matches, etc.) exists yet.
      done via `curl` against the running dev server rather than a
      screenshot-driven check.
 
+8. **`Collection` model — model layer only** — built as a direct
+   conversation (no `/workflow`), continuing the process change from
+   Runs 2–3. See `.claude/PLAN.md` for the full design discussion and
+   `.claude/plan_archives/igdb-game.md` for the earlier plan this grew
+   out of.
+   - Gives users real persisted collections (e.g. "Wishlist", "Owned",
+     "For Sale") holding zero or more games, each tied to a specific
+     platform — closes the gap where selecting a search result just
+     silently cached a `Game` row with no relationship to any user.
+   - `db/migrate/..._create_collections.rb`: `collections` table
+     (`user_id` FK, `title` required, `description` optional), unique
+     index on `(user_id, title)` — a title is unique per user, not
+     globally.
+   - `db/migrate/..._create_collection_games.rb`: `collection_games`
+     join table (`collection_id`/`game_id` FKs, `platform` required),
+     unique index on `(collection_id, game_id, platform)` — the same
+     game can appear more than once in one collection as long as the
+     platform differs (e.g. "own on PS4" + "want on PC" both in
+     "Wishlist").
+   - `CollectionGame` (not a bare `has_and_belongs_to_many` join table —
+     a real join *model*, since the relationship carries data:
+     `platform`) validates `platform` is one of that specific game's
+     `platforms`. The validator calls `Game.find_or_refresh` first so a
+     stale/unrefreshed local `Game` row doesn't spuriously reject a
+     platform IGDB actually has.
+   - `app/models/collection.rb`, `app/models/collection_game.rb`: new.
+     `app/models/user.rb`/`app/models/game.rb`: gained the matching
+     `has_many` associations (`User → Collection`, `Game ↔ Collection`
+     through `CollectionGame`), all with `dependent: :destroy` so
+     deleting a user/collection/game cleans up orphaned rows.
+   - Tests: `test/models/collection_test.rb` (title validations,
+     per-user uniqueness, cascade delete, `games` association) +
+     `test/models/collection_game_test.rb` (platform presence/validity,
+     duplicate-platform rejection, same-game-different-platform allowed,
+     stale-refresh-then-validate via a webmock-stubbed IGDB response).
+   - **Explicitly not built yet**: any UI (`collections` controller/
+     views) for creating/viewing/managing collections, and wiring the
+     search page's "Add" button to target a `CollectionGame` instead of
+     a bare `Game` upsert. Model layer only — see `.claude/PLAN.md`
+     "Explicitly out of scope."
+
 ## Explicitly deferred (not built yet)
 
 See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
@@ -147,58 +188,34 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
   formal workflow. `crit <file>` is still a good tool standalone, on one
   file at a time, when in-chat review would get too dense.
 
-## Suggested next steps — Runs 1, 2 & 3 done; PLAN.md's 3-run scope is complete
+## Suggested next steps — Collection model layer done; UI not started
 
-Decided: the site will use the IGDB.com API for game data, with a local
-`Game` model caching what's needed, plus a future `Collection` model
-(user has zero or more collections, e.g. "Owned"/"Wishlist"; a collection
-has zero or more games) powering wishlist/backlog/now-playing/favorites.
+The IGDB/Game plan (`.claude/plan_archives/igdb-game.md`, formerly
+`PLAN.md`) is fully built — see "What's built" #1–7. Its follow-on, the
+`Collection` model (#8 above), is also now built at the model layer:
+`Collection`/`CollectionGame` models, migrations, associations,
+validations, and tests are done and committed. Full design discussion,
+decisions made, and remaining scope live in `.claude/PLAN.md`.
 
-`.claude/PLAN.md` has been through a full crit review (4 rounds,
-**approved**) and is split into 3 sequential runs:
+**What's NOT built yet for `Collection`** — this is the actual next
+step:
+- Any UI: a `collections` controller + views (index/show/create/destroy,
+  and adding/removing a game+platform to/from a collection).
+- Wiring the existing search page's "Add" button to target a
+  `CollectionGame` (with a platform picker) instead of the current bare
+  `Game` upsert — this is the natural moment collections stop being
+  invisible plumbing and become something a user actually interacts
+  with.
 
-1. **Run 1 — IGDB client + credentials. ✅ Done** (`8589e19`, `411334b`;
-   see "What's built" above). Built via `/workflow`.
-2. **Run 2 — `Game` model. ✅ Done** (see "What's built" #6 above). One
-   row per game (confirmed: IGDB's `igdb_id` is per-game, not
-   per-platform), `platforms`/`genres` as native Postgres array columns
-   with GIN indexes, 24h on-read cache refresh via `Game.find_or_refresh`.
-3. **Run 3 — Search page. ✅ Done** (see "What's built" #7 above). Live
-   IGDB search box; selecting a result upserts a local `Game` row by
-   `igdb_id` — just enough to prove the model/client work together,
-   deliberately not "add to library" UX.
-
-**Process change for Run 2 (human preference, decided 2026-09-17):** do
-**not** use the formal `/workflow` skill (Plan→Design→Build→Review with
-crit document gates) for this run. After using it for Run 1, the human
-found it slow relative to its value for a well-scoped, single-deliverable
-task — too much waiting on crit round-trips, and the Review phase's
-prose-plus-diff write-up ends up restating the code you could just read
-directly in a diff. Instead, run Run 2 as a single ongoing conversation:
-talk through the approach briefly, implement directly, run
-tests/migrations live, let the human review diffs and ask questions
-in-editor (VS Code) as you go, and iterate — no separate plan.md/
-design.md/review.md documents. If a specific file ends up with enough
-back-and-forth comments to be unwieldy in chat, use `crit <file>` on
-just that one file rather than the full multi-document workflow. Reserve
-the formal `/workflow` skill for bigger or more ambiguous work where the
-paper trail itself has lasting value (e.g. this HANDOFF's own multi-month
-gap is exactly the scenario where Run 1's approach paid for itself).
-
-PLAN.md's 3-run scope (Runs 1–3) is now fully built. The next feature —
-not yet planned — is the `Collection` concept described below
-(wishlist/backlog/now-playing/favorites). Start the next session by
-scoping that as a new plan (likely worth a fresh `/workflow` pass or at
-least a `.claude/PLAN.md`-style write-up, given it introduces a new
-model + join table + real per-user UX, unlike Runs 2–3's narrower scope).
+Start the next session by scoping the UI as its own conversation (or
+`.claude/PLAN.md` addendum) — talk through routes/controller actions/
+views before writing code, same pattern as the model discussion that's
+already in `PLAN.md`. Given it's a full CRUD surface with real per-user
+UX (not just a model), it's worth at least discussing whether this one
+warrants the formal `/workflow` skill vs. another direct conversation —
+not yet decided.
 
 **If there's no specific work queued up** (nothing pending from the
-human, nothing in progress here), read PLAN.md's "Future ideas backlog"
-section, summarize the items there, and propose one to scope into a real
-plan next — don't just pick one and start building.
-
-**Noted for later** (not yet a plan): platform-specific ownership (e.g.
-"I own the Xbox copy of Hollow Knight") will live on the future
-`Collection`↔`Game` join row, not on `Game` itself — captured in
-PLAN.md's "Deferred: Collection / library concept" section so it isn't
-lost before that story gets planned.
+human, nothing in progress here), read `.claude/PLAN.md`'s "Future ideas
+backlog" section, summarize the items there, and propose one to scope
+into a real plan next — don't just pick one and start building.

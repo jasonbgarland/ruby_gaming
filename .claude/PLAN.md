@@ -1,11 +1,11 @@
 # Plan: Collection model
 
-Status: model design agreed via direct conversation (2026-09-24), not yet
-built. This plan currently covers **just the model layer** (migrations,
-associations, validations) — the earlier "saving a game just caches it on
-the backend, no real collection concept" gap is what this closes. UI/UX
-for creating and managing collections is explicitly a follow-on, not yet
-discussed (see "Explicitly out of scope" below).
+Status: **model layer built and tested (2026-09-24)** — migrations,
+`Collection`/`CollectionGame` models, associations, and validations are
+done; see `.claude/HANDOFF.md` for the committed result. This plan
+covered **just the model layer**; UI/UX for creating and managing
+collections is explicitly a follow-on, not yet planned (see "Explicitly
+out of scope" below).
 
 ## Goal
 
@@ -35,32 +35,11 @@ for.
 | `CollectionGame` | `collection_games` | `id`, `collection_id` (FK), `game_id` (FK), `platform` (string, required), timestamps |
 | `Game` | `games` | *(no changes)* |
 
-```ruby
-class User < ApplicationRecord
-  has_many :collections, dependent: :destroy
-end
-
-class Collection < ApplicationRecord
-  belongs_to :user
-  has_many :collection_games, dependent: :destroy
-  has_many :games, through: :collection_games
-
-  validates :title, presence: true, uniqueness: { scope: :user_id }
-end
-
-class CollectionGame < ApplicationRecord
-  belongs_to :collection
-  belongs_to :game
-
-  validates :platform, presence: true
-  # platform must be one of game.platforms (see "Platform" decision below)
-end
-
-class Game < ApplicationRecord
-  has_many :collection_games, dependent: :destroy
-  has_many :collections, through: :collection_games
-end
-```
+As built — see `app/models/collection.rb`, `app/models/collection_game.rb`,
+`app/models/user.rb`, `app/models/game.rb` for the actual code (the
+`CollectionGame` platform validator ended up as a private method that
+refreshes the game from IGDB before checking membership — see "Decisions
+made" below).
 
 ### Decisions made (no longer open)
 
@@ -75,7 +54,10 @@ end
   only if platform names ever prove inconsistent in practice.
 - **Duplicate games per collection**: allowed, as long as the platform
   differs. Uniqueness index is `(collection_id, game_id, platform)`, not
-  `(collection_id, game_id)`.
+  `(collection_id, game_id)` — matched by a model-level
+  `validates :game_id, uniqueness: { scope: [:collection_id, :platform] }`
+  on `CollectionGame` for a friendly pre-save error, backed by the DB
+  index as the race-condition-safe enforcement.
 - **Title uniqueness**: scoped per user, not global — `validates :title,
   uniqueness: { scope: :user_id }` plus a matching DB-level unique index
   on `(user_id, title)`. Two different users can each have a "For Sale"
@@ -86,29 +68,32 @@ end
   gets `dependent: :destroy` (deleting a cached `Game` row — unlikely,
   but possible — shouldn't leave dangling join rows).
 
-## Migrations needed
+## Migrations (built)
 
-1. `create_collections`: `user_id` (FK, `null: false`, indexed), `title`
-   (string, `null: false`), `description` (text, nullable). Unique index
-   on `[:user_id, :title]`.
-2. `create_collection_games`: `collection_id` (FK, `null: false`,
-   indexed), `game_id` (FK, `null: false`, indexed), `platform` (string,
-   `null: false`). Unique index on `[:collection_id, :game_id,
-   :platform]`.
+1. `db/migrate/20260924191831_create_collections.rb`: `user_id` (FK,
+   `null: false`, indexed), `title` (string, `null: false`),
+   `description` (text, nullable). Unique index on `[:user_id, :title]`.
+2. `db/migrate/20260924191834_create_collection_games.rb`:
+   `collection_id` (FK, `null: false`, indexed), `game_id` (FK,
+   `null: false`, indexed), `platform` (string, `null: false`). Unique
+   index on `[:collection_id, :game_id, :platform]`.
 
-## Open questions still for Design
+## Decisions (resolved 2026-09-24, continuing this same conversation)
 
-- Exact validation for "`platform` must be one of `game.platforms`" —
-  custom validator on `CollectionGame`, presumably (`errors.add` if
-  `platform` not in `game.platforms`). Need to confirm behavior if
-  `game.platforms` is empty/stale at validation time (block, or allow and
-  let the on-read refresh catch up later?).
-- Whether `collections#index`/`#show`/etc. (the actual UI) is part of
-  this same run or a separate follow-on run — not yet discussed with the
-  human. Current lean, per the process notes below, is that this one
-  (new model + join table + real per-user UX) is big enough to warrant
-  its own Design pass before Build, possibly via the formal `/workflow`
-  skill rather than a direct conversation — TBD when picking this up.
+- **Process**: direct conversation, not the formal `/workflow` skill —
+  same as Runs 2/3. The model design was already fully settled through
+  discussion before any code was written, so what's left (migrations,
+  validations, tests) is mechanical enough not to need the formal
+  Plan→Design→Build→Review paper trail.
+- **Platform validation against a stale/empty `game.platforms`**: the
+  validator calls `Game.find_or_refresh(game.igdb_id)` before checking
+  `platform` against the (now-fresh) `platforms` list, rather than
+  validating against whatever's currently cached. Avoids spuriously
+  rejecting a platform IGDB actually has just because the local `Game`
+  row hadn't been refreshed in the last 24h.
+- **Collections UI** (`collections` controller/views): out of scope for
+  this run — see "Explicitly out of scope" below. This run is model-layer
+  only.
 
 ## Explicitly out of scope for this plan
 
