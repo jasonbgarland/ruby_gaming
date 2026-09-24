@@ -67,6 +67,17 @@ made" below).
   cleans up orphaned rows automatically. `Game → CollectionGame` also
   gets `dependent: :destroy` (deleting a cached `Game` row — unlikely,
   but possible — shouldn't leave dangling join rows).
+- **Process**: direct conversation, not the formal `/workflow` skill —
+  same as Runs 2/3. The model design was already fully settled through
+  discussion before any code was written, so what's left (migrations,
+  validations, tests) was mechanical enough not to need the formal
+  Plan→Design→Build→Review paper trail.
+- **Platform validation against a stale/empty `game.platforms`**: the
+  validator calls `Game.find_or_refresh(game.igdb_id)` before checking
+  `platform` against the (now-fresh) `platforms` list, rather than
+  validating against whatever's currently cached. Avoids spuriously
+  rejecting a platform IGDB actually has just because the local `Game`
+  row hadn't been refreshed in the last 24h.
 
 ## Migrations (built)
 
@@ -78,30 +89,13 @@ made" below).
    `null: false`, indexed), `platform` (string, `null: false`). Unique
    index on `[:collection_id, :game_id, :platform]`.
 
-## Decisions (resolved 2026-09-24, continuing this same conversation)
-
-- **Process**: direct conversation, not the formal `/workflow` skill —
-  same as Runs 2/3. The model design was already fully settled through
-  discussion before any code was written, so what's left (migrations,
-  validations, tests) is mechanical enough not to need the formal
-  Plan→Design→Build→Review paper trail.
-- **Platform validation against a stale/empty `game.platforms`**: the
-  validator calls `Game.find_or_refresh(game.igdb_id)` before checking
-  `platform` against the (now-fresh) `platforms` list, rather than
-  validating against whatever's currently cached. Avoids spuriously
-  rejecting a platform IGDB actually has just because the local `Game`
-  row hadn't been refreshed in the last 24h.
-- **Collections UI** (`collections` controller/views): out of scope for
-  this run — see "Explicitly out of scope" below. This run is model-layer
-  only.
-
 ## Explicitly out of scope for this plan
 
 - Any UI for creating/viewing/editing collections (`collections`
-  controller/views) — not yet discussed.
+  controller/views) — not yet planned; the actual next step, see
+  `.claude/HANDOFF.md`.
 - Wiring the existing search page's "Add" button to create/target a
-  `CollectionGame` instead of a bare `Game` upsert — natural next step
-  after this lands, but not part of this plan.
+  `CollectionGame` instead of a bare `Game` upsert.
 - Re-fetching IGDB's numeric platform `id` (see "Platform representation"
   above) — deferred, string-based for now.
 

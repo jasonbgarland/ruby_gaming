@@ -10,150 +10,54 @@ leaderboards, matches, etc.) exists yet.
 
 ## What's built
 
+Items 1–7 below are complete and their full implementation detail (design
+rationale, exact test counts, verification steps) lives in git history —
+`git show <hash>` or `git log --all --oneline -- <path>`. This is a
+short index, not a replacement for the commits.
+
 1. **Initial scaffold** (`960dbea`) — vanilla Rails 8 app, Docker/Kamal
    deploy config present but not configured for a real target yet.
-2. **User accounts** (`d0f9580`) — built via the multi-agent
-   Plan→Design→Build→Review workflow (see `.claude/workflow/20260731-144252/`
-   for the full paper trail: plan.md, design.md, build-report.md, review.md,
-   retro.md).
-   - Sign up, log in/out (via username or email), settings (update name/
-     username/email/password), password reset — all generated from Rails
-     8's built-in `bin/rails generate authentication` generator, used
-     mostly as-is.
-   - `users` table: email_address, username (unique, case-insensitive),
-     first_name, last_name, password_digest.
-   - `sessions` table: DB-backed sessions (not just cookie-based), tracks
-     ip_address/user_agent, permanent signed cookie so sessions survive
-     browser restarts.
-   - Basic generator-default rate limiting on login/password-reset
-     attempts (~10 attempts / 3 min) is in place.
-   - Root route (`home#show`) is a placeholder "welcome / under
-     construction" page that adapts based on logged-in state.
+2. **User accounts** (`d0f9580`, paper trail in
+   `.claude/workflow/20260731-144252/`) — sign up/login (username or
+   email)/settings/password reset via Rails 8's `generate authentication`
+   generator; `users` + `sessions` (DB-backed) tables; generator-default
+   rate limiting.
 3. **Claude Code project config** (`fb6dc29`) — `.claude/` settings,
-   `CLAUDE.md` project instructions.
-4. **IGDB client + credentials — Run 1 of 3** (`8589e19`, `411334b`) —
-   built via the multi-agent `/workflow` skill (Plan→Design→Build→Review
-   with human gates via crit); see
-   `.claude/workflow/20260917-133340/` for the full paper trail.
-   - `app/services/igdb_client.rb`: authenticates against Twitch's OAuth
-     client-credentials endpoint, caches the token (injectable `cache:`,
-     defaults to `Rails.cache`), exposes `#search(query, limit:)` against
-     IGDB's `/games` endpoint via Apicalypse syntax, returns normalized
-     `IgdbClient::Game` value objects (igdb_id, name, cover_image_id,
-     cover_url, summary, release_date, platforms, genres).
-   - `igdb.client_id`/`igdb.client_secret` are real, working credentials
-     in encrypted credentials (`411334b`) — **verified against the live
-     IGDB API**, not just unit-tested: `RUN_IGDB_INTEGRATION=1 bin/rails
-     test test/services/igdb_client_live_test.rb` passes.
-   - 20 unit tests (all HTTP stubbed via webmock) + the live smoke test
-     above, gated off by default.
-   - `Net::HTTP` usage is deliberately confined to two private methods
-     (`#fetch_token!`, `#games_request`) so a future Faraday swap (if
-     retry/backoff/instrumentation needs grow) stays contained.
+   `CLAUDE.md`.
+4. **IGDB client + credentials** (`8589e19`, `411334b`; paper trail in
+   `.claude/workflow/20260917-133340/`) — `app/services/igdb_client.rb`:
+   Twitch OAuth client-credentials flow (cached token), `#search`/`#find`
+   against IGDB's `/games` endpoint, returns `IgdbClient::Game` value
+   objects. Real working credentials in encrypted credentials, verified
+   against the live API (`RUN_IGDB_INTEGRATION=1 bin/rails test
+   test/services/igdb_client_live_test.rb`).
 5. **Primary database switched from SQLite to Postgres** (`251aed5`) —
-   decided during Run 2 planning: SQLite has no native array/GIN-index
-   column type, which Run 2's `Game.platforms`/`genres` columns need per
-   `.claude/PLAN.md`. Solid Queue/Cache/Cable stay on SQLite
-   (production-only, unaffected). Requires a local Postgres server
-   running (`brew services start postgresql@17`) — see the commit
-   message for exact setup and a macOS-only parallel-test-forking
-   workaround in `test/test_helper.rb` (Homebrew's Postgres build isn't
-   fork-safe with Rails' default parallel test workers; harmless/inert
-   on Linux/CI).
-6. **`Game` model — Run 2 of 3** — built as a direct conversation (no
-   `/workflow`, per the process-change decision below).
-   - `db/migrate/..._create_games.rb`: `games` table with `igdb_id`
-     (unique), `name` (indexed), `cover_image_id`/`cover_url`, `summary`,
-     `first_release_date`, `platforms`/`genres` as native Postgres string
-     arrays with GIN indexes, and `refreshed_at` (tracks last IGDB sync,
-     kept separate from `updated_at` so unrelated future writes don't
-     confuse staleness checks).
-   - `app/models/game.rb`: validates `igdb_id`/`name`; `#stale?` (24h
-     `REFRESH_INTERVAL`); `.upsert_from_igdb` (find-or-create by
-     `igdb_id`); `.find_or_refresh(igdb_id, client:)` — the on-read
-     refresh entry point Run 3's search page will call.
-   - Added `IgdbClient#find(igdb_id)` (a `where id = X` Apicalypse
-     lookup) alongside the existing `#search` text search — needed once
-     `find_or_refresh` required refetching one specific game by id,
-     which `#search` (a text search) can't do reliably.
-   - Tests: 12 new `Game` model tests + 4 new `IgdbClient#find` tests,
-     using a small hand-rolled fake client for `Game`'s tests (Minitest 6
-     split `Mock` into a separate gem this project doesn't have).
-7. **Search page — Run 3 of 3** — built as a direct conversation (no
-   `/workflow`, continuing the process change from Run 2).
-   - `GamesController#search` (`GET /games/search`): live text search via
-     `IgdbClient.new.search`, no persistence — every query hits the real
-     IGDB API, as intended (the 24h cache only applies to already-saved
-     `Game` rows). `#create` (`POST /games`, `igdb_id` + `q` params):
-     calls `Game.find_or_refresh(igdb_id)` — the exact on-read entry
-     point Run 2 built for this — and redirects back to the search
-     results with a flash notice/alert. Rejects a non-numeric `igdb_id`
-     before hitting IGDB or `Integer()`-raising.
-   - Both actions require authentication (default `Authentication`
-     concern behavior, no `allow_unauthenticated_access`) — decided
-     directly with the human since there's no explicit plan guidance;
-     consistent with the rest of the site's logged-in-gated features.
-   - `app/views/games/search.html.erb`: search box + results list (cover,
-     name, release year, platforms) with a per-result "Add" button
-     (`button_to`) that posts to `#create`. Nav bar gets a "Search games"
-     link (only shown when authenticated).
-   - Tests: `test/integration/games_search_flow_test.rb` (8 tests) —
-     auth-required, blank query, live results, no-results state, upsert
-     on select, duplicate-select doesn't duplicate the row, unknown
-     `igdb_id` shows an alert without creating a row, non-numeric
-     `igdb_id` rejected — all via `webmock` stubs on the Twitch/IGDB
-     endpoints (same pattern as `igdb_client_test.rb`), no real network
-     calls in the normal suite.
-   - Manually verified end-to-end against the **live IGDB API** (not just
-     stubbed tests): started the dev server, signed in as a throwaway dev
-     user, searched "zelda" (got real IGDB results), clicked through the
-     `POST /games` add flow, and confirmed a real `Game` row was upserted
-     with correct name/platforms. Dev user and test row were cleaned up
-     afterward — no browser-automation tool was available in this
-     environment (VSCode extension, not the desktop app), so this was
-     done via `curl` against the running dev server rather than a
-     screenshot-driven check.
+   needed for native array/GIN-index columns (`Game.platforms`/`genres`).
+   Requires local Postgres running (`brew services start postgresql@17`);
+   `test/test_helper.rb` has a macOS-only parallel-test-forking
+   workaround (Homebrew's Postgres build isn't fork-safe with Rails'
+   default parallel workers — inert on Linux/CI).
+6. **`Game` model** — `games` table (`igdb_id` unique, `platforms`/
+   `genres` as Postgres arrays w/ GIN indexes, `refreshed_at` for
+   staleness); `app/models/game.rb` `#stale?`/`.upsert_from_igdb`/
+   `.find_or_refresh(igdb_id, client:)` (the on-read refresh entry point
+   later features build on); `IgdbClient#find(igdb_id)` added alongside
+   `#search`.
+7. **Search page** — `GamesController#search` (live IGDB text search,
+   no persistence) / `#create` (`Game.find_or_refresh` + redirect with
+   flash), both auth-required; `app/views/games/search.html.erb`.
+   Verified against the live IGDB API via `curl` against a running dev
+   server (no browser-automation tool available in this environment).
 
-8. **`Collection` model — model layer only** — built as a direct
-   conversation (no `/workflow`), continuing the process change from
-   Runs 2–3. See `.claude/PLAN.md` for the full design discussion and
-   `.claude/plan_archives/igdb-game.md` for the earlier plan this grew
-   out of.
-   - Gives users real persisted collections (e.g. "Wishlist", "Owned",
-     "For Sale") holding zero or more games, each tied to a specific
-     platform — closes the gap where selecting a search result just
-     silently cached a `Game` row with no relationship to any user.
-   - `db/migrate/..._create_collections.rb`: `collections` table
-     (`user_id` FK, `title` required, `description` optional), unique
-     index on `(user_id, title)` — a title is unique per user, not
-     globally.
-   - `db/migrate/..._create_collection_games.rb`: `collection_games`
-     join table (`collection_id`/`game_id` FKs, `platform` required),
-     unique index on `(collection_id, game_id, platform)` — the same
-     game can appear more than once in one collection as long as the
-     platform differs (e.g. "own on PS4" + "want on PC" both in
-     "Wishlist").
-   - `CollectionGame` (not a bare `has_and_belongs_to_many` join table —
-     a real join *model*, since the relationship carries data:
-     `platform`) validates `platform` is one of that specific game's
-     `platforms`. The validator calls `Game.find_or_refresh` first so a
-     stale/unrefreshed local `Game` row doesn't spuriously reject a
-     platform IGDB actually has.
-   - `app/models/collection.rb`, `app/models/collection_game.rb`: new.
-     `app/models/user.rb`/`app/models/game.rb`: gained the matching
-     `has_many` associations (`User → Collection`, `Game ↔ Collection`
-     through `CollectionGame`), all with `dependent: :destroy` so
-     deleting a user/collection/game cleans up orphaned rows.
-   - Tests: `test/models/collection_test.rb` (title validations,
-     per-user uniqueness, cascade delete, `games` association) +
-     `test/models/collection_game_test.rb` (platform presence/validity,
-     duplicate-platform rejection, same-game-different-platform allowed,
-     stale-refresh-then-validate via a webmock-stubbed IGDB response).
-   - **Explicitly not built yet**: any UI (`collections` controller/
-     views) for creating/viewing/managing collections, and wiring the
-     search page's "Add" button to target a `CollectionGame` instead of
-     a bare `Game` upsert. Model layer only — see `.claude/PLAN.md`
-     "Explicitly out of scope."
+8. **`Collection` model — model layer only** (`3e0f956`) — built as a
+   direct conversation (no `/workflow`), continuing the process change
+   from Runs 2–3. `Collection` (title/description, per-user) and
+   `CollectionGame` (join model: `collection_id`/`game_id`/`platform`,
+   validated against that game's actual IGDB platforms) plus matching
+   `User`/`Game` associations. **Full design, decisions, and remaining
+   scope are the living content of `.claude/PLAN.md` — read that, not
+   this entry, for detail.** UI is explicitly not built yet (see
+   "Suggested next steps" below).
 
 ## Explicitly deferred (not built yet)
 
