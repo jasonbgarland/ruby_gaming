@@ -1,0 +1,14 @@
+<h1>My collections</h1>
+
+<% if @collections.empty? %>
+  <p>You don&rsquo;t have any collections yet.</p>
+<% else %>
+  <ul class="collections">
+    <% @collections.each do |collection| %>
+      <li class="collection">
+        <h3><%= collection.title %></h3>
+        <%= tag.p(collection.description) if collection.description.present? %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
