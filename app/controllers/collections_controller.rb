@@ -1,5 +1,5 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: %i[ show edit update ]
+  before_action :set_collection, only: %i[ show edit update destroy ]
 
   def index
     @collections = Current.user.collections.order(:title)
@@ -31,6 +31,11 @@ class CollectionsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @collection.destroy
+    redirect_to collections_path, notice: "Collection deleted.", status: :see_other
   end
 
   private

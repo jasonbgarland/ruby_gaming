@@ -4,6 +4,8 @@
 
 <h1><%= @collection.title %></h1>
 <p><%= link_to "Edit", edit_collection_path(@collection) %></p>
+<%= button_to "Delete", collection_path(@collection), method: :delete,
+      form: { data: { turbo_confirm: "Delete “#{@collection.title}” and everything in it?" } } %>
 <%= tag.p(@collection.description) if @collection.description.present? %>
 
 <% if @collection_games.empty? %>

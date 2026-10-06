@@ -221,6 +221,66 @@ class CollectionsFlowTest < ActionDispatch::IntegrationTest
     assert_equal "Graces Secret List", other_collection.reload.title
   end
 
+  test "destroy requires authentication" do
+    collection = @user.collections.create!(title: "Wishlist")
+
+    assert_no_difference "Collection.count" do
+      delete collection_path(collection)
+    end
+    assert_redirected_to new_session_path
+  end
+
+  test "destroy deletes the collection and redirects to the index with a notice" do
+    collection = @user.collections.create!(title: "Wishlist")
+
+    sign_in(@user)
+    assert_difference -> { @user.collections.count }, -1 do
+      delete collection_path(collection)
+    end
+
+    assert_redirected_to collections_path
+    assert_response :see_other
+
+    follow_redirect!
+    assert_match "Collection deleted.", response.body
+  end
+
+  test "destroy removes the collection's games entries but keeps the cached Game" do
+    collection = @user.collections.create!(title: "Wishlist")
+    game = Game.create!(igdb_id: 1022, name: "The Legend of Zelda",
+                        platforms: [ "NES", "Switch" ], refreshed_at: Time.current)
+    collection.collection_games.create!(game: game, platform: "Switch")
+
+    sign_in(@user)
+    assert_difference "CollectionGame.count", -1 do
+      assert_no_difference "Game.count" do
+        delete collection_path(collection)
+      end
+    end
+  end
+
+  test "destroy returns 404 for another user's collection and deletes nothing" do
+    other_collection = @other_user.collections.create!(title: "Graces Secret List")
+
+    sign_in(@user)
+    assert_no_difference "Collection.count" do
+      delete collection_path(other_collection)
+    end
+
+    assert_response :not_found
+  end
+
+  test "show page has a delete button" do
+    collection = @user.collections.create!(title: "Wishlist")
+
+    sign_in(@user)
+    get collection_path(collection)
+
+    assert_select "form[action=?]", collection_path(collection) do
+      assert_select "input[name=_method][value=delete]"
+    end
+  end
+
   test "show returns 404 for another user's collection" do
     other_collection = @other_user.collections.create!(title: "Graces Secret List")
 
