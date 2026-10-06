@@ -53,6 +53,27 @@ class GamesSearchFlowTest < ActionDispatch::IntegrationTest
     assert_match "NES, Switch", response.body
   end
 
+  test "search form and results are wrapped in the game-search Turbo Frame" do
+    sign_in(@user)
+    stub_token
+    stub_games(body: [ zelda_row ].to_json)
+
+    get games_search_path, params: { q: "zelda" }
+
+    assert_select "turbo-frame#game-search form[action=?]", games_search_path
+    assert_select "turbo-frame#game-search li.game-result", count: 1
+  end
+
+  test "each result gets the page's Add button, which breaks out of the frame" do
+    sign_in(@user)
+    stub_token
+    stub_games(body: [ zelda_row ].to_json)
+
+    get games_search_path, params: { q: "zelda" }
+
+    assert_select "turbo-frame#game-search form[data-turbo-frame=_top] button", text: "Add"
+  end
+
   test "searching with no matches shows an empty state" do
     sign_in(@user)
     stub_token

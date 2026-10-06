@@ -1,0 +1,5 @@
+<%# Per-result action for the standalone search page: upsert the Game.
+    turbo_frame: "_top" makes the redirect reload the whole page (not just
+    the search frame) so the flash message above the frame is shown. %>
+<%= button_to "Add", games_path(igdb_id: result.igdb_id, q: query), method: :post,
+      form: { data: { turbo_frame: "_top" } } %>

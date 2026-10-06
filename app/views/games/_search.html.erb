@@ -1,0 +1,45 @@
+<%# Generic game search: a form plus IGDB results, wrapped in a Turbo Frame so
+    a search only swaps this block, not the whole page.
+
+    Locals:
+      url            - where the search form GETs to (the calling page)
+      query          - the current search text (may be nil)
+      results        - Array of IgdbClient::Game for that query
+      action_partial - partial rendered once per result for the caller's
+                       own action (add to collection, write a review, ...).
+                       It receives `result` and `query` locals. %>
+<%= turbo_frame_tag "game-search" do %>
+  <%= form_with url: url, method: :get, class: "game-search-form" do %>
+    <%= label_tag :q, "Game name", class: "sr-only" %>
+    <%= text_field_tag :q, query, placeholder: "Search for a game…" %>
+    <%= submit_tag "Search" %>
+  <% end %>
+
+  <% if query.present? %>
+    <% if results.empty? %>
+      <p>No results for &ldquo;<%= query %>&rdquo;.</p>
+    <% else %>
+      <ul class="game-results">
+        <% results.each do |result| %>
+          <li class="game-result">
+            <% if result.cover_url %>
+              <%= image_tag result.cover_url, alt: result.name, class: "game-cover" %>
+            <% end %>
+            <div class="game-result-details">
+              <h3><%= result.name %></h3>
+              <p>
+                <% if result.release_date %>
+                  <%= result.release_date.year %>
+                <% end %>
+                <% if result.platforms.present? %>
+                  &middot; <%= result.platforms.join(", ") %>
+                <% end %>
+              </p>
+              <%= render partial: action_partial, locals: { result: result, query: query } %>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>
