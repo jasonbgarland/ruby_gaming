@@ -1,5 +1,7 @@
 <p><%= link_to "&larr; My collections".html_safe, collections_path %></p>
 
+<%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
+
 <h1><%= @collection.title %></h1>
 <%= tag.p(@collection.description) if @collection.description.present? %>
 

@@ -1,5 +1,7 @@
 <h1>My collections</h1>
 
+<p><%= link_to "New collection", new_collection_path %></p>
+
 <% if @collections.empty? %>
   <p>You don&rsquo;t have any collections yet.</p>
 <% else %>

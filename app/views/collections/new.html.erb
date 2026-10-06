@@ -1,0 +1,17 @@
+<p><%= link_to "← My collections", collections_path %></p>
+
+<h1>New collection</h1>
+
+<%= render "shared/errors", model: @collection %>
+
+<%= form_with model: @collection do |form| %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, required: true, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 3 %>
+  </div>
+  <%= form.submit "Create collection" %>
+<% end %>
