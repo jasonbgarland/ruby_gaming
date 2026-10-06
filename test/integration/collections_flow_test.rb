@@ -6,6 +6,20 @@ class CollectionsFlowTest < ActionDispatch::IntegrationTest
     @other_user = users(:two)
   end
 
+  test "nav links to collections when signed in" do
+    sign_in(@user)
+    get collections_path
+
+    assert_select "nav.site-nav a[href=?]", collections_path, text: "My collections"
+  end
+
+  test "nav hides the collections link when signed out" do
+    get new_session_path
+
+    assert_response :success
+    assert_select "nav.site-nav a[href=?]", collections_path, count: 0
+  end
+
   test "index requires authentication" do
     get collections_path
     assert_redirected_to new_session_path
