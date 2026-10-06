@@ -116,6 +116,20 @@ committed. Nothing is half-finished in the working tree. Remaining work,
 in order (keep the established loop: small task → run tests → human
 reviews diff and asks questions → commit; explain Rails "why" as we go):
 
+**Step 2.5 — browser (system) tests with Capybara — do this before step 3.**
+Human wants automated browser coverage started early rather than
+backfilled. Already in place: `capybara` + `selenium-webdriver` in the
+Gemfile, `test/application_system_test_case.rb` (headless Chrome, Chrome is
+installed), and an existing `test/system/user_workflow_test.rb` to copy
+from. Run with `bin/rails test:system` (plain `bin/rails test` skips them).
+Start with the things integration tests can't see: the collection Delete
+`turbo_confirm` dialog (accept and dismiss), the search Turbo Frame
+swapping results without a full page load, and one happy-path flow
+(sign in → create → edit → delete a collection). Explain Capybara basics
+(`visit`, `fill_in`, `click_on`, `accept_confirm`, `assert_text`) as we
+go; keep it to a few tests, then add system coverage alongside each new UI
+step (3, 4) instead of afterward.
+
 **Step 3 — search on the collection page (add games to a collection).**
 - Route: `resources :collections do resources :collection_games, only:
   %i[ create destroy ] end`; `CollectionGamesController` scoped through

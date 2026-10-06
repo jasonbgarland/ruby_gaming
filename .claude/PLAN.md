@@ -100,10 +100,16 @@ Decisions from the scoping conversation:
 Status:
 1. Collections CRUD — **done** (`47499b4`…`d62f7a1`).
 2. Generic search partial + Turbo Frame — **done** (`4da13ae`).
+2.5. Capybara system tests for the browser-only behavior (Delete confirm
+   dialog, search frame swap, one CRUD happy path) — **next**; the user
+   wants automated browser tests started early, not backfilled.
 3. Search on the collection page: `collection_games#create`/`destroy`,
-   per-result platform picker, Remove button — **next** (details in
-   `.claude/HANDOFF.md`).
+   per-result platform picker, Remove button (details in
+   `.claude/HANDOFF.md`). Add a system test with each UI step from here on.
 4. Stimulus debounce (live search) — after step 3.
+
+The standalone `/games/search` Add button (bare `Game` upsert, no user
+link) is an iterative artifact kept only to validate behavior; revisit later.
 
 ## Explicitly out of scope for this plan
 
