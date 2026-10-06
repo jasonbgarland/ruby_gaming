@@ -3,6 +3,7 @@
 <%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
 
 <h1><%= @collection.title %></h1>
+<p><%= link_to "Edit", edit_collection_path(@collection) %></p>
 <%= tag.p(@collection.description) if @collection.description.present? %>
 
 <% if @collection_games.empty? %>

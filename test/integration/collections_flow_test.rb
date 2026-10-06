@@ -140,6 +140,87 @@ class CollectionsFlowTest < ActionDispatch::IntegrationTest
     assert_equal 0, @other_user.collections.count
   end
 
+  test "edit and update require authentication" do
+    collection = @user.collections.create!(title: "Wishlist")
+
+    get edit_collection_path(collection)
+    assert_redirected_to new_session_path
+
+    patch collection_path(collection), params: { collection: { title: "Changed" } }
+    assert_redirected_to new_session_path
+    assert_equal "Wishlist", collection.reload.title
+  end
+
+  test "edit renders the form prefilled with the collection's values" do
+    collection = @user.collections.create!(title: "Wishlist", description: "Games I want")
+
+    sign_in(@user)
+    get edit_collection_path(collection)
+
+    assert_response :success
+    assert_select "form[action=?]", collection_path(collection)
+    assert_select "input[name=?][value=?]", "collection[title]", "Wishlist"
+    assert_select "textarea[name=?]", "collection[description]", text: "Games I want"
+  end
+
+  test "update changes the collection and redirects to it" do
+    collection = @user.collections.create!(title: "Wishlist")
+
+    sign_in(@user)
+    patch collection_path(collection), params: { collection: { title: "Backlog", description: "To play" } }
+
+    assert_redirected_to collection_path(collection)
+    collection.reload
+    assert_equal "Backlog", collection.title
+    assert_equal "To play", collection.description
+
+    follow_redirect!
+    assert_match "Collection updated.", response.body
+  end
+
+  test "update with a blank title re-renders the form with errors" do
+    collection = @user.collections.create!(title: "Wishlist")
+
+    sign_in(@user)
+    patch collection_path(collection), params: { collection: { title: "" } }
+
+    assert_response :unprocessable_entity
+    assert_match "Title", response.body
+    assert_equal "Wishlist", collection.reload.title
+  end
+
+  test "update rejects a title that duplicates another of the user's collections" do
+    @user.collections.create!(title: "Owned")
+    collection = @user.collections.create!(title: "Wishlist")
+
+    sign_in(@user)
+    patch collection_path(collection), params: { collection: { title: "Owned" } }
+
+    assert_response :unprocessable_entity
+    assert_equal "Wishlist", collection.reload.title
+  end
+
+  test "update cannot reassign a collection to another user" do
+    collection = @user.collections.create!(title: "Wishlist")
+
+    sign_in(@user)
+    patch collection_path(collection), params: { collection: { user_id: @other_user.id } }
+
+    assert_equal @user, collection.reload.user
+  end
+
+  test "edit and update return 404 for another user's collection" do
+    other_collection = @other_user.collections.create!(title: "Graces Secret List")
+
+    sign_in(@user)
+    get edit_collection_path(other_collection)
+    assert_response :not_found
+
+    patch collection_path(other_collection), params: { collection: { title: "Hijacked" } }
+    assert_response :not_found
+    assert_equal "Graces Secret List", other_collection.reload.title
+  end
+
   test "show returns 404 for another user's collection" do
     other_collection = @other_user.collections.create!(title: "Graces Secret List")
 
