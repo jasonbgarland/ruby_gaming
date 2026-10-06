@@ -6,7 +6,7 @@
   <ul class="collections">
     <% @collections.each do |collection| %>
       <li class="collection">
-        <h3><%= collection.title %></h3>
+        <h3><%= link_to collection.title, collection_path(collection) %></h3>
         <%= tag.p(collection.description) if collection.description.present? %>
       </li>
     <% end %>
