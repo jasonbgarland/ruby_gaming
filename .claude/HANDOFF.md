@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-09-24
+Last updated: 2026-10-06
 
 ## What this project is
 
@@ -56,8 +56,25 @@ short index, not a replacement for the commits.
    validated against that game's actual IGDB platforms) plus matching
    `User`/`Game` associations. **Full design, decisions, and remaining
    scope are the living content of `.claude/PLAN.md` — read that, not
-   this entry, for detail.** UI is explicitly not built yet (see
-   "Suggested next steps" below).
+   this entry, for detail.**
+
+9. **Collections CRUD UI** (`47499b4`, `22aad98`, `c9c84b5`, `4bcde92`,
+   `ce29b2f`, `d62f7a1`) — built as six small tasks, each reviewed and
+   committed separately (index, show, new/create, edit/update, destroy,
+   nav link). `CollectionsController` scopes every lookup through
+   `Current.user.collections` (other users' ids 404); shared
+   `collections/_form.html.erb`; tests in
+   `test/integration/collections_flow_test.rb`. Show page lists a
+   collection's games+platforms but nothing can add one yet (see step 3
+   below).
+
+10. **Generic search partial** (`4da13ae`) — `games/_search.html.erb`: the
+    search form + IGDB results inside a `game-search` Turbo Frame. Locals:
+    `url`, `query`, `results`, `action_partial` (a partial name rendered
+    once per result with `result`/`query` locals — the caller's own
+    action). Standalone `/games/search` uses it with
+    `games/_add_result.html.erb` (Add button uses `turbo_frame: "_top"` so
+    the redirect reloads the full page and the flash shows).
 
 ## Explicitly deferred (not built yet)
 
@@ -92,34 +109,51 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
   formal workflow. `crit <file>` is still a good tool standalone, on one
   file at a time, when in-chat review would get too dense.
 
-## Suggested next steps — Collection model layer done; UI not started
+## Suggested next steps — collections UI: CRUD done, search-in-collection next
 
-The IGDB/Game plan (`.claude/plan_archives/igdb-game.md`, formerly
-`PLAN.md`) is fully built — see "What's built" #1–7. Its follow-on, the
-`Collection` model (#8 above), is also now built at the model layer:
-`Collection`/`CollectionGame` models, migrations, associations,
-validations, and tests are done and committed. Full design discussion,
-decisions made, and remaining scope live in `.claude/PLAN.md`.
+Collections CRUD (#9) and the generic search partial (#10) are built and
+committed. Nothing is half-finished in the working tree. Remaining work,
+in order (keep the established loop: small task → run tests → human
+reviews diff and asks questions → commit; explain Rails "why" as we go):
 
-**What's NOT built yet for `Collection`** — this is the actual next
-step:
-- Any UI: a `collections` controller + views (index/show/create/destroy,
-  and adding/removing a game+platform to/from a collection).
-- Wiring the existing search page's "Add" button to target a
-  `CollectionGame` (with a platform picker) instead of the current bare
-  `Game` upsert — this is the natural moment collections stop being
-  invisible plumbing and become something a user actually interacts
-  with.
+**Step 3 — search on the collection page (add games to a collection).**
+- Route: `resources :collections do resources :collection_games, only:
+  %i[ create destroy ] end`; `CollectionGamesController` scoped through
+  `Current.user.collections.find(params[:collection_id])`.
+- `collections#show` gets `q` handling: runs `IgdbClient#search` and renders
+  `games/search` with `url: collection_path(@collection)` and a new
+  `collection_games/_add_result` action partial (per-result platform
+  picker built from the result's `platforms` + an Add button posting
+  `igdb_id` + `platform`).
+- `collection_games#create`: `Game.find_or_refresh(igdb_id)`, then
+  `@collection.collection_games.create(game:, platform:)`; the model
+  already validates the platform against IGDB and uniqueness per
+  `(collection, game, platform)` — surface those errors via flash.
+- `collection_games#destroy` + a Remove button on the show page.
+- Remember the `turbo_frame: "_top"` trick on any button inside the frame
+  that redirects with a flash.
 
-Start the next session by scoping the UI as its own conversation (or
-`.claude/PLAN.md` addendum) — talk through routes/controller actions/
-views before writing code, same pattern as the model discussion that's
-already in `PLAN.md`. Given it's a full CRUD surface with real per-user
-UX (not just a model), it's worth at least discussing whether this one
-warrants the formal `/workflow` skill vs. another direct conversation —
-not yet decided.
+**Step 4 — live search-as-you-type.** Small Stimulus controller (importmap
+already includes Stimulus) that debounces (~300ms) and submits the search
+form into the existing `game-search` frame; add a minimum query length
+(2–3 chars) server side to respect IGDB rate limits.
 
-**If there's no specific work queued up** (nothing pending from the
-human, nothing in progress here), read `.claude/PLAN.md`'s "Future ideas
-backlog" section, summarize the items there, and propose one to scope
-into a real plan next — don't just pick one and start building.
+**Open items / decisions to revisit**
+- `CollectionsController#destroy` calls `destroy` and always reports
+  success. Fine today (no `before_destroy` callbacks, DB errors raise);
+  add a failure branch (or `destroy!`) when a rule that can block deletion
+  appears.
+- Browser pass of collections CRUD + the search page frame (dev server:
+  `bin/rails server`, needs Postgres: `brew services start
+  postgresql@17`) was not yet done as of this update — check: nav link,
+  create/edit/delete flows incl. the Delete confirm dialog, error box on
+  blank/duplicate title, search results swapping without a full reload,
+  Add on `/games/search` still showing its flash.
+- `collection_flow_test.rb` is one file (~30 tests); consider reordering
+  by action or splitting read vs. write if it keeps growing.
+- Editor auto-format un-indented methods under `private` once; project
+  convention (and Rails') is indented, rubocop allows both.
+- Future ideas (see `.claude/PLAN.md` backlog): game details page
+  (`games#show`) showing which collections a game is in; reusing
+  `games/_search` elsewhere (e.g. a review form) via a different
+  `action_partial`.

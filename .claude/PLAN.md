@@ -3,9 +3,9 @@
 Status: **model layer built and tested (2026-09-24)** — migrations,
 `Collection`/`CollectionGame` models, associations, and validations are
 done; see `.claude/HANDOFF.md` for the committed result. This plan
-covered **just the model layer**; UI/UX for creating and managing
-collections is explicitly a follow-on, not yet planned (see "Explicitly
-out of scope" below).
+covered **just the model layer**. **Update 2026-10-06:** the collections
+CRUD UI and a generic search partial are now built (see "UI plan" below and
+`.claude/HANDOFF.md` #9–10); search-inside-a-collection is the next step.
 
 ## Goal
 
@@ -79,25 +79,38 @@ made" below).
   rejecting a platform IGDB actually has just because the local `Game`
   row hadn't been refreshed in the last 24h.
 
-## Migrations (built)
+## UI plan (decided 2026-10-06)
 
-1. `db/migrate/20260924191831_create_collections.rb`: `user_id` (FK,
-   `null: false`, indexed), `title` (string, `null: false`),
-   `description` (text, nullable). Unique index on `[:user_id, :title]`.
-2. `db/migrate/20260924191834_create_collection_games.rb`:
-   `collection_id` (FK, `null: false`, indexed), `game_id` (FK,
-   `null: false`, indexed), `platform` (string, `null: false`). Unique
-   index on `[:collection_id, :game_id, :platform]`.
+Decisions from the scoping conversation:
+
+- **Collection is the home for search.** Users add games from a
+  collection's show page; the standalone `/games/search` page stays as-is
+  (bare `Game` upsert) for now.
+- **Search is a generic partial**, not tied to collections (it may later be
+  reused e.g. when writing a game review): `games/_search.html.erb` takes
+  `url`, `query`, `results`, and an `action_partial` the caller supplies
+  (rendered once per result). Chosen over a block/lambda or a bare form URL
+  because it is plain Rails and easy to follow.
+- **Turbo Frame first, debounce after.** End goal is live search-as-you-type;
+  the partial wraps its form + results in a `game-search` Turbo Frame (built),
+  and a Stimulus debounce controller is a later, separate step.
+- **Small tasks, review + commit after each**, direct conversation (no
+  `/workflow`).
+
+Status:
+1. Collections CRUD — **done** (`47499b4`…`d62f7a1`).
+2. Generic search partial + Turbo Frame — **done** (`4da13ae`).
+3. Search on the collection page: `collection_games#create`/`destroy`,
+   per-result platform picker, Remove button — **next** (details in
+   `.claude/HANDOFF.md`).
+4. Stimulus debounce (live search) — after step 3.
 
 ## Explicitly out of scope for this plan
 
-- Any UI for creating/viewing/editing collections (`collections`
-  controller/views) — not yet planned; the actual next step, see
-  `.claude/HANDOFF.md`.
-- Wiring the existing search page's "Add" button to create/target a
-  `CollectionGame` instead of a bare `Game` upsert.
 - Re-fetching IGDB's numeric platform `id` (see "Platform representation"
   above) — deferred, string-based for now.
+- A friendly failure path for `CollectionsController#destroy` — deferred
+  until a rule exists that can actually block deletion.
 
 ## Future ideas backlog
 
