@@ -5,7 +5,7 @@
 (design rationale, the Python-model migration notes, resolved schema
 questions) rather than deleted, since some of it — e.g. the "Deferred:
 Collection / library concept" section below — fed directly into the new
-`.claude/PLAN.md` written for the `Collection` model. The "Future ideas
+`.claude/plan_archives/collections.md` written for the `Collection` model. The "Future ideas
 backlog" below has been copied forward into the new `PLAN.md` (minus the
 `Collection` item, which graduated into that plan) and can be removed from
 here once confirmed no longer needed as a cross-reference.
@@ -62,7 +62,7 @@ unless an ENV flag is set), since it needs live credentials.
 
 ```
 /workflow Add a local Game model + migration to cache IGDB game data.
-See .claude/PLAN.md "Game model" section for the field list and the open
+See .claude/plan_archives/collections.md "Game model" section for the field list and the open
 schema question (one row per game vs. one row per game+platform) to
 resolve during Design.
 ```
