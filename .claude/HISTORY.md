@@ -1,0 +1,63 @@
+# Project history
+
+What has been built, in order. Detail (design rationale, test counts,
+verification) lives in git history — `git show <hash>` or `git log --oneline
+-- <path>`. This is a short index, not a replacement for the commits.
+Current status and next steps are in `.claude/HANDOFF.md`; the collections
+design and decisions are in `.claude/PLAN.md`.
+
+Last updated: 2026-10-08
+
+1. **Initial scaffold** (`960dbea`) — vanilla Rails 8 app, Docker/Kamal
+   deploy config present but not configured for a real target yet.
+2. **User accounts** (`d0f9580`, paper trail in
+   `.claude/workflow/20260731-144252/`) — sign up/login (username or
+   email)/settings/password reset via Rails 8's `generate authentication`;
+   `users` + `sessions` (DB-backed); generator-default rate limiting.
+   `ApplicationController` includes `Authentication`, so **every controller
+   requires login by default** (opt out with `allow_unauthenticated_access`).
+3. **Claude Code project config** (`fb6dc29`) — `.claude/` settings,
+   `CLAUDE.md`.
+4. **IGDB client + credentials** (`8589e19`, `411334b`) —
+   `app/services/igdb_client.rb`: Twitch OAuth client-credentials flow
+   (cached token), `#search`/`#find` against IGDB's `/games`, returns
+   `IgdbClient::Game` value objects. Real credentials in encrypted
+   credentials; live smoke test: `RUN_IGDB_INTEGRATION=1 bin/rails test
+   test/services/igdb_client_live_test.rb`.
+5. **Postgres** (`251aed5`) — replaced SQLite for native array/GIN columns.
+   Needs local Postgres (`brew services start postgresql@17`);
+   `test/test_helper.rb` disables parallel test workers on macOS only
+   (Homebrew Postgres isn't fork-safe).
+6. **`Game` model** — `games` table (`igdb_id` unique, `platforms`/`genres`
+   arrays, `refreshed_at`); `.find_or_refresh(igdb_id)` is the on-read
+   refresh entry point (24h staleness).
+7. **Standalone search page** — `GamesController#search`/`#create`
+   (`/games/search`): live IGDB search; Add just upserts a bare `Game` with
+   no user link (an iterative artifact kept to validate behavior; revisit).
+8. **`Collection` / `CollectionGame` models** (`3e0f956`) — per-user
+   collections; join model carries `platform`, validated against the
+   game's IGDB platforms, unique per `(collection, game, platform)`.
+9. **Collections CRUD UI** (`47499b4`…`d62f7a1`) — index/show/new/edit/
+   destroy + nav link. `CollectionsController` scopes everything through
+   `Current.user.collections` (other users' ids 404).
+10. **Generic search partial** (`4da13ae`) — `games/_search.html.erb`.
+    Locals: `url`, `query`, `results`, `action_partial` (a partial rendered
+    once per result with `result`/`query` locals — the caller's own action).
+11. **System (browser) tests** (`1ac16f2`) — Capybara + headless Chrome in
+    `test/system/collections_test.rb`; `bin/rails test:system` (plain
+    `bin/rails test` skips them). `README.md` lists dev commands.
+12. **Add/remove games in a collection** (`3c96568`, `c59ec00`) — nested
+    `collection_games` routes (create, destroy);
+    `CollectionGamesController` loads the collection via
+    `Current.user.collections`. The collection show page embeds the search
+    partial with `collection_games/_add_result` (platform dropdown + Add);
+    Remove button per row. Buttons inside the search frame use
+    `turbo_frame: "_top"` so the redirect reloads the whole page and the
+    flash shows.
+13. **Live search-as-you-type** (`a8c1fc1`) — Stimulus `autosubmit`
+    controller debounces (300ms) and auto-submits only from 3 characters
+    (`data-autosubmit-min-length-value`); Enter/Search always searches.
+    The search **form sits outside** the `game-search` Turbo Frame and
+    targets it (`data-turbo-frame`), so a swap replaces only the results
+    and the text box keeps focus. The 3-char rule is client-side only (the
+    server has no minimum).
