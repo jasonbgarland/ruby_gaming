@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get "games/search", to: "games#search", as: :games_search
   resources :games, only: %i[ create ]
 
-  resources :collections
+  resources :collections do
+    resources :collection_games, only: %i[ create destroy ]
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

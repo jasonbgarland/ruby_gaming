@@ -7,6 +7,8 @@ class CollectionsController < ApplicationController
 
   def show
     @collection_games = @collection.collection_games.includes(:game).order(:created_at)
+    @query = params[:q]
+    @results = @query.present? ? IgdbClient.new.search(@query) : []
   end
 
   def new

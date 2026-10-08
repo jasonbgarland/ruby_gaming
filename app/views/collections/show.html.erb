@@ -1,5 +1,6 @@
 <p><%= link_to "&larr; My collections".html_safe, collections_path %></p>
 
+<%= tag.div(flash[:alert], class: "flash flash-alert") if flash[:alert] %>
 <%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
 
 <h1><%= @collection.title %></h1>
@@ -26,3 +27,7 @@
     <% end %>
   </ul>
 <% end %>
+
+<h2>Add a game</h2>
+<%= render "games/search", url: collection_path(@collection), query: @query, results: @results,
+      action_partial: "collection_games/add_result" %>

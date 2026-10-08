@@ -1,0 +1,15 @@
+<%# Per-result action for a collection's search: pick a platform and add the
+    game to that collection. Rendered inside the game-search Turbo Frame, so
+    turbo_frame: "_top" makes the redirect reload the whole page and show
+    the flash. %>
+<% if result.platforms.blank? %>
+  <p>No platforms listed for this game.</p>
+<% else %>
+  <%= form_with url: collection_collection_games_path(@collection), data: { turbo_frame: "_top" } do |form| %>
+    <%= form.hidden_field :igdb_id, value: result.igdb_id %>
+    <%= form.hidden_field :q, value: query %>
+    <%= form.label :platform, "Platform", class: "sr-only" %>
+    <%= form.select :platform, result.platforms %>
+    <%= form.submit "Add" %>
+  <% end %>
+<% end %>
