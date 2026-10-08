@@ -9,6 +9,10 @@ import { Controller } from "@hotwired/stimulus"
 // Each keystroke restarts the timer, so only a pause triggers a submit.
 // Text shorter than minLength never auto-submits; pressing Enter or the
 // submit button still submits it, since that doesn't go through here.
+// Any submit (manual or automatic) cancels a pending timer, so pressing
+// Enter right after typing doesn't search a second time.
+//
+//   <form data-action="submit->autosubmit#cancel">
 export default class extends Controller {
   static values = {
     delay: { type: Number, default: 300 },
@@ -22,7 +26,11 @@ export default class extends Controller {
     this.timeout = setTimeout(() => this.element.requestSubmit(), this.delayValue)
   }
 
-  disconnect() {
+  cancel() {
     clearTimeout(this.timeout)
+  }
+
+  disconnect() {
+    this.cancel()
   }
 }

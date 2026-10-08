@@ -100,6 +100,19 @@ class CollectionsTest < ApplicationSystemTestCase
     assert_text "The Legend of Zelda"
   end
 
+  test "pressing Search right after typing doesn't also fire the pending auto-search" do
+    stub_igdb_zelda
+    sign_in_via_browser
+    visit games_search_path
+
+    fill_in "Game name", with: "zelda"
+    click_on "Search"
+    assert_text "The Legend of Zelda"
+    sleep 0.6 # longer than the 300ms debounce, so a leftover timer would have fired
+
+    assert_requested :post, "https://api.igdb.com/v4/games", times: 1
+  end
+
   test "searching swaps results inside the frame without a full page load" do
     stub_igdb_zelda
     sign_in_via_browser
