@@ -26,13 +26,15 @@ Facts worth having up front:
   `config/master.key`.
 - Repo: **private** `github.com/jasonbgarland/ruby_gaming`, branch `main`.
   CI (`.github/workflows/ci.yml`: Brakeman + bundler-audit, importmap audit,
-  RuboCop, tests, system tests) passes. Dependabot is enabled.
+  RuboCop, tests, system tests) passes. Dependabot checks monthly; minor and
+  patch bumps arrive as one grouped PR, majors separately. Only "Rebase and
+  merge" is enabled on the repo.
 - Git workflow (branch per story, PR, rebase-and-merge, no direct commits to
   `main`, no Claude attribution lines) is written in `CLAUDE.md`. Branch
   protection is **not** enabled: GitHub needs Pro or a public repo for it
   (API payload saved in `.claude/PLAN.md`).
 
-State at last update: 153 regular tests + 12 system tests green locally and
+State at last update: 153 regular tests + 13 system tests green locally and
 in CI; working tree clean.
 
 ## Explicitly deferred (not built yet)
@@ -91,9 +93,12 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
   "not yet wired into the app" (stale).
 - Editor auto-format once un-indented methods under `private`; project
   convention (and Rails') is indented, rubocop allows both.
-- CI housekeeping: `actions/cache@v4` triggers a Node 20 deprecation notice,
-  and `ubuntu-latest` moves to Ubuntu 26 on 2026-10-19; if CI breaks around
-  then, look there first.
+- CI housekeeping: `ubuntu-latest` moves to Ubuntu 26 on 2026-10-19; if CI
+  breaks around then, look there first.
+- `image_processing` 2.x (updated 2026-10-08) no longer pulls in an image
+  backend, and nothing uses Active Storage variants yet. When we add uploads,
+  add `gem "ruby-vips"` explicitly (Rails defaults to vips; CI already
+  installs `libvips`). The gem could also be dropped until then.
 - GitHub Actions minutes: private repos on the free plan have a monthly
   allowance (believed 2,000 Linux minutes); check
   github.com/settings/billing if runs stop.
