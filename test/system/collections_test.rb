@@ -52,8 +52,8 @@ class CollectionsTest < ApplicationSystemTestCase
     )
     stub_request(:post, "https://api.igdb.com/v4/games").to_return(
       status: 200,
-      body: [{ "id" => 1022, "name" => "The Legend of Zelda",
-               "platforms" => [{ "name" => "NES" }, { "name" => "Switch" }] }].to_json,
+      body: [ { "id" => 1022, "name" => "The Legend of Zelda",
+               "platforms" => [ { "name" => "NES" }, { "name" => "Switch" } ] } ].to_json,
     )
   end
 
