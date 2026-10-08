@@ -8,6 +8,13 @@ require_relative "test_helpers/session_test_helper"
 # system tests working against the local server and driver.
 WebMock.disable_net_connect!(allow_localhost: true)
 
+# Fake IGDB credentials so tests never depend on config/master.key (absent in
+# CI). All IGDB HTTP is stubbed, so the values only need to be non-blank.
+Rails.application.credentials.igdb = {
+  client_id: "test-client-id",
+  client_secret: "test-client-secret"
+}
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers.
