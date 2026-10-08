@@ -104,7 +104,7 @@ UX is a future story once a Collection concept exists.
 
 **Update (2026-09-17):** this section originally assumed Postgres without
 checking — the app was actually still on SQLite at the time of writing.
-That's since been fixed (`251aed5`, primary DB switched to Postgres
+That's since been fixed (`cd48266`, primary DB switched to Postgres
 specifically to unblock this), so the array/GIN design below now matches
 reality. See `.claude/HANDOFF.md` "What's built" #5 for the switchover
 details and a macOS-specific test-runner caveat it introduced.

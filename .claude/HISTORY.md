@@ -18,13 +18,13 @@ Last updated: 2026-10-08
    requires login by default** (opt out with `allow_unauthenticated_access`).
 3. **Claude Code project config** (`fb6dc29`) — `.claude/` settings,
    `CLAUDE.md`.
-4. **IGDB client + credentials** (`8589e19`, `411334b`) —
+4. **IGDB client + credentials** (`9d89326`, `b28b4ec`) —
    `app/services/igdb_client.rb`: Twitch OAuth client-credentials flow
    (cached token), `#search`/`#find` against IGDB's `/games`, returns
    `IgdbClient::Game` value objects. Real credentials in encrypted
    credentials; live smoke test: `RUN_IGDB_INTEGRATION=1 bin/rails test
    test/services/igdb_client_live_test.rb`.
-5. **Postgres** (`251aed5`) — replaced SQLite for native array/GIN columns.
+5. **Postgres** (`cd48266`) — replaced SQLite for native array/GIN columns.
    Needs local Postgres (`brew services start postgresql@17`);
    `test/test_helper.rb` disables parallel test workers on macOS only
    (Homebrew Postgres isn't fork-safe).
@@ -34,19 +34,19 @@ Last updated: 2026-10-08
 7. **Standalone search page** — `GamesController#search`/`#create`
    (`/games/search`): live IGDB search; Add just upserts a bare `Game` with
    no user link (an iterative artifact kept to validate behavior; revisit).
-8. **`Collection` / `CollectionGame` models** (`3e0f956`) — per-user
+8. **`Collection` / `CollectionGame` models** (`6a3e646`) — per-user
    collections; join model carries `platform`, validated against the
    game's IGDB platforms, unique per `(collection, game, platform)`.
-9. **Collections CRUD UI** (`47499b4`…`d62f7a1`) — index/show/new/edit/
+9. **Collections CRUD UI** (`a4dc781`…`1db99d3`) — index/show/new/edit/
    destroy + nav link. `CollectionsController` scopes everything through
    `Current.user.collections` (other users' ids 404).
-10. **Generic search partial** (`4da13ae`) — `games/_search.html.erb`.
+10. **Generic search partial** (`b72143d`) — `games/_search.html.erb`.
     Locals: `url`, `query`, `results`, `action_partial` (a partial rendered
     once per result with `result`/`query` locals — the caller's own action).
-11. **System (browser) tests** (`1ac16f2`) — Capybara + headless Chrome in
+11. **System (browser) tests** (`4a03cce`) — Capybara + headless Chrome in
     `test/system/collections_test.rb`; `bin/rails test:system` (plain
     `bin/rails test` skips them). `README.md` lists dev commands.
-12. **Add/remove games in a collection** (`3c96568`, `c59ec00`) — nested
+12. **Add/remove games in a collection** (`9e996ff`, `09d4720`) — nested
     `collection_games` routes (create, destroy);
     `CollectionGamesController` loads the collection via
     `Current.user.collections`. The collection show page embeds the search
@@ -54,7 +54,7 @@ Last updated: 2026-10-08
     Remove button per row. Buttons inside the search frame use
     `turbo_frame: "_top"` so the redirect reloads the whole page and the
     flash shows.
-13. **Live search-as-you-type** (`a8c1fc1`) — Stimulus `autosubmit`
+13. **Live search-as-you-type** (`8725ac1`) — Stimulus `autosubmit`
     controller debounces (300ms) and auto-submits only from 3 characters
     (`data-autosubmit-min-length-value`); Enter/Search always searches.
     The search **form sits outside** the `game-search` Turbo Frame and

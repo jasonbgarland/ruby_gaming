@@ -98,16 +98,16 @@ Decisions from the scoping conversation:
   `/workflow`).
 
 Status (all **done**):
-1. Collections CRUD (`47499b4`…`d62f7a1`).
-2. Generic search partial + Turbo Frame (`4da13ae`).
-2.5. Capybara system tests (`1ac16f2`) — started early, not backfilled; a
+1. Collections CRUD (`a4dc781`…`1db99d3`).
+2. Generic search partial + Turbo Frame (`b72143d`).
+2.5. Capybara system tests (`4a03cce`) — started early, not backfilled; a
    system test now accompanies each UI step.
-3. Search/add/remove on the collection page (`3c96568`, `c59ec00`):
+3. Search/add/remove on the collection page (`9e996ff`, `09d4720`):
    `collection_games` is a nested resource (`create`, `destroy`) — the join
    row is its own REST resource because it carries data (`platform`), so
    "remove" names one exact entry. Conventional route/controller names kept
    (no `path:` renaming).
-4. Live search (`a8c1fc1`): Stimulus `autosubmit` controller, 300ms
+4. Live search (`8725ac1`): Stimulus `autosubmit` controller, 300ms
    debounce, auto-submit from 3 characters. Decisions: the **form sits
    outside the Turbo Frame** and targets it (a swap that replaced the input
    would drop the cursor mid-typing); the 3-char minimum is **client-side
