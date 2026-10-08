@@ -1,11 +1,11 @@
 # Plan: Collection model
 
-Status: **model layer built and tested (2026-09-24)** — migrations,
-`Collection`/`CollectionGame` models, associations, and validations are
-done; see `.claude/HANDOFF.md` for the committed result. This plan
-covered **just the model layer**. **Update 2026-10-06:** the collections
-CRUD UI and a generic search partial are now built (see "UI plan" below and
-`.claude/HANDOFF.md` #9–10); search-inside-a-collection is the next step.
+Status: **complete (2026-10-08)** — model layer (2026-09-24), collections
+CRUD UI, the generic search partial, search/add/remove inside a collection,
+Capybara system tests, and live search-as-you-type are all built and
+committed; see `.claude/HANDOFF.md` #8–13 for the commits. Nothing in this
+plan is outstanding; what's next (GitHub, branching strategy, backlog) is
+tracked in the handoff.
 
 ## Goal
 
@@ -97,16 +97,23 @@ Decisions from the scoping conversation:
 - **Small tasks, review + commit after each**, direct conversation (no
   `/workflow`).
 
-Status:
-1. Collections CRUD — **done** (`47499b4`…`d62f7a1`).
-2. Generic search partial + Turbo Frame — **done** (`4da13ae`).
-2.5. Capybara system tests for the browser-only behavior (Delete confirm
-   dialog, search frame swap, one CRUD happy path) — **next**; the user
-   wants automated browser tests started early, not backfilled.
-3. Search on the collection page: `collection_games#create`/`destroy`,
-   per-result platform picker, Remove button (details in
-   `.claude/HANDOFF.md`). Add a system test with each UI step from here on.
-4. Stimulus debounce (live search) — after step 3.
+Status (all **done**):
+1. Collections CRUD (`47499b4`…`d62f7a1`).
+2. Generic search partial + Turbo Frame (`4da13ae`).
+2.5. Capybara system tests (`1ac16f2`) — started early, not backfilled; a
+   system test now accompanies each UI step.
+3. Search/add/remove on the collection page (`3c96568`, `c59ec00`):
+   `collection_games` is a nested resource (`create`, `destroy`) — the join
+   row is its own REST resource because it carries data (`platform`), so
+   "remove" names one exact entry. Conventional route/controller names kept
+   (no `path:` renaming).
+4. Live search (`a8c1fc1`): Stimulus `autosubmit` controller, 300ms
+   debounce, auto-submit from 3 characters. Decisions: the **form sits
+   outside the Turbo Frame** and targets it (a swap that replaced the input
+   would drop the cursor mid-typing); the 3-char minimum is **client-side
+   only**, so Enter/Search always works for short titles ("Go", "Fez") —
+   an earlier server-side rule in `IgdbClient#search` was reverted for
+   exactly that reason. Below the minimum nothing is shown (no hint).
 
 The standalone `/games/search` Add button (bare `Game` upsert, no user
 link) is an iterative artifact kept only to validate behavior; revisit later.
@@ -129,6 +136,5 @@ one-line prompts to flesh out when ready.
   only gets upserted with a flash confirmation, no page to actually view
   it. Natural pairing with this plan once `Collection` exists — a game
   details page could show/edit which collections a game belongs to.
-- Live search-as-you-type on the search page (results update while
-  typing, no explicit submit) instead of the current submit-and-reload
-  form.
+- UI polish pass — the collection page and search results are unstyled
+  (platform picker beside the Add button, etc.); function came first.
