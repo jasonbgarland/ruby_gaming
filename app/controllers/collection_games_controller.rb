@@ -19,6 +19,12 @@ class CollectionGamesController < ApplicationController
     end
   end
 
+  def destroy
+    collection_game = @collection.collection_games.find(params[:id])
+    collection_game.destroy
+    redirect_to @collection, notice: "Removed #{collection_game.game.name} (#{collection_game.platform}).", status: :see_other
+  end
+
   private
     # Keeps the search query in the URL so the results are still on screen.
     def redirect_back_to_collection(flash_options)

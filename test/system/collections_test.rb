@@ -46,16 +46,38 @@ class CollectionsTest < ApplicationSystemTestCase
     assert Collection.exists?(@collection.id)
   end
 
-  test "searching swaps results inside the frame without a full page load" do
+  def stub_igdb_zelda
     stub_request(:post, "https://id.twitch.tv/oauth2/token").to_return(
       status: 200, body: { access_token: "t", expires_in: 5_184_000 }.to_json,
     )
     stub_request(:post, "https://api.igdb.com/v4/games").to_return(
       status: 200,
       body: [{ "id" => 1022, "name" => "The Legend of Zelda",
-               "platforms" => [{ "name" => "NES" }] }].to_json,
+               "platforms" => [{ "name" => "NES" }, { "name" => "Switch" }] }].to_json,
     )
+  end
 
+  test "search, add a game on a platform, then remove it" do
+    stub_igdb_zelda
+    sign_in_via_browser
+    visit collection_path(@collection)
+
+    fill_in "Game name", with: "zelda"
+    click_on "Search"
+    assert_text "The Legend of Zelda"
+
+    select "Switch", from: "Platform"
+    click_on "Add"
+    assert_text "Added The Legend of Zelda (Switch) to Wishlist."
+    assert_equal [ "Switch" ], @collection.collection_games.pluck(:platform)
+
+    click_on "Remove"
+    assert_text "Removed The Legend of Zelda (Switch)."
+    assert_equal 0, @collection.collection_games.count
+  end
+
+  test "searching swaps results inside the frame without a full page load" do
+    stub_igdb_zelda
     sign_in_via_browser
     visit games_search_path
 

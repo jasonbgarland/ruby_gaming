@@ -153,10 +153,10 @@ form into the existing `game-search` frame; add a minimum query length
 (2–3 chars) server side to respect IGDB rate limits.
 
 **Open items / decisions to revisit**
-- `CollectionsController#destroy` calls `destroy` and always reports
-  success. Fine today (no `before_destroy` callbacks, DB errors raise);
-  add a failure branch (or `destroy!`) when a rule that can block deletion
-  appears.
+- `CollectionsController#destroy` and `CollectionGamesController#destroy`
+  both call `destroy` and always report success. Fine today (no
+  `before_destroy` callbacks, DB errors raise); add a failure branch (or
+  `destroy!`) to **both** when a rule that can block deletion appears.
 - Browser pass of collections CRUD + the search page frame (dev server:
   `bin/rails server`, needs Postgres: `brew services start
   postgresql@17`) was not yet done as of this update — check: nav link,

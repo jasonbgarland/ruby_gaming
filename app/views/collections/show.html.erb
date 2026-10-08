@@ -22,6 +22,7 @@
         <div class="game-result-details">
           <h3><%= game.name %></h3>
           <p><%= collection_game.platform %></p>
+          <%= button_to "Remove", collection_collection_game_path(@collection, collection_game), method: :delete %>
         </div>
       </li>
     <% end %>
