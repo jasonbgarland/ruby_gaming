@@ -84,3 +84,11 @@ Last updated: 2026-10-08
     a concurrency group. Updated `sqlite3` (audit advisory) and `brakeman`
     (its wrapper refuses to run unless latest). The git workflow (GitHub
     flow, rebase-and-merge) is written in `CLAUDE.md`.
+17. **Dependabot tuning, rebase-only merges, search fix** (`a7400fd`,
+    `2cdec8d`, `dd61ef1`) — Dependabot now checks monthly and groups minor/
+    patch bumps (one PR per ecosystem; majors separate); the repo allows only
+    "Rebase and merge". Updated Rails to 8.1.4, the GitHub Actions
+    (checkout 7, cache 6, upload-artifact 6) and `image_processing` 2.2.
+    Fixed a double search: submitting the search form now cancels the pending
+    300ms auto-submit (`autosubmit#cancel`), which also removed a flaky
+    system test on CI. 13 system tests now.
