@@ -15,7 +15,8 @@
                        It receives `result` and `query` locals. %>
 <%= form_with url: url, method: :get, class: "game-search-form",
       data: { turbo_frame: "game-search", controller: "autosubmit",
-              autosubmit_min_length_value: 3 } do %>
+              autosubmit_min_length_value: 3,
+              action: "submit->autosubmit#cancel" } do %>
   <%= label_tag :q, "Game name", class: "sr-only" %>
   <%= text_field_tag :q, query, placeholder: "Search for a game…", autocomplete: "off",
         data: { action: "input->autosubmit#submit" } %>
