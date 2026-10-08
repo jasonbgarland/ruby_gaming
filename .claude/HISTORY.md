@@ -3,8 +3,12 @@
 What has been built, in order. Detail (design rationale, test counts,
 verification) lives in git history — `git show <hash>` or `git log --oneline
 -- <path>`. This is a short index, not a replacement for the commits.
-Current status and next steps are in `.claude/HANDOFF.md`; the collections
-design and decisions are in `.claude/PLAN.md`.
+Current status and next steps are in `.claude/HANDOFF.md`; the backlog is in
+`.claude/PLAN.md`; finished plans (IGDB game, collections design and
+decisions) are in `.claude/plan_archives/`.
+
+Note: all commit hashes here were remapped after a one-time history rewrite
+on 2026-10-08 (item 15), before the first push.
 
 Last updated: 2026-10-08
 
@@ -61,3 +65,22 @@ Last updated: 2026-10-08
     targets it (`data-turbo-frame`), so a swap replaces only the results
     and the text box keeps focus. The 3-char rule is client-side only (the
     server has no minimum).
+14. **More system tests + clearer duplicate error** (`f3a2536`, `339123b`,
+    `a78af06`) — adding the same game on the same platform now reads "Game
+    has already been added on that platform" (custom `message:` on the
+    `CollectionGame` uniqueness validation). Five new system tests: duplicate
+    add, same game on two platforms with one-at-a-time remove, duplicate
+    collection title keeps typed input, search box keeps focus across live
+    swaps, no-results search. Rule checks (authorization, bad platform) stay
+    in the faster integration tests; system tests are for browser behavior.
+15. **No Claude attribution; history rewrite** (`70c9359`) — removed the
+    `Co-Authored-By: Claude` trailer from all earlier commits (tree contents
+    unchanged, hashes changed) and set `attribution` to empty in
+    `.claude/settings.json` so future commits and PRs carry none.
+16. **GitHub + CI** (`25af0fc`, `4fed063`, `2d973ec`, `460415c`) — private
+    repo `jasonbgarland/ruby_gaming`. Tests use fake IGDB credentials
+    (`test_helper.rb`) so CI needs no `RAILS_MASTER_KEY`. The CI `test` and
+    `system-test` jobs got a `postgres:17` service and `DB_*` env vars, plus
+    a concurrency group. Updated `sqlite3` (audit advisory) and `brakeman`
+    (its wrapper refuses to run unless latest). The git workflow (GitHub
+    flow, rebase-and-merge) is written in `CLAUDE.md`.
