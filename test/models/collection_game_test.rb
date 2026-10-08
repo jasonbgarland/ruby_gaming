@@ -57,7 +57,7 @@ class CollectionGameTest < ActiveSupport::TestCase
     dup = CollectionGame.new(collection: @collection, game: @game, platform: "NES")
 
     assert_not dup.valid?
-    assert_includes dup.errors[:game_id], "has already been taken"
+    assert_includes dup.errors[:game_id], "has already been added on that platform"
   end
 
   test "refreshes a stale game from IGDB before validating the platform" do

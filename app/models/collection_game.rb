@@ -3,7 +3,10 @@ class CollectionGame < ApplicationRecord
   belongs_to :game
 
   validates :platform, presence: true
-  validates :game_id, uniqueness: { scope: [ :collection_id, :platform ] }
+  validates :game_id, uniqueness: {
+    scope: [ :collection_id, :platform ],
+    message: "has already been added on that platform"
+  }
   validate :platform_supported_by_game, if: -> { game.present? && platform.present? }
 
   private

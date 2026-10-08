@@ -62,7 +62,7 @@ class CollectionGamesFlowTest < ActionDispatch::IntegrationTest
     end
 
     follow_redirect!
-    assert_select ".flash-alert", /already been taken/
+    assert_select ".flash-alert", /Game has already been added on that platform/
   end
 
   test "create rejects a platform the game is not on" do
