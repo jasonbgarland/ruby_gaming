@@ -53,15 +53,29 @@ class GamesSearchFlowTest < ActionDispatch::IntegrationTest
     assert_match "NES, Switch", response.body
   end
 
-  test "search form and results are wrapped in the game-search Turbo Frame" do
+  test "results are in the game-search Turbo Frame and the form targets it" do
     sign_in(@user)
     stub_token
     stub_games(body: [ zelda_row ].to_json)
 
     get games_search_path, params: { q: "zelda" }
 
-    assert_select "turbo-frame#game-search form[action=?]", games_search_path
+    # The form sits outside the frame (so a swap doesn't replace the text
+    # box mid-typing) and targets the frame by id.
+    assert_select "form[action=?][data-turbo-frame=game-search]", games_search_path
+    assert_select "turbo-frame#game-search form[action=?]", games_search_path, count: 0
     assert_select "turbo-frame#game-search li.game-result", count: 1
+  end
+
+  test "a short query still searches when submitted explicitly" do
+    sign_in(@user)
+    stub_token
+    stub_games(body: [ zelda_row ].to_json)
+
+    get games_search_path, params: { q: "ze" }
+
+    assert_response :success
+    assert_match "The Legend of Zelda", response.body
   end
 
   test "each result gets the page's Add button, which breaks out of the frame" do

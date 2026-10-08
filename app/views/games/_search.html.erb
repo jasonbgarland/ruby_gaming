@@ -1,5 +1,10 @@
-<%# Generic game search: a form plus IGDB results, wrapped in a Turbo Frame so
-    a search only swaps this block, not the whole page.
+<%# Generic game search: a form plus IGDB results. Only the results live in the
+    Turbo Frame; the form sits outside it and targets the frame, so a search
+    swaps the results without replacing the text box (which would lose the
+    cursor while typing). A Stimulus controller submits the form after a
+    pause in typing (once there are at least 3 characters, to go easy on
+    IGDB's rate limit). Pressing Enter or the Search button always searches,
+    whatever the length.
 
     Locals:
       url            - where the search form GETs to (the calling page)
@@ -8,13 +13,16 @@
       action_partial - partial rendered once per result for the caller's
                        own action (add to collection, write a review, ...).
                        It receives `result` and `query` locals. %>
-<%= turbo_frame_tag "game-search" do %>
-  <%= form_with url: url, method: :get, class: "game-search-form" do %>
-    <%= label_tag :q, "Game name", class: "sr-only" %>
-    <%= text_field_tag :q, query, placeholder: "Search for a game…" %>
-    <%= submit_tag "Search" %>
-  <% end %>
+<%= form_with url: url, method: :get, class: "game-search-form",
+      data: { turbo_frame: "game-search", controller: "autosubmit",
+              autosubmit_min_length_value: 3 } do %>
+  <%= label_tag :q, "Game name", class: "sr-only" %>
+  <%= text_field_tag :q, query, placeholder: "Search for a game…", autocomplete: "off",
+        data: { action: "input->autosubmit#submit" } %>
+  <%= submit_tag "Search" %>
+<% end %>
 
+<%= turbo_frame_tag "game-search" do %>
   <% if query.present? %>
     <% if results.empty? %>
       <p>No results for &ldquo;<%= query %>&rdquo;.</p>

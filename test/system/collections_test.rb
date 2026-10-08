@@ -76,6 +76,30 @@ class CollectionsTest < ApplicationSystemTestCase
     assert_equal 0, @collection.collection_games.count
   end
 
+  test "results appear as you type, without clicking Search" do
+    stub_igdb_zelda
+    sign_in_via_browser
+    visit games_search_path
+
+    # No click on Search: the autosubmit controller submits after a pause.
+    fill_in "Game name", with: "zelda"
+    assert_text "The Legend of Zelda"
+  end
+
+  test "typing fewer than 3 characters doesn't auto-search, but Search still works" do
+    stub_igdb_zelda
+    sign_in_via_browser
+    visit games_search_path
+
+    fill_in "Game name", with: "ze"
+    sleep 0.6 # longer than the 300ms debounce, so an auto-submit would have fired
+    assert_no_text "The Legend of Zelda"
+    assert_not_requested :post, "https://api.igdb.com/v4/games"
+
+    click_on "Search"
+    assert_text "The Legend of Zelda"
+  end
+
   test "searching swaps results inside the frame without a full page load" do
     stub_igdb_zelda
     sign_in_via_browser
