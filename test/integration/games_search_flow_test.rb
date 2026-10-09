@@ -67,6 +67,16 @@ class GamesSearchFlowTest < ActionDispatch::IntegrationTest
     assert_select "turbo-frame#game-search li.game-result", count: 1
   end
 
+  test "result names link to the game page, breaking out of the frame" do
+    sign_in(@user)
+    stub_token
+    stub_games(body: [ zelda_row ].to_json)
+
+    get games_search_path, params: { q: "zelda" }
+
+    assert_select "li.game-result h3 a[href=?][data-turbo-frame=_top]", game_path(1022), text: "The Legend of Zelda"
+  end
+
   test "a short query still searches when submitted explicitly" do
     sign_in(@user)
     stub_token
