@@ -92,7 +92,7 @@ Last updated: 2026-10-09
     Fixed a double search: submitting the search form now cancels the pending
     300ms auto-submit (`autosubmit#cancel`), which also removed a flaky
     system test on CI. 13 system tests now.
-18. **Game details page** (`412c392`…`b170528`) — `GET /games/:id`, where
+18. **Game details page** (`8b50d89`…`791e98d`) — `GET /games/:id`, where
     `:id` is the **IGDB id** so a search result can link before the game is
     saved (`find_or_refresh` fills it in; bad or unknown ids 404). Stacked
     layout: `games/_panel` (the game: cover, release date, platforms, genres,
