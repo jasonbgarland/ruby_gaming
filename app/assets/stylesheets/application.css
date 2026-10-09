@@ -170,3 +170,20 @@ button:hover {
   border-radius: 4px;
   flex-shrink: 0;
 }
+
+.game-panel {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border: 1px solid #cbd2d9;
+  border-radius: 4px;
+}
+
+.game-panel .game-cover {
+  width: 200px;
+}
+
+.game-panel-details h1 {
+  margin-top: 0;
+}

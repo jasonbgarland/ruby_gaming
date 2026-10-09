@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   patch "settings/password", to: "settings#update_password", as: :settings_password
 
   get "games/search", to: "games#search", as: :games_search
-  resources :games, only: %i[ create ]
+  resources :games, only: %i[ show create ]
 
   resources :collections do
     resources :collection_games, only: %i[ create destroy ]
