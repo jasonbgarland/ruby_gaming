@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get "games/search", to: "games#search", as: :games_search
   resources :games, only: %i[ show create ]
 
+  # Create without a collection in the URL, for forms that pick the collection
+  # from a dropdown (the game page). Same action as the nested route below.
+  resources :collection_games, only: %i[ create ]
+
   resources :collections do
     resources :collection_games, only: %i[ create destroy ]
   end
