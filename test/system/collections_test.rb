@@ -6,16 +6,6 @@ class CollectionsTest < ApplicationSystemTestCase
     @collection = @user.collections.create!(title: "Wishlist")
   end
 
-  # System tests drive a real browser, so sign in through the real form
-  # (integration tests can POST /session directly; a browser can't).
-  def sign_in_via_browser
-    visit new_session_path
-    fill_in "Username or email", with: @user.email_address
-    fill_in "Password", with: "password1234"
-    click_on "Sign in"
-    assert_text "Log out"
-  end
-
   test "create, edit, and delete a collection" do
     sign_in_via_browser
 
