@@ -1,0 +1,21 @@
+<%# The game showcase: everything we know about the game itself, the same for
+    every user. Takes a `game` local (a Game record). User-specific things
+    (collections, reviews, ...) live in games/_your_stuff, not here. %>
+<section class="game-panel">
+  <% if game.cover_url %>
+    <%= image_tag game.cover_url, alt: game.name, class: "game-cover" %>
+  <% end %>
+  <div class="game-panel-details">
+    <h1><%= game.name %></h1>
+    <% if game.first_release_date %>
+      <p>Released <%= l game.first_release_date, format: :long %></p>
+    <% end %>
+    <% if game.platforms.present? %>
+      <p><strong>Platforms:</strong> <%= game.platforms.join(", ") %></p>
+    <% end %>
+    <% if game.genres.present? %>
+      <p><strong>Genres:</strong> <%= game.genres.join(", ") %></p>
+    <% end %>
+    <%= tag.p(game.summary) if game.summary.present? %>
+  </div>
+</section>
