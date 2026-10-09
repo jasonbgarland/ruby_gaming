@@ -56,7 +56,41 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_match "(NES)", response.body
     assert_match "(Switch)", response.body
     assert_no_match "Graces Secret List", response.body
-    assert_no_match "Empty", response.body
+    assert_select ".your-stuff li", text: /Empty/, count: 0
+  end
+
+  test "offers a form to add the game to one of the user's collections" do
+    mine = @user.collections.create!(title: "Wishlist")
+    users(:two).collections.create!(title: "Graces Secret List")
+    sign_in(@user)
+
+    get game_path(@game.igdb_id)
+
+    assert_select "form[action=?]", collection_games_path do
+      assert_select "input[name=igdb_id][value=?]", "1022"
+      assert_select "input[name=from][value=game]"
+      assert_select "select[name=collection_id] option", count: 1
+      assert_select "select[name=collection_id] option[value=?]", mine.id.to_s
+      assert_select "select[name=platform] option", count: 2
+    end
+  end
+
+  test "each collection entry has a Remove button that returns to the game page" do
+    mine = @user.collections.create!(title: "Wishlist")
+    entry = mine.collection_games.create!(game: @game, platform: "NES")
+    sign_in(@user)
+
+    get game_path(@game.igdb_id)
+
+    assert_select "form[action=?] input[name=from][value=game]", collection_collection_game_path(mine, entry)
+  end
+
+  test "points to creating a collection when the user has none" do
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select "form[action=?]", collection_games_path, count: 0
+    assert_select "a[href=?]", new_collection_path, text: "Create one"
   end
 
   test "says so when the game is in none of the user's collections" do

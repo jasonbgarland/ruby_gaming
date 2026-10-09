@@ -1,2 +1,5 @@
+<%= tag.div(flash[:alert], class: "flash flash-alert") if flash[:alert] %>
+<%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
+
 <%= render "games/panel", game: @game %>
-<%= render "games/your_stuff", collection_games: @collection_games %>
+<%= render "games/your_stuff", game: @game, collection_games: @collection_games, collections: @collections %>

@@ -10,6 +10,7 @@ class GamesController < ApplicationController
     raise ActiveRecord::RecordNotFound unless params[:id].to_s.match?(/\A\d+\z/)
 
     @game = Game.find_or_refresh(params[:id]) or raise ActiveRecord::RecordNotFound
+    @collections = Current.user.collections.order(:title)
     @collection_games = CollectionGame.where(game: @game, collection: Current.user.collections)
       .includes(:collection).references(:collection).order("collections.title", :platform)
   end
