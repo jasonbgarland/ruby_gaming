@@ -157,4 +157,48 @@ class CollectionGamesFlowTest < ActionDispatch::IntegrationTest
 
     assert_response :not_found
   end
+
+  test "create from the game page uses the top-level route and returns to the game page" do
+    sign_in(@user)
+
+    assert_difference -> { @collection.collection_games.count }, 1 do
+      post collection_games_path, params: { collection_id: @collection.id, igdb_id: @game.igdb_id,
+                                            platform: "NES", from: "game" }
+    end
+
+    assert_redirected_to game_path(@game.igdb_id)
+    assert_equal "Added The Legend of Zelda (NES) to Wishlist.", flash[:notice]
+  end
+
+  test "create from the game page cannot target another user's collection" do
+    sign_in(@user)
+    theirs = @other_user.collections.create!(title: "Theirs")
+
+    assert_no_difference "CollectionGame.count" do
+      post collection_games_path, params: { collection_id: theirs.id, igdb_id: @game.igdb_id,
+                                            platform: "NES", from: "game" }
+    end
+
+    assert_response :not_found
+  end
+
+  test "a failed create from the game page returns to the game page with the error" do
+    sign_in(@user)
+
+    post collection_games_path, params: { collection_id: @collection.id, igdb_id: @game.igdb_id,
+                                          platform: "Atari", from: "game" }
+
+    assert_redirected_to game_path(@game.igdb_id)
+    assert_match "Platform", flash[:alert]
+  end
+
+  test "destroy from the game page returns to the game page" do
+    sign_in(@user)
+    entry = @collection.collection_games.create!(game: @game, platform: "NES")
+
+    delete collection_collection_game_path(@collection, entry), params: { from: "game" }
+
+    assert_redirected_to game_path(@game.igdb_id)
+    assert_response :see_other
+  end
 end
