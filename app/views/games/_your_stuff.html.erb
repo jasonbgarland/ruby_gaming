@@ -1,7 +1,11 @@
 <%# The signed-in user's ties to this game: which of their collections hold
-    it. More (add to collection, review, ...) will land here as built.
+    it, and a form to add it to another. More (review, ...) will land here as
+    built. The forms send from=game so the collection_games actions redirect
+    back to this page.
     Locals:
-      collection_games - the user's CollectionGame rows for this game %>
+      game             - the Game being shown
+      collection_games - the user's CollectionGame rows for this game
+      collections      - all of the user's collections (for the add dropdown) %>
 <section class="your-stuff">
   <h2>Your collections</h2>
   <% if collection_games.empty? %>
@@ -12,8 +16,27 @@
         <li>
           <%= link_to collection_game.collection.title, collection_path(collection_game.collection) %>
           (<%= collection_game.platform %>)
+          <%= button_to "Remove", collection_collection_game_path(collection_game.collection, collection_game),
+                method: :delete, params: { from: "game" }, form: { class: "inline-form" } %>
         </li>
       <% end %>
     </ul>
+  <% end %>
+
+  <h3>Add to a collection</h3>
+  <% if collections.empty? %>
+    <p>You don't have any collections yet. <%= link_to "Create one", new_collection_path %>.</p>
+  <% elsif game.platforms.blank? %>
+    <p>No platforms listed for this game, so it can't be added to a collection.</p>
+  <% else %>
+    <%= form_with url: collection_games_path do |form| %>
+      <%= form.hidden_field :igdb_id, value: game.igdb_id %>
+      <%= form.hidden_field :from, value: "game" %>
+      <%= form.label :collection_id, "Collection", class: "sr-only" %>
+      <%= form.select :collection_id, options_from_collection_for_select(collections, :id, :title) %>
+      <%= form.label :platform, "Platform", class: "sr-only" %>
+      <%= form.select :platform, game.platforms %>
+      <%= form.submit "Add" %>
+    <% end %>
   <% end %>
 </section>
