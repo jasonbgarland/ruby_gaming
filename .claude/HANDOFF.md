@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-10-08
+Last updated: 2026-10-09
 
 ## What this project is
 
@@ -11,8 +11,8 @@ to grow into a larger demo project hosted on the web, possibly commercial.
 
 ## What's built
 
-Items 1–16 (scaffold → accounts → IGDB client → Postgres → collections →
-system tests → live search → GitHub + CI) are in **`.claude/HISTORY.md`**,
+Items 1–18 (scaffold → accounts → IGDB client → Postgres → collections →
+system tests → live search → GitHub + CI → game details page) are in **`.claude/HISTORY.md`**,
 with commit hashes. Finished plans are in `.claude/plan_archives/`; the
 backlog is in `.claude/PLAN.md`.
 
@@ -34,8 +34,8 @@ Facts worth having up front:
   protection is **not** enabled: GitHub needs Pro or a public repo for it
   (API payload saved in `.claude/PLAN.md`).
 
-State at last update: 153 regular tests + 13 system tests green locally and
-in CI; working tree clean.
+State at last update: 168 regular tests + 15 system tests green locally;
+working tree clean.
 
 ## Explicitly deferred (not built yet)
 
@@ -73,9 +73,11 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
 
 1. **Finish the manual browser pass** — only look and feel is left; rules are
    covered by automated tests. Dev server: `bin/rails server` (needs Postgres).
-2. **Start the next feature** (decide at the start of the next session). Top
-   candidate: the game details page (`games#show`); see `.claude/PLAN.md`
-   backlog for it and the alternatives.
+2. **Grow the game page or start another feature** (decide at the start of
+   the next session). Ideas: richer IGDB data in the panel (screenshots,
+   rating, developer/publisher, trailers; each needs a migration and a wider
+   `SEARCH_FIELDS`), reviews in `games/_your_stuff`, the UI polish pass. See
+   `.claude/PLAN.md` backlog.
 3. Before making the repo public: README, LICENSE decision, UI polish, then
    branch protection (checklist in `.claude/PLAN.md`).
 
@@ -85,9 +87,13 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
   both call `destroy` and always report success. Fine today (no
   `before_destroy` callbacks, DB errors raise); add a failure branch (or
   `destroy!`) to **both** when a rule that can block deletion appears.
-- The standalone `/games/search` Add (bare `Game` upsert, no user link) is
-  an iterative artifact; revisit or remove (the game details page would
-  replace it).
+- The standalone `/games/search` page's Add (bare `Game` upsert, no user
+  link) is now redundant: result names link to the game page, which has the
+  real add-to-collection form. Remove `GamesController#create`, its route and
+  `games/_add_result` when convenient.
+- `GamesController#show` is accumulating lookups (game, collections, the
+  user's entries). When reviews land, move them into model methods
+  (e.g. `Game#entries_for(user)`).
 - `collections_flow_test.rb` is one ~30-test file; consider splitting by
   action or read/write if it grows. `IgdbClient`'s header comment still says
   "not yet wired into the app" (stale).

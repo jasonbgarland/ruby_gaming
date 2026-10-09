@@ -9,11 +9,10 @@ Nothing is in flight. Finished plans are archived in `.claude/plan_archives/`
 
 One-line prompts to flesh out when ready; not scheduled.
 
-- **Game details page** (`games#show`, `/games/:id`) — a page for a single
-  `Game`: cover, summary, platforms, and which of the user's collections
-  contain it (with add/remove). Gives search results something to link to,
-  and would let us retire the standalone `/games/search` Add button (a bare
-  `Game` upsert with no user link, kept only as an iterative artifact).
+- **Richer game panel data** — widen IGDB's `SEARCH_FIELDS` and add columns
+  for screenshots/artworks, ratings, developer/publisher, trailers, storyline,
+  websites, similar games (could link to other game pages). Each its own
+  migration and commit.
 - **UI polish pass** — collection show/search markup is unstyled (platform
   picker beside Add, etc.). Needed before making the repo public.
 - **Reuse `games/_search`** elsewhere (e.g. a review form) via a different

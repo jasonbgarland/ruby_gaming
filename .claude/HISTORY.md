@@ -10,7 +10,7 @@ decisions) are in `.claude/plan_archives/`.
 Note: all commit hashes here were remapped after a one-time history rewrite
 on 2026-10-08 (item 15), before the first push.
 
-Last updated: 2026-10-08
+Last updated: 2026-10-09
 
 1. **Initial scaffold** (`960dbea`) — vanilla Rails 8 app, Docker/Kamal
    deploy config present but not configured for a real target yet.
@@ -92,3 +92,15 @@ Last updated: 2026-10-08
     Fixed a double search: submitting the search form now cancels the pending
     300ms auto-submit (`autosubmit#cancel`), which also removed a flaky
     system test on CI. 13 system tests now.
+18. **Game details page** (`412c392`…`b170528`) — `GET /games/:id`, where
+    `:id` is the **IGDB id** so a search result can link before the game is
+    saved (`find_or_refresh` fills it in; bad or unknown ids 404). Stacked
+    layout: `games/_panel` (the game: cover, release date, platforms, genres,
+    summary; same for everyone) above `games/_your_stuff` (the user's ties:
+    collections holding the game with Remove, plus an add-to-collection form
+    with collection and platform dropdowns). Game names in search results and
+    collection rows link to it. The form posts to a new top-level
+    `POST /collection_games` (collection comes from the dropdown, not the
+    URL); `from=game` makes `CollectionGamesController` redirect back to the
+    game page instead of the collection. `sign_in_via_browser` moved into
+    `ApplicationSystemTestCase`. 2 new system tests (15 total).
