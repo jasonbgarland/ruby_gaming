@@ -35,7 +35,7 @@
               <%= image_tag result.cover_url, alt: result.name, class: "game-cover" %>
             <% end %>
             <div class="game-result-details">
-              <h3><%= result.name %></h3>
+              <h3><%= link_to result.name, game_path(result.igdb_id), data: { turbo_frame: "_top" } %></h3>
               <p>
                 <% if result.release_date %>
                   <%= result.release_date.year %>

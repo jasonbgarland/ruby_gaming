@@ -68,6 +68,7 @@ class CollectionsFlowTest < ActionDispatch::IntegrationTest
     assert_match "Games I want", response.body
     assert_match "The Legend of Zelda", response.body
     assert_match "Switch", response.body
+    assert_select "li.game-result h3 a[href=?]", game_path(1022), text: "The Legend of Zelda"
   end
 
   test "show displays an empty state for a collection with no games" do
