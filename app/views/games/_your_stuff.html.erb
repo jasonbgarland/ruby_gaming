@@ -1,0 +1,19 @@
+<%# The signed-in user's ties to this game: which of their collections hold
+    it. More (add to collection, review, ...) will land here as built.
+    Locals:
+      collection_games - the user's CollectionGame rows for this game %>
+<section class="your-stuff">
+  <h2>Your collections</h2>
+  <% if collection_games.empty? %>
+    <p>This game isn't in any of your collections yet.</p>
+  <% else %>
+    <ul>
+      <% collection_games.each do |collection_game| %>
+        <li>
+          <%= link_to collection_game.collection.title, collection_path(collection_game.collection) %>
+          (<%= collection_game.platform %>)
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</section>
