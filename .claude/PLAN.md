@@ -22,7 +22,12 @@ One-line prompts to flesh out when ready; not scheduled.
   `test/services/igdb_client_test.rb`. It is the search-shaped fixture; the
   fuller one is now `detail_row`. Own tiny commit, after the richer-details work.
 - **UI polish pass** — collection show/search markup is unstyled (platform
-  picker beside Add, etc.). Needed before making the repo public.
+  picker beside Add, etc.). Needed before making the repo public. Do it after
+  the richer-details stories and the product-direction discussion, on the whole
+  game page at once. Game page ideas: platform icons (own mapping from IGDB
+  platform names, text fallback, check icon licensing); chips for themes and
+  modes; age-rating badges; group into facts / play style / about blocks; a
+  larger cover or artwork banner; fold a very long summary.
 - **Reuse `games/_search`** elsewhere (e.g. a review form) via a different
   `action_partial`.
 - **Auth hardening** — advanced rate limiting/lockout and email

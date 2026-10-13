@@ -16,6 +16,18 @@
     <% if game.genres.present? %>
       <p><strong>Genres:</strong> <%= game.genres.join(", ") %></p>
     <% end %>
+    <% if game.game_type.present? %>
+      <p><strong>Type:</strong> <%= game.game_type %></p>
+    <% end %>
+    <% if game.game_modes.present? %>
+      <p><strong>Game modes:</strong> <%= game.game_modes.join(", ") %></p>
+    <% end %>
+    <% if game.themes.present? %>
+      <p><strong>Themes:</strong> <%= game.themes.join(", ") %></p>
+    <% end %>
+    <% if game.age_ratings.present? %>
+      <p><strong>Age ratings:</strong> <%= game.age_ratings.join(", ") %></p>
+    <% end %>
     <%= tag.p(game.summary) if game.summary.present? %>
   </div>
 </section>
