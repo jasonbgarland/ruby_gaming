@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-10-09
+Last updated: 2026-10-13
 
 ## What this project is
 
@@ -11,8 +11,8 @@ to grow into a larger demo project hosted on the web, possibly commercial.
 
 ## What's built
 
-Items 1–18 (scaffold → accounts → IGDB client → Postgres → collections →
-system tests → live search → GitHub + CI → game details page) are in **`.claude/HISTORY.md`**,
+Items 1–19 (scaffold → accounts → IGDB client → Postgres → collections →
+system tests → live search → GitHub + CI → game details page → richer IGDB details part 1) are in **`.claude/HISTORY.md`**,
 with commit hashes. Finished plans are in `.claude/plan_archives/`; the
 backlog is in `.claude/PLAN.md`.
 
@@ -34,7 +34,7 @@ Facts worth having up front:
   protection is **not** enabled: GitHub needs Pro or a public repo for it
   (API payload saved in `.claude/PLAN.md`).
 
-State at last update: 168 regular tests + 15 system tests green locally;
+State at last update: 175 regular tests + 15 system tests green locally;
 working tree clean.
 
 ## Explicitly deferred (not built yet)
@@ -73,12 +73,17 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
 
 1. **Finish the manual browser pass** — only look and feel is left; rules are
    covered by automated tests. Dev server: `bin/rails server` (needs Postgres).
-2. **Grow the game page or start another feature** (decide at the start of
-   the next session). Ideas: richer IGDB data in the panel (screenshots,
-   rating, developer/publisher, trailers; each needs a migration and a wider
-   `SEARCH_FIELDS`), reviews in `games/_your_stuff`, the UI polish pass. See
-   `.claude/PLAN.md` backlog.
-3. Before making the repo public: README, LICENSE decision, UI polish, then
+2. **Richer IGDB details, part 2: companies** — `companies` table plus a
+   `game_companies` join with a role (developer/publisher); `IgdbClient`
+   already returns `companies` (name + developer/publisher flags) but nothing
+   stores them. Then show them on the game page. Field decisions and the
+   remaining stories are in `.claude/igdb-fields.md` (temporary; delete when
+   done).
+3. **Product-direction discussion** (the user wants it after part 2): what the
+   site is for, what data we own (reviews, ratings, tags, play status) versus
+   rely on IGDB for. It decides the screenshots/trailer story, tags/keywords,
+   discovery, and the UI polish pass. See `.claude/PLAN.md` backlog.
+4. Before making the repo public: README, LICENSE decision, UI polish, then
    branch protection (checklist in `.claude/PLAN.md`).
 
 ## Open items / decisions to revisit
@@ -95,8 +100,14 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
   user's entries). When reviews land, move them into model methods
   (e.g. `Game#entries_for(user)`).
 - `collections_flow_test.rb` is one ~30-test file; consider splitting by
-  action or read/write if it grows. `IgdbClient`'s header comment still says
-  "not yet wired into the app" (stale).
+  action or read/write if it grows.
+- `Game.upsert_from_igdb` is a find-then-save, not an atomic upsert; two
+  simultaneous first views of the same new game could race (the unique index
+  on `igdb_id` keeps the data safe, but one request would raise). Harden if
+  it ever shows up.
+- Local `db:migrate` dumps `db/schema.rb` with columns in creation order, but
+  the committed file is alphabetical; hand-sort new columns to keep diffs
+  clean (and find out why the dump order differs).
 - Editor auto-format once un-indented methods under `private`; project
   convention (and Rails') is indented, rubocop allows both.
 - CI housekeeping: `ubuntu-latest` moves to Ubuntu 26 on 2026-10-19; if CI
