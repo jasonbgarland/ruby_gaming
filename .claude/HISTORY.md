@@ -104,3 +104,13 @@ Last updated: 2026-10-09
     URL); `from=game` makes `CollectionGamesController` redirect back to the
     game page instead of the collection. `sign_in_via_browser` moved into
     `ApplicationSystemTestCase`. 2 new system tests (15 total).
+19. **Richer IGDB details, part 1** (`f1daf40`…`c1f8e0d`, PR #19) — only
+    static, factual IGDB data (crowd-sourced fields like ratings, franchises,
+    time to beat and storyline are deliberately left out; the field list and
+    reasoning are in `.claude/igdb-fields.md`). `IgdbClient#find` asks for
+    `DETAIL_FIELDS` (url, slug, game type, modes, themes, companies, ESRB and
+    PEGI age ratings) while `#search` keeps its lean list. New `games` columns
+    `igdb_url`, `slug`, `game_type`, `game_modes`, `themes`, `age_ratings`,
+    saved by `Game.upsert_from_igdb`. The game page shows them and an
+    "Game details sourced from IGDB" link under the panel. Companies are parsed
+    by the client but not stored yet (part 2). 175 regular tests.
