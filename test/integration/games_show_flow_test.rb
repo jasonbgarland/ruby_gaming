@@ -28,6 +28,30 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_match "An adventure.", response.body
   end
 
+  test "shows the IGDB detail fields and an attribution link" do
+    @game.update!(
+      game_type: "Main Game", game_modes: [ "Single player", "Co-operative" ],
+      themes: [ "Fantasy", "Action" ], age_ratings: [ "ESRB E10+", "PEGI 7" ],
+      igdb_url: "https://www.igdb.com/games/the-legend-of-zelda"
+    )
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_match "Main Game", response.body
+    assert_match "Single player, Co-operative", response.body
+    assert_match "Fantasy, Action", response.body
+    assert_match "ESRB E10+, PEGI 7", response.body
+    assert_select "p.attribution a[href=?]", "https://www.igdb.com/games/the-legend-of-zelda", text: "IGDB"
+  end
+
+  test "attributes IGDB as plain text when the game has no IGDB url yet" do
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select "p.attribution", text: /sourced from IGDB/
+    assert_select "p.attribution a", count: 0
+  end
+
   test "omits sections the game has no data for" do
     @game.update!(summary: nil, first_release_date: nil, cover_url: nil, platforms: [], genres: [])
     sign_in(@user)
@@ -38,6 +62,10 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_no_match "Released", response.body
     assert_no_match "Platforms:", response.body
     assert_no_match "Genres:", response.body
+    assert_no_match "Type:", response.body
+    assert_no_match "Game modes:", response.body
+    assert_no_match "Themes:", response.body
+    assert_no_match "Age ratings:", response.body
   end
 
   test "lists only the current user's collections that contain the game" do

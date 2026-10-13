@@ -2,4 +2,8 @@
 <%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
 
 <%= render "games/panel", game: @game %>
+<p class="attribution">
+  Game details sourced from
+  <%= @game.igdb_url.present? ? link_to("IGDB", @game.igdb_url) : "IGDB" %>.
+</p>
 <%= render "games/your_stuff", game: @game, collection_games: @collection_games, collections: @collections %>
