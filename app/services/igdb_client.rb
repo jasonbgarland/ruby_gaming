@@ -11,7 +11,9 @@
 #   igdb_id, name, cover_image_id, cover_url, summary, release_date,
 #   platforms (Array<String>), genres (Array<String>)
 #
-# This client is standalone and not yet wired into the app.
+# #find also asks for the static detail fields (igdb_url, slug, game_type,
+# game_modes, themes, companies, age_ratings); #search leaves them
+# out to keep result lists light, so they come back nil/empty there.
 #
 # HTTP seam: only #fetch_token! and #games_request reference Net::HTTP.
 # Every other method deals in plain Ruby values, so a future move to
@@ -25,7 +27,15 @@ class IgdbClient
   GAMES_URL = URI("https://api.igdb.com/v4/games")
   COVER_URL_TEMPLATE = "https://images.igdb.com/igdb/image/upload/t_cover_big/%s.jpg"
   DEFAULT_LIMIT = 20
-  SEARCH_FIELDS = "id,name,summary,first_release_date,cover.image_id,platforms.name,genres.name"
+  SEARCH_FIELDS = %w[
+    id name summary first_release_date cover.image_id platforms.name genres.name
+  ].freeze
+  DETAIL_FIELDS = (SEARCH_FIELDS + %w[
+    url slug game_type.type game_modes.name themes.name
+    involved_companies.developer involved_companies.publisher involved_companies.company.name
+    age_ratings.organization.name age_ratings.rating_category.rating
+  ]).freeze
+  AGE_RATING_ORGANIZATIONS = %w[ESRB PEGI].freeze
   OPEN_TIMEOUT = 5
   READ_TIMEOUT = 10
   TOKEN_EXPIRY_MARGIN = 300
@@ -44,7 +54,14 @@ class IgdbClient
     :summary,
     :release_date,
     :platforms,
-    :genres
+    :genres,
+    :igdb_url,
+    :slug,
+    :game_type,
+    :game_modes,
+    :themes,
+    :companies,
+    :age_ratings
   )
 
   def initialize(
@@ -158,7 +175,7 @@ class IgdbClient
 
   def apicalypse_query(query, limit)
     <<~QUERY
-      fields #{SEARCH_FIELDS};
+      fields #{SEARCH_FIELDS.join(",")};
       search "#{escape(query)}";
       limit #{limit};
     QUERY
@@ -166,7 +183,7 @@ class IgdbClient
 
   def apicalypse_id_query(igdb_id)
     <<~QUERY
-      fields #{SEARCH_FIELDS};
+      fields #{DETAIL_FIELDS.join(",")};
       where id = #{Integer(igdb_id)};
     QUERY
   end
@@ -204,8 +221,43 @@ class IgdbClient
       summary: row["summary"],
       release_date: release_epoch ? Time.at(release_epoch).utc.to_date : nil,
       platforms: Array(row["platforms"]).filter_map { |p| p["name"] if p.is_a?(Hash) },
-      genres: Array(row["genres"]).filter_map { |g| g["name"] if g.is_a?(Hash) }
+      genres: names(row["genres"]),
+      igdb_url: row["url"],
+      slug: row["slug"],
+      game_type: row.dig("game_type", "type"),
+      game_modes: names(row["game_modes"]),
+      themes: names(row["themes"]),
+      companies: normalize_companies(row["involved_companies"]),
+      age_ratings: normalize_age_ratings(row["age_ratings"])
     )
+  end
+
+  def names(list)
+    Array(list).filter_map { |item| item["name"] if item.is_a?(Hash) }
+  end
+
+  # => [{ name: "FromSoftware", developer: true, publisher: true }, ...]
+  def normalize_companies(list)
+    Array(list).filter_map do |entry|
+      next unless entry.is_a?(Hash)
+
+      name = entry.dig("company", "name")
+      next if name.blank?
+
+      { name: name, developer: entry["developer"] == true, publisher: entry["publisher"] == true }
+    end
+  end
+
+  # Keeps only the boards in AGE_RATING_ORGANIZATIONS => ["ESRB M", "PEGI 16"]
+  def normalize_age_ratings(list)
+    ratings = Array(list).filter_map do |entry|
+      next unless entry.is_a?(Hash)
+
+      org = entry.dig("organization", "name")
+      rating = entry.dig("rating_category", "rating")
+      "#{org} #{rating}" if AGE_RATING_ORGANIZATIONS.include?(org) && rating.present?
+    end
+    ratings.sort_by { |r| AGE_RATING_ORGANIZATIONS.index(r.split.first) }
   end
 
   def token_cache_key
