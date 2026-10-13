@@ -9,10 +9,18 @@ Nothing is in flight. Finished plans are archived in `.claude/plan_archives/`
 
 One-line prompts to flesh out when ready; not scheduled.
 
-- **Richer game panel data** — widen IGDB's `SEARCH_FIELDS` and add columns
-  for screenshots/artworks, ratings, developer/publisher, trailers, storyline,
+- **Richer game panel data** (field decisions and story split in
+  `.claude/igdb-fields.md`; **delete that file when Stories A–D are done or
+  folded into HISTORY.md**) — widen IGDB's `SEARCH_FIELDS` and add columns
+  for screenshots/artworks, ratings, developer/publisher, trailers,
   websites, similar games (could link to other game pages). Each its own
   migration and commit.
+- **Tags / keywords** — a signature feature to investigate in detail before
+  building: IGDB's own `keywords` list vs. our own user-defined tags (and how
+  they combine). See `.claude/igdb-fields.md`.
+- **Chore: rename `full_row` to `search_row`** in
+  `test/services/igdb_client_test.rb`. It is the search-shaped fixture; the
+  fuller one is now `detail_row`. Own tiny commit, after the richer-details work.
 - **UI polish pass** — collection show/search markup is unstyled (platform
   picker beside Add, etc.). Needed before making the repo public.
 - **Reuse `games/_search`** elsewhere (e.g. a review form) via a different
