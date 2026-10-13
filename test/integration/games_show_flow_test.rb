@@ -128,6 +128,43 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_match "isn't in any of your collections", response.body
   end
 
+  test "fetches an uncached game from IGDB, saves its detail fields and shows them" do
+    stub_request(:post, "https://id.twitch.tv/oauth2/token").to_return(
+      status: 200, body: { access_token: "t", expires_in: 5_184_000 }.to_json
+    )
+    stub_request(:post, "https://api.igdb.com/v4/games").to_return(
+      status: 200,
+      body: [ {
+        "id" => 119_133, "name" => "Elden Ring", "summary" => "A big world.",
+        "url" => "https://www.igdb.com/games/elden-ring", "slug" => "elden-ring",
+        "game_type" => { "type" => "Main Game" },
+        "game_modes" => [ { "name" => "Single player" }, { "name" => "Multiplayer" } ],
+        "themes" => [ { "name" => "Fantasy" }, { "name" => "Open world" } ],
+        "age_ratings" => [
+          { "organization" => { "name" => "ESRB" }, "rating_category" => { "rating" => "M" } },
+          { "organization" => { "name" => "CERO" }, "rating_category" => { "rating" => "D" } }
+        ]
+      } ].to_json
+    )
+    sign_in(@user)
+    assert_not Game.exists?(igdb_id: 119_133)
+
+    get game_path(119_133)
+
+    assert_response :success
+    assert_requested(:post, "https://api.igdb.com/v4/games", times: 1)
+    saved = Game.find_by!(igdb_id: 119_133)
+    assert_equal "Main Game", saved.game_type
+    assert_equal [ "Single player", "Multiplayer" ], saved.game_modes
+    assert_equal [ "ESRB M" ], saved.age_ratings
+    assert_select "h1", "Elden Ring"
+    assert_match "Single player, Multiplayer", response.body
+    assert_match "Fantasy, Open world", response.body
+    assert_match "ESRB M", response.body
+    assert_no_match "CERO", response.body
+    assert_select "p.attribution a[href=?]", "https://www.igdb.com/games/elden-ring"
+  end
+
   test "a non-numeric id is a 404" do
     sign_in(@user)
     get game_path("abc")
