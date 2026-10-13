@@ -31,6 +31,26 @@ class IgdbClientTest < ActiveSupport::TestCase
     }
   end
 
+  def detail_row
+    full_row.merge(
+      "url" => "https://www.igdb.com/games/the-legend-of-zelda",
+      "slug" => "the-legend-of-zelda",
+      "game_type" => { "type" => "Main Game" },
+      "game_modes" => [ { "name" => "Single player" } ],
+      "themes" => [ { "name" => "Fantasy" }, { "name" => "Action" } ],
+      "involved_companies" => [
+        { "company" => { "name" => "Nintendo" }, "developer" => true, "publisher" => true },
+        { "company" => { "name" => "Bandai" }, "developer" => false, "publisher" => true },
+        { "company" => {}, "developer" => true, "publisher" => false }
+      ],
+      "age_ratings" => [
+        { "organization" => { "name" => "CERO" }, "rating_category" => { "rating" => "A" } },
+        { "organization" => { "name" => "PEGI" }, "rating_category" => { "rating" => "7" } },
+        { "organization" => { "name" => "ESRB" }, "rating_category" => { "rating" => "E10+" } }
+      ]
+    )
+  end
+
   def sparse_row
     { "id" => 42, "name" => "Sparse Game" }
   end
@@ -287,7 +307,7 @@ class IgdbClientTest < ActiveSupport::TestCase
     build_client.find(1022)
 
     assert_requested(:post, GAMES_URL) do |req|
-      req.body.include?("fields id,name,summary,first_release_date,cover.image_id,platforms.name,genres.name;") &&
+      req.body.include?("fields #{IgdbClient::DETAIL_FIELDS.join(",")};") &&
         req.body.include?("where id = 1022;") &&
         !req.body.include?("search")
     end
@@ -302,6 +322,39 @@ class IgdbClientTest < ActiveSupport::TestCase
 
     assert_equal 1022, game.igdb_id
     assert_equal "The Legend of Zelda", game.name
+  end
+
+  test "find normalizes the static detail fields" do
+    stub_token
+    stub_games(body: [ detail_row ].to_json)
+
+    game = build_client.find(1022)
+
+    assert_equal "https://www.igdb.com/games/the-legend-of-zelda", game.igdb_url
+    assert_equal "the-legend-of-zelda", game.slug
+    assert_equal "Main Game", game.game_type
+    assert_equal [ "Single player" ], game.game_modes
+    assert_equal [ "Fantasy", "Action" ], game.themes
+    assert_equal [
+      { name: "Nintendo", developer: true, publisher: true },
+      { name: "Bandai", developer: false, publisher: true }
+    ], game.companies
+    assert_equal [ "ESRB E10+", "PEGI 7" ], game.age_ratings
+  end
+
+  test "find leaves the detail fields empty when IGDB omits them" do
+    stub_token
+    stub_games(body: [ sparse_row ].to_json)
+
+    game = build_client.find(42)
+
+    assert_nil game.igdb_url
+    assert_nil game.slug
+    assert_nil game.game_type
+    assert_equal [], game.game_modes
+    assert_equal [], game.themes
+    assert_equal [], game.companies
+    assert_equal [], game.age_ratings
   end
 
   # 25 - find returns nil when IGDB has no matching game

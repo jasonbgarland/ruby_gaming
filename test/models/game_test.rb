@@ -31,7 +31,14 @@ class GameTest < ActiveSupport::TestCase
         summary: "An adventure.",
         release_date: Date.new(1986, 2, 21),
         platforms: [ "NES", "Switch" ],
-        genres: [ "Adventure" ]
+        genres: [ "Adventure" ],
+        igdb_url: nil,
+        slug: nil,
+        game_type: nil,
+        game_modes: [],
+        themes: [],
+        companies: [],
+        age_ratings: []
       }.merge(overrides)
     )
   end
