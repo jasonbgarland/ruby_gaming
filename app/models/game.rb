@@ -29,6 +29,12 @@ class Game < ApplicationRecord
       first_release_date: igdb_game.release_date,
       platforms: igdb_game.platforms,
       genres: igdb_game.genres,
+      igdb_url: igdb_game.igdb_url,
+      slug: igdb_game.slug,
+      game_type: igdb_game.game_type,
+      game_modes: igdb_game.game_modes,
+      themes: igdb_game.themes,
+      age_ratings: igdb_game.age_ratings,
       refreshed_at: Time.current,
     )
     game.save!

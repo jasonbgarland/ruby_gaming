@@ -90,6 +90,33 @@ class GameTest < ActiveSupport::TestCase
     assert_not game.stale?
   end
 
+  test "upsert_from_igdb saves the static detail fields" do
+    game = Game.upsert_from_igdb(igdb_game(
+      igdb_url: "https://www.igdb.com/games/the-legend-of-zelda",
+      slug: "the-legend-of-zelda",
+      game_type: "Main Game",
+      game_modes: [ "Single player" ],
+      themes: [ "Fantasy", "Action" ],
+      age_ratings: [ "ESRB E10+", "PEGI 7" ]
+    )).reload
+
+    assert_equal "https://www.igdb.com/games/the-legend-of-zelda", game.igdb_url
+    assert_equal "the-legend-of-zelda", game.slug
+    assert_equal "Main Game", game.game_type
+    assert_equal [ "Single player" ], game.game_modes
+    assert_equal [ "Fantasy", "Action" ], game.themes
+    assert_equal [ "ESRB E10+", "PEGI 7" ], game.age_ratings
+  end
+
+  test "upsert_from_igdb overwrites the detail fields on refresh" do
+    Game.upsert_from_igdb(igdb_game(themes: [ "Fantasy" ], game_type: "Main Game"))
+
+    updated = Game.upsert_from_igdb(igdb_game(themes: [ "Action" ], game_type: nil)).reload
+
+    assert_equal [ "Action" ], updated.themes
+    assert_nil updated.game_type
+  end
+
   test "upsert_from_igdb updates the existing row for the same igdb_id" do
     Game.upsert_from_igdb(igdb_game)
 
