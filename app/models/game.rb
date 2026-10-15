@@ -3,6 +3,8 @@ class Game < ApplicationRecord
 
   has_many :collection_games, dependent: :destroy
   has_many :collections, through: :collection_games
+  has_many :game_companies, dependent: :destroy
+  has_many :companies, through: :game_companies
 
   validates :igdb_id, presence: true, uniqueness: true
   validates :name, presence: true
