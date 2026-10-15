@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-10-13
+Last updated: 2026-10-15
 
 ## What this project is
 
@@ -34,8 +34,8 @@ Facts worth having up front:
   protection is **not** enabled: GitHub needs Pro or a public repo for it
   (API payload saved in `.claude/PLAN.md`).
 
-State at last update: 175 regular tests + 15 system tests green locally;
-working tree clean.
+State at last update: on branch `companies` (not yet pushed, no PR), 181
+regular tests + 15 system tests expected green; working tree clean.
 
 ## Explicitly deferred (not built yet)
 
@@ -73,12 +73,21 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
 
 1. **Finish the manual browser pass** — only look and feel is left; rules are
    covered by automated tests. Dev server: `bin/rails server` (needs Postgres).
-2. **Richer IGDB details, part 2: companies** — `companies` table plus a
-   `game_companies` join with a role (developer/publisher); `IgdbClient`
-   already returns `companies` (name + developer/publisher flags) but nothing
-   stores them. Then show them on the game page. Field decisions and the
-   remaining stories are in `.claude/igdb-fields.md` (temporary; delete when
-   done).
+2. **Richer IGDB details, part 2: companies** — in progress on branch
+   `companies`. Done (commit `39ca3e2`): `companies` table (unique on
+   `lower(name)`) and `game_companies` join with a `role` (developer or
+   publisher, unique per game + company + role), models and model tests.
+   Decisions: companies match by **name** (the client doesn't return IGDB
+   company ids; revisit if renames or same-name clashes show up), and a
+   company that both develops and publishes a game gets **two rows**, one per
+   role. Still to do, as small commits:
+   1. Sync companies in `Game.upsert_from_igdb` (one row per true flag; remove
+      stale ones on refresh; `Company` find-or-create by name, case-insensitive).
+   2. Show Developer/Publisher in `games/_panel`.
+   3. Integration/system test through the game page.
+   4. Update HISTORY, PLAN, and delete `.claude/igdb-fields.md` if all of
+      Story A is done; open the PR (rebase and merge).
+   Field decisions are in `.claude/igdb-fields.md` (temporary).
 3. **Product-direction discussion** (the user wants it after part 2): what the
    site is for, what data we own (reviews, ratings, tags, play status) versus
    rely on IGDB for. It decides the screenshots/trailer story, tags/keywords,
