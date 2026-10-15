@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_13_160000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_14_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_160000) do
     t.bigint "user_id", null: false
     t.index ["user_id", "title"], name: "index_collections_on_user_id_and_title", unique: true
     t.index ["user_id"], name: "index_collections_on_user_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((name)::text)", name: "index_companies_on_lower_name", unique: true
+  end
+
+  create_table "game_companies", force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "game_id", null: false
+    t.string "role", null: false
+    t.datetime "updated_at", null: false
+    t.index ["company_id"], name: "index_game_companies_on_company_id"
+    t.index ["game_id", "company_id", "role"], name: "index_game_companies_on_game_company_role", unique: true
+    t.index ["game_id"], name: "index_game_companies_on_game_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -84,5 +102,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_13_160000) do
   add_foreign_key "collection_games", "collections"
   add_foreign_key "collection_games", "games"
   add_foreign_key "collections", "users"
+  add_foreign_key "game_companies", "companies"
+  add_foreign_key "game_companies", "games"
   add_foreign_key "sessions", "users"
 end
