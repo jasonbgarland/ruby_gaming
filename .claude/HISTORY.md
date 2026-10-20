@@ -4,8 +4,7 @@ What has been built, in order. Detail (design rationale, test counts,
 verification) lives in git history — `git show <hash>` or `git log --oneline
 -- <path>`. This is a short index, not a replacement for the commits.
 Current status and next steps are in `.claude/HANDOFF.md`; the backlog is in
-`.claude/PLAN.md`; finished plans (IGDB game, collections design and
-decisions) are in `.claude/plan_archives/`.
+`.claude/PLAN.md`.
 
 Note: all commit hashes here were remapped after a one-time history rewrite
 on 2026-10-08 (item 15), before the first push.
@@ -14,8 +13,7 @@ Last updated: 2026-10-09
 
 1. **Initial scaffold** (`960dbea`) — vanilla Rails 8 app, Docker/Kamal
    deploy config present but not configured for a real target yet.
-2. **User accounts** (`d0f9580`, paper trail in
-   `.claude/workflow/20260731-144252/`) — sign up/login (username or
+2. **User accounts** (`d0f9580`) — sign up/login (username or
    email)/settings/password reset via Rails 8's `generate authentication`;
    `users` + `sessions` (DB-backed); generator-default rate limiting.
    `ApplicationController` includes `Authentication`, so **every controller
@@ -106,11 +104,23 @@ Last updated: 2026-10-09
     `ApplicationSystemTestCase`. 2 new system tests (15 total).
 19. **Richer IGDB details, part 1** (`f1daf40`…`c1f8e0d`, PR #19) — only
     static, factual IGDB data (crowd-sourced fields like ratings, franchises,
-    time to beat and storyline are deliberately left out; the field list and
-    reasoning are in `.claude/igdb-fields.md`). `IgdbClient#find` asks for
+    time to beat and storyline are deliberately left out; the reasoning is in
+    the `PLAN.md` backlog, "IGDB data principle"). `IgdbClient#find` asks for
     `DETAIL_FIELDS` (url, slug, game type, modes, themes, companies, ESRB and
     PEGI age ratings) while `#search` keeps its lean list. New `games` columns
     `igdb_url`, `slug`, `game_type`, `game_modes`, `themes`, `age_ratings`,
     saved by `Game.upsert_from_igdb`. The game page shows them and an
     "Game details sourced from IGDB" link under the panel. Companies are parsed
     by the client but not stored yet (part 2). 175 regular tests.
+20. **Richer IGDB details, part 2: companies** (`39ca3e2`, `f320d8d`,
+    `50172e3`) — `companies` (unique on `lower(name)`) and a `game_companies`
+    join with a `role` (developer or publisher; unique per game, company and
+    role). Companies match by name, case-insensitively, because the client
+    returns no IGDB company ids; a company that both develops and publishes a
+    game gets two rows. `Game.upsert_from_igdb` saves the game and syncs its
+    companies in one transaction (stale rows removed on refresh).
+    `Game#company_names(role)` feeds "Developer:" and "Publisher:" lines in
+    `games/_panel`. 185 regular tests. That finished the static-fields work, so the
+    temporary `igdb-fields.md` was folded into the `PLAN.md` backlog and deleted. The finished-plan
+    archives (`plan_archives/`) were deleted too, ahead of making the repo
+    public; the rationale is in the commits and the items above.

@@ -1,23 +1,49 @@
 # Plan / backlog
 
-Nothing is in flight. Finished plans are archived in `.claude/plan_archives/`
-(`igdb-game.md`, `collections.md`); what's built is indexed in
-`.claude/HISTORY.md`; current status and next steps are in
-`.claude/HANDOFF.md`. When the next feature is scoped, write its plan here.
+What's built is indexed in `.claude/HISTORY.md` (design rationale lives in the
+commits); current status and next steps are in `.claude/HANDOFF.md`.
+
+## In flight: Sprint 1, demo-ready (week of 2026-10-20)
+
+Goal: a reviewer can watch a 2-3 minute video, read a real README and look at
+a public repo. About 15 hours; if it slips, cut scope. One branch and PR each:
+
+1. `companies` — developer/publisher (code done; PR pending).
+2. `demo-seeds` — idempotent `db:seed`: a demo user and a few populated
+   collections from static game data, so seeding needs no IGDB credentials.
+   Fail-soft refresh: with no IGDB credentials, a stale game is served from
+   the cache instead of raising. Document the demo login in the README.
+3. `ui-polish` — chips for themes and modes, age-rating badges, larger cover,
+   styled collection and search pages; keep the partial-page refresh behavior.
+4. `readme` — portfolio README, 3-4 screenshots, short demo-video steps.
+5. `pre-public` — secrets re-check, CI green, then the repo goes public.
+
+Cut order if time runs short: offline mode (stretch), restyling the collection
+and search pages, age-rating badges.
+
+Decisions: no LICENSE file (all rights reserved); `.claude/` stays public; no
+hosting yet (local demo and video only). Stretch: an `IGDB_OFFLINE=1` mode
+where search queries the local `games` table, as a safety net for live demos.
 
 ## Backlog
 
 One-line prompts to flesh out when ready; not scheduled.
 
-- **Richer game panel data** (field decisions and story split in
-  `.claude/igdb-fields.md`; **delete that file when Stories A–D are done or
-  folded into HISTORY.md**) — widen IGDB's `SEARCH_FIELDS` and add columns
-  for screenshots/artworks, ratings, developer/publisher, trailers,
-  websites, similar games (could link to other game pages). Each its own
-  migration and commit.
+- **Screenshots and trailer** — IGDB gives an `image_id` for screenshots and
+  artworks (build CDN URLs like the cover; nothing is downloaded) and a YouTube
+  `video_id` for trailers (iframe embed). Needs wider `find` fields, storage,
+  and a game-page section.
+- **Discovery** — `similar_games` ("you might also like", linking to other
+  game pages) and related releases (DLCs, remasters). Its own story.
+- **IGDB data principle** — pull only static, factual IGDB data. Crowd-sourced
+  fields (ratings, franchises, collections, time to beat, storyline) were
+  probed and dropped; the site should own that kind of data itself (reviews,
+  ratings, tags, play status). Other static fields IGDB offers if ever wanted:
+  `player_perspectives`, `release_dates`, `websites`, `external_games`,
+  `language_supports`, `game_engine`.
 - **Tags / keywords** — a signature feature to investigate in detail before
   building: IGDB's own `keywords` list vs. our own user-defined tags (and how
-  they combine). See `.claude/igdb-fields.md`.
+  they combine).
 - **Chore: rename `full_row` to `search_row`** in
   `test/services/igdb_client_test.rb`. It is the search-shaped fixture; the
   fuller one is now `detail_row`. Own tiny commit, after the richer-details work.
@@ -30,16 +56,23 @@ One-line prompts to flesh out when ready; not scheduled.
   larger cover or artwork banner; fold a very long summary.
 - **Reuse `games/_search`** elsewhere (e.g. a review form) via a different
   `action_partial`.
-- **Auth hardening** — advanced rate limiting/lockout and email
-  verification; see `.claude/workflow/20260731-144252/future-story-auth-hardening.md`.
+- **Auth hardening** — the Rails 8 authentication generator already throttles
+  login and password-reset attempts (about 10 per 3 minutes via `rate_limit`).
+  Not built: configurable thresholds, account lockout after repeated failures,
+  CAPTCHA-style challenges, IP-based throttling, or persistent (non-cache-store)
+  rate-limit tracking. Email verification of a user's address is also not
+  built and needs its own design pass (the generator doesn't provide it).
 
 ## Before making the GitHub repo public
 
 - A real `README.md` (what it is, screenshots, how to run it).
-- A `LICENSE` decision. No file means all rights reserved, which suits a
-  possible commercial product; avoid MIT/Apache unless that's intended.
+- LICENSE: decided, none (all rights reserved), so the code stays free to
+  commercialize.
 - The UI polish pass above.
-- Decide whether `.claude/` (handoff, plans, workflow retros) is published.
+- `.claude/` (handoff, plans, workflow retros) stays public: decided.
+- Secrets re-check: only `config/credentials.yml.enc` tracked, no
+  `master.key` or `.env` anywhere in history.
+- CI green on `main`.
 - Then turn on branch protection for `main` (free on public repos; on a
   private free repo the API returns 403 "Upgrade to GitHub Pro", tried
   2026-10-08). Put this JSON in a file and run

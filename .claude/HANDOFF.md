@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-10-15
+Last updated: 2026-10-20
 
 ## What this project is
 
@@ -13,8 +13,7 @@ to grow into a larger demo project hosted on the web, possibly commercial.
 
 Items 1–19 (scaffold → accounts → IGDB client → Postgres → collections →
 system tests → live search → GitHub + CI → game details page → richer IGDB details part 1) are in **`.claude/HISTORY.md`**,
-with commit hashes. Finished plans are in `.claude/plan_archives/`; the
-backlog is in `.claude/PLAN.md`.
+with commit hashes. The backlog is in `.claude/PLAN.md`.
 
 Facts worth having up front:
 - Every controller requires login by default (`Authentication` concern in
@@ -34,12 +33,12 @@ Facts worth having up front:
   protection is **not** enabled: GitHub needs Pro or a public repo for it
   (API payload saved in `.claude/PLAN.md`).
 
-State at last update: on branch `companies` (not yet pushed, no PR), 181
-regular tests + 15 system tests expected green; working tree clean.
+State at last update: on branch `companies` (not yet pushed, no PR; the PR is
+the next step), 185 regular tests + 15 system tests expected green.
 
 ## Explicitly deferred (not built yet)
 
-See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
+Details are in the `.claude/PLAN.md` backlog ("Auth hardening"):
 - Advanced rate-limit/lockout hardening beyond generator defaults.
 - Email verification/confirmation of a user's address (needs its own
   design pass).
@@ -73,27 +72,17 @@ See `.claude/workflow/20260731-144252/future-story-auth-hardening.md`:
 
 1. **Finish the manual browser pass** — only look and feel is left; rules are
    covered by automated tests. Dev server: `bin/rails server` (needs Postgres).
-2. **Richer IGDB details, part 2: companies** — in progress on branch
-   `companies`. Done (commit `39ca3e2`): `companies` table (unique on
-   `lower(name)`) and `game_companies` join with a `role` (developer or
-   publisher, unique per game + company + role), models and model tests.
-   Decisions: companies match by **name** (the client doesn't return IGDB
-   company ids; revisit if renames or same-name clashes show up), and a
-   company that both develops and publishes a game gets **two rows**, one per
-   role. Still to do, as small commits:
-   1. Sync companies in `Game.upsert_from_igdb` (one row per true flag; remove
-      stale ones on refresh; `Company` find-or-create by name, case-insensitive).
-   2. Show Developer/Publisher in `games/_panel`.
-   3. Integration/system test through the game page.
-   4. Update HISTORY, PLAN, and delete `.claude/igdb-fields.md` if all of
-      Story A is done; open the PR (rebase and merge).
-   Field decisions are in `.claude/igdb-fields.md` (temporary).
-3. **Product-direction discussion** (the user wants it after part 2): what the
-   site is for, what data we own (reviews, ratings, tags, play status) versus
-   rely on IGDB for. It decides the screenshots/trailer story, tags/keywords,
-   discovery, and the UI polish pass. See `.claude/PLAN.md` backlog.
-4. Before making the repo public: README, LICENSE decision, UI polish, then
-   branch protection (checklist in `.claude/PLAN.md`).
+2. **Sprint 1: demo-ready** (plan in `.claude/PLAN.md`) — in progress.
+   Richer IGDB details part 2 (companies) is code-complete on branch
+   `companies` (details in HISTORY item 20); push it and open the PR
+   (rebase and merge), then fix the commit hashes in HISTORY if the rebase
+   changes them. Then, one branch and PR each: `demo-seeds`, `ui-polish`,
+   `readme`, `pre-public`.
+3. **Product-direction discussion** (the user wants it after the sprint): what
+   the site is for, what data we own (reviews, ratings, tags, play status)
+   versus rely on IGDB for. It decides the screenshots/trailer story,
+   tags/keywords and discovery. See `.claude/PLAN.md` backlog.
+4. After the repo is public: branch protection (checklist in `.claude/PLAN.md`).
 
 ## Open items / decisions to revisit
 
