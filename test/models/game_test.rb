@@ -117,6 +117,44 @@ class GameTest < ActiveSupport::TestCase
     assert_nil updated.game_type
   end
 
+  test "upsert_from_igdb saves developers and publishers" do
+    game = Game.upsert_from_igdb(igdb_game(companies: [
+      { name: "Nintendo", developer: true, publisher: true },
+      { name: "Capcom", developer: false, publisher: true }
+    ]))
+
+    roles = game.game_companies.includes(:company).map { |gc| [ gc.company.name, gc.role ] }
+    assert_equal [ [ "Capcom", "publisher" ], [ "Nintendo", "developer" ], [ "Nintendo", "publisher" ] ], roles.sort
+  end
+
+  test "upsert_from_igdb reuses a company by name, ignoring case" do
+    Game.upsert_from_igdb(igdb_game(companies: [ { name: "Nintendo", developer: true, publisher: false } ]))
+    other = Game.upsert_from_igdb(igdb_game(
+      igdb_id: 7, name: "Metroid",
+      companies: [ { name: "NINTENDO", developer: true, publisher: false } ]
+    ))
+
+    assert_equal 1, Company.count
+    assert_equal "Nintendo", other.companies.first.name
+  end
+
+  test "upsert_from_igdb replaces stale companies on refresh and is idempotent" do
+    Game.upsert_from_igdb(igdb_game(companies: [
+      { name: "Nintendo", developer: true, publisher: true }
+    ]))
+    Game.upsert_from_igdb(igdb_game(companies: [
+      { name: "Nintendo", developer: true, publisher: false },
+      { name: "Capcom", developer: false, publisher: true }
+    ]))
+    game = Game.upsert_from_igdb(igdb_game(companies: [
+      { name: "Nintendo", developer: true, publisher: false },
+      { name: "Capcom", developer: false, publisher: true }
+    ]))
+
+    roles = game.game_companies.includes(:company).map { |gc| [ gc.company.name, gc.role ] }
+    assert_equal [ [ "Capcom", "publisher" ], [ "Nintendo", "developer" ] ], roles.sort
+  end
+
   test "upsert_from_igdb updates the existing row for the same igdb_id" do
     Game.upsert_from_igdb(igdb_game)
 
