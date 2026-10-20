@@ -62,6 +62,12 @@ class Game < ApplicationRecord
     end
   end
 
+  # Names of the companies with the given role ("developer" or "publisher"),
+  # sorted by name. Filters in Ruby so one eager load serves both roles.
+  def company_names(role)
+    game_companies.includes(:company).select { |gc| gc.role == role }.map { |gc| gc.company.name }.sort
+  end
+
   def stale?
     refreshed_at.nil? || refreshed_at < REFRESH_INTERVAL.ago
   end

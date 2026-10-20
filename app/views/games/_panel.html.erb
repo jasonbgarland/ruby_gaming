@@ -10,6 +10,14 @@
     <% if game.first_release_date %>
       <p>Released <%= l game.first_release_date, format: :long %></p>
     <% end %>
+    <% developers = game.company_names("developer") %>
+    <% if developers.any? %>
+      <p><strong>Developer:</strong> <%= developers.join(", ") %></p>
+    <% end %>
+    <% publishers = game.company_names("publisher") %>
+    <% if publishers.any? %>
+      <p><strong>Publisher:</strong> <%= publishers.join(", ") %></p>
+    <% end %>
     <% if game.platforms.present? %>
       <p><strong>Platforms:</strong> <%= game.platforms.join(", ") %></p>
     <% end %>
