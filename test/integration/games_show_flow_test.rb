@@ -44,6 +44,19 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_select "p.attribution a[href=?]", "https://www.igdb.com/games/the-legend-of-zelda", text: "IGDB"
   end
 
+  test "shows the developer and publisher" do
+    nintendo = Company.create!(name: "Nintendo")
+    capcom = Company.create!(name: "Capcom")
+    @game.game_companies.create!(company: nintendo, role: "developer")
+    @game.game_companies.create!(company: nintendo, role: "publisher")
+    @game.game_companies.create!(company: capcom, role: "publisher")
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_match "Developer:</strong> Nintendo</p>", response.body
+    assert_match "Publisher:</strong> Capcom, Nintendo</p>", response.body
+  end
+
   test "attributes IGDB as plain text when the game has no IGDB url yet" do
     sign_in(@user)
     get game_path(@game.igdb_id)
@@ -62,6 +75,8 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_no_match "Released", response.body
     assert_no_match "Platforms:", response.body
     assert_no_match "Genres:", response.body
+    assert_no_match "Developer:", response.body
+    assert_no_match "Publisher:", response.body
     assert_no_match "Type:", response.body
     assert_no_match "Game modes:", response.body
     assert_no_match "Themes:", response.body
@@ -140,6 +155,10 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
         "game_type" => { "type" => "Main Game" },
         "game_modes" => [ { "name" => "Single player" }, { "name" => "Multiplayer" } ],
         "themes" => [ { "name" => "Fantasy" }, { "name" => "Open world" } ],
+        "involved_companies" => [
+          { "developer" => true, "publisher" => false, "company" => { "name" => "FromSoftware" } },
+          { "developer" => false, "publisher" => true, "company" => { "name" => "Bandai Namco" } }
+        ],
         "age_ratings" => [
           { "organization" => { "name" => "ESRB" }, "rating_category" => { "rating" => "M" } },
           { "organization" => { "name" => "CERO" }, "rating_category" => { "rating" => "D" } }
@@ -160,6 +179,10 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_select "h1", "Elden Ring"
     assert_match "Single player, Multiplayer", response.body
     assert_match "Fantasy, Open world", response.body
+    assert_equal [ [ "Bandai Namco", "publisher" ], [ "FromSoftware", "developer" ] ],
+      saved.game_companies.includes(:company).map { |gc| [ gc.company.name, gc.role ] }.sort
+    assert_match "Developer:</strong> FromSoftware</p>", response.body
+    assert_match "Publisher:</strong> Bandai Namco</p>", response.body
     assert_match "ESRB M", response.body
     assert_no_match "CERO", response.body
     assert_select "p.attribution a[href=?]", "https://www.igdb.com/games/elden-ring"
