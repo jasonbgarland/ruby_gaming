@@ -1,0 +1,4200 @@
+---
+- rank: 1
+  igdb_id: 119171
+  name: Baldur's Gate III
+  slug: baldurs-gate-iii
+  igdb_url: https://www.igdb.com/games/baldurs-gate-iii
+  cover_image_id: co670h
+  summary: An ancient evil has returned to Baldur's Gate, intent on devouring it from
+    the inside out. The fate of Faerun lies in your hands. Alone, you may resist.
+    But together, you can overcome.
+  release_date: '2023-08-03'
+  platforms:
+  - Google Stadia
+  - Xbox Series X|S
+  - Linux
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Mac
+  genres:
+  - Role-playing (RPG)
+  - Strategy
+  - Turn-based strategy (TBS)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  - Split screen
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Wushu Studios
+    developer: false
+    publisher: false
+  - name: Anshar Studios
+    developer: false
+    publisher: false
+  - name: Larian Studios
+    developer: true
+    publisher: true
+- rank: 2
+  igdb_id: 1942
+  name: 'The Witcher 3: Wild Hunt'
+  slug: the-witcher-3-wild-hunt
+  igdb_url: https://www.igdb.com/games/the-witcher-3-wild-hunt
+  cover_image_id: coaarl
+  summary: |-
+    The Witcher 3: Wild Hunt is an open-world action role-playing game developed by CD Projekt Red.
+
+    Set in a dark fantasy world, the game follows Geralt of Rivia, a monster hunter searching for his adopted daughter, Ciri, while navigating political conflicts and supernatural threats. Gameplay features exploration, combat, character progression, and branching narratives shaped by player choices. Widely acclaimed for its writing, world-building, and depth, it is considered one of the most influential RPGs of its generation.
+  release_date: '2015-05-19'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 4
+  - Nintendo Switch 2
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: WB Games
+    developer: false
+    publisher: true
+  - name: cdp.pl
+    developer: false
+    publisher: true
+  - name: Spike Chunsoft
+    developer: false
+    publisher: true
+  - name: Bandai Namco Entertainment
+    developer: false
+    publisher: true
+  - name: D3T Limited
+    developer: false
+    publisher: false
+  - name: Saber Interactive
+    developer: false
+    publisher: false
+  - name: CD Projekt RED
+    developer: true
+    publisher: false
+- rank: 3
+  igdb_id: 119133
+  name: Elden Ring
+  slug: elden-ring
+  igdb_url: https://www.igdb.com/games/elden-ring
+  cover_image_id: co4jni
+  summary: |-
+    Elden Ring is an action RPG developed by FromSoftware and published by Bandai Namco Entertainment, released in February 2022. Directed by Hidetaka Miyazaki, with world-building contributions from novelist George R. R. Martin, the game features an expansive open world called the Lands Between. Players assume the role of a customisable character known as the Tarnished, who must explore this world, battle formidable enemies, and seek to restore the Elden Ring to become the Elden Lord.
+
+    The game builds on the challenging gameplay mechanics familiar from the Dark Souls series but introduces a more open-ended structure with vast exploration, dynamic weather, and a day-night cycle. It offers deep lore, complex characters, and an interconnected world filled with secrets, dungeons, and powerful bosses.
+  release_date: '2022-02-25'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 4
+  - Nintendo Switch 2
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Xbox One
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Fantasy
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Bandai Namco Entertainment
+    developer: false
+    publisher: true
+  - name: FromSoftware
+    developer: true
+    publisher: true
+- rank: 4
+  igdb_id: 25076
+  name: Red Dead Redemption 2
+  slug: red-dead-redemption-2
+  igdb_url: https://www.igdb.com/games/red-dead-redemption-2
+  cover_image_id: co1q1f
+  summary: Red Dead Redemption 2 is the epic tale of outlaw Arthur Morgan and the
+    infamous Van der Linde gang, on the run across America at the dawn of the modern
+    age.
+  release_date: '2018-10-26'
+  platforms:
+  - Google Stadia
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - Xbox One
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Take-Two Interactive
+    developer: false
+    publisher: true
+  - name: Rockstar Games
+    developer: true
+    publisher: true
+- rank: 5
+  igdb_id: 1009
+  name: The Last of Us
+  slug: the-last-of-us
+  igdb_url: https://www.igdb.com/games/the-last-of-us
+  cover_image_id: co1r7f
+  summary: The Last of Us is a third-person action-adventure game featuring a mix
+    of exploration, stealth and combat. Players face both infected creatures and hostile
+    human enemies while progressing through varied environments. The game includes
+    a narrative-driven single-player campaign and a competitive online multiplayer
+    mode called Factions. Trophy support is included, and additional downloadable
+    content was made available separately.
+  release_date: '2013-06-14'
+  platforms:
+  - PlayStation 3
+  genres:
+  - Shooter
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Horror
+  - Survival
+  - Stealth
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Naughty Dog
+    developer: true
+    publisher: false
+  - name: Sony Computer Entertainment
+    developer: false
+    publisher: true
+- rank: 6
+  igdb_id: 1802
+  name: Chrono Trigger
+  slug: chrono-trigger
+  igdb_url: https://www.igdb.com/games/chrono-trigger
+  cover_image_id: co3plw
+  summary: In this turn-based Japanese RPG, young Crono must travel through time through
+    a misfunctioning teleporter to rescue his misfortunate companion and take part
+    in an intricate web of past and present perils. The adventure that ensues soon
+    unveils an evil force set to destroy the world, triggering Crono's race against
+    time to change the course of history and bring about a brighter future.
+  release_date: '1995-03-11'
+  platforms:
+  - Satellaview
+  - Super Nintendo Entertainment System
+  - Wii
+  - Super Famicom
+  genres:
+  - Role-playing (RPG)
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Fantasy
+  - Science fiction
+  - Open world
+  age_ratings:
+  - ESRB E10+
+  - PEGI 12
+  companies:
+  - name: Bird Studio
+    developer: true
+    publisher: false
+  - name: Square
+    developer: true
+    publisher: true
+- rank: 7
+  igdb_id: 7346
+  name: 'The Legend of Zelda: Breath of the Wild'
+  slug: the-legend-of-zelda-breath-of-the-wild
+  igdb_url: https://www.igdb.com/games/the-legend-of-zelda-breath-of-the-wild
+  cover_image_id: co3p2d
+  summary: 'The Legend of Zelda: Breath of the Wild is the first 3D open-world game
+    in the Zelda series. Link can travel anywhere and be equipped with weapons and
+    armor found throughout the world to grant him various bonuses. Unlike many games
+    in the series, Breath of the Wild does not impose a specific order in which quests
+    or dungeons must be completed. While the game still has environmental obstacles
+    such as weather effects, inhospitable lands, or powerful enemies, many of them
+    can be overcome using the right method. A lot of critics ranked Breath of the
+    Wild as one of the best video games of all time.'
+  release_date: '2017-03-03'
+  platforms:
+  - Wii U
+  - Nintendo Switch
+  genres:
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Science fiction
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB E10+
+  - PEGI 12
+  companies:
+  - name: Monolith Soft
+    developer: false
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Nintendo EPD Production Group No. 3
+    developer: true
+    publisher: false
+- rank: 8
+  igdb_id: 379
+  name: 'Metal Gear Solid 3: Snake Eater'
+  slug: metal-gear-solid-3-snake-eater
+  igdb_url: https://www.igdb.com/games/metal-gear-solid-3-snake-eater
+  cover_image_id: co5ei5
+  summary: 'Metal Gear Solid 3: Snake Eater is the prequel to the entire Metal Gear
+    series. Most of the series'' defining gameplay elements have been carried over
+    and as before, Snake must use stealth and wits rather than brute force to infiltrate
+    enemy zones and eliminate his major adversaries. Unlike the previous games, this
+    installment takes place in a large outdoor jungle. Snake is able to use camouflage,
+    climb trees, hide in tall grass or wear clothes that make him less noticeable.'
+  release_date: '2004-11-17'
+  platforms:
+  - PlayStation 2
+  genres:
+  - Shooter
+  - Tactical
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Survival
+  - Historical
+  - Stealth
+  - Drama
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Konami Computer Entertainment Japan
+    developer: true
+    publisher: false
+  - name: Konami
+    developer: false
+    publisher: true
+- rank: 9
+  igdb_id: 19560
+  name: God of War
+  slug: god-of-war--1
+  igdb_url: https://www.igdb.com/games/god-of-war--1
+  cover_image_id: cobkt6
+  summary: God of War is the sequel to God of War III as well as a continuation of
+    the canon God of War chronology. Unlike previous installments, this game focuses
+    on Norse mythology and follows an older and more seasoned Kratos and his son Atreus
+    in the years since the third game. It is in this harsh, unforgiving world that
+    he must fight to survive… and teach his son to do the same.
+  release_date: '2018-04-20'
+  platforms:
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  genres:
+  - Role-playing (RPG)
+  - Hack and slash/Beat 'em up
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Historical
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Sony Interactive Entertainment
+    developer: false
+    publisher: true
+  - name: Santa Monica Studio
+    developer: true
+    publisher: false
+  - name: Jetpack Interactive
+    developer: false
+    publisher: false
+- rank: 10
+  igdb_id: 26472
+  name: Disco Elysium
+  slug: disco-elysium
+  igdb_url: https://www.igdb.com/games/disco-elysium
+  cover_image_id: co1sfj
+  summary: Disco Elysium is a role-playing game developed and published by ZA/UM.
+    It is set in the fictional city of Revachol, where players assume the role of
+    an amnesic detective investigating a murder. The game emphasizes dialogue and
+    skill-based choices, with character attributes represented by internal voices
+    that influence decisions and interactions. Its narrative explores themes of politics,
+    philosophy, and personal identity, and it is known for its unconventional gameplay
+    and deep storytelling.
+  release_date: '2019-10-15'
+  platforms:
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  - Indie
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Thriller
+  - Drama
+  - Mystery
+  age_ratings: []
+  companies:
+  - name: ZA/UM
+    developer: true
+    publisher: true
+  - name: The Knights of Unity
+    developer: false
+    publisher: false
+- rank: 11
+  igdb_id: 119388
+  name: 'The Legend of Zelda: Tears of the Kingdom'
+  slug: the-legend-of-zelda-tears-of-the-kingdom
+  igdb_url: https://www.igdb.com/games/the-legend-of-zelda-tears-of-the-kingdom
+  cover_image_id: co5vmg
+  summary: |-
+    An epic adventure across the land and skies of Hyrule awaits in The Legend of Zelda: Tears of the Kingdom for Nintendo Switch. The adventure is yours to create in a world fueled by your imagination.
+
+    In this sequel to The Legend of Zelda: Breath of the Wild, you'll decide your own path through the sprawling landscapes of Hyrule and the mysterious islands floating in the vast skies above. Can you harness the power of Link's new abilities to fight back against the malevolent forces that threaten the kingdom?
+  release_date: '2023-05-12'
+  platforms:
+  - Nintendo Switch
+  genres:
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Science fiction
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB E10+
+  - PEGI 12
+  companies:
+  - name: Monolith Soft
+    developer: false
+    publisher: false
+  - name: Nintendo EPD Production Group No. 3
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+- rank: 12
+  igdb_id: 9927
+  name: Persona 5
+  slug: persona-5
+  igdb_url: https://www.igdb.com/games/persona-5
+  cover_image_id: co1r76
+  summary: Persona 5, a turn-based JRPG with visual novel elements, follows a high
+    school student with a criminal record for a crime he didn't commit. Soon he meets
+    several characters who share similar fates to him, and discovers a metaphysical
+    realm which allows him and his friends to channel their pent-up frustrations into
+    becoming a group of vigilantes reveling in aesthetics and rebellion while fighting
+    corruption.
+  release_date: '2016-09-15'
+  platforms:
+  - PlayStation 3
+  - PlayStation 4
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Fantasy
+  - Comedy
+  - Drama
+  - Mystery
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: P Studio
+    developer: true
+    publisher: false
+  - name: Atlus USA
+    developer: false
+    publisher: true
+  - name: Deep Silver
+    developer: false
+    publisher: true
+  - name: Atlus
+    developer: false
+    publisher: true
+- rank: 13
+  igdb_id: 14593
+  name: Hollow Knight
+  slug: hollow-knight
+  igdb_url: https://www.igdb.com/games/hollow-knight
+  cover_image_id: cobfzp
+  summary: A 2D metroidvania with an emphasis on close combat and exploration in which
+    the player enters the once-prosperous now-bleak insect kingdom of Hallownest,
+    travels through its various districts, meets friendly inhabitants, fights hostile
+    ones and uncovers the kingdom's history while improving their combat abilities
+    and movement arsenal by fighting bosses and accessing out-of-the-way areas.
+  release_date: '2017-02-24'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 4
+  - Linux
+  - Nintendo Switch 2
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Mac
+  - Wii U
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Platform
+  - Adventure
+  - Indie
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB E10+
+  - PEGI 7
+  companies:
+  - name: Team Cherry
+    developer: true
+    publisher: true
+- rank: 14
+  igdb_id: 1103
+  name: Super Metroid
+  slug: super-metroid
+  igdb_url: https://www.igdb.com/games/super-metroid
+  cover_image_id: co5osy
+  summary: The Space Pirates, merciless agents of the evil Mother Brain, have stolen
+    the last Metroid from a research station, and once again Mother Brain threatens
+    the safety of the galaxy! Samus Aran must don her awesome array of high-tech weaponry
+    to retrieve the deadly Metroid hidden deep within the cave-riddled planet Zebes.
+    Super Metroid features excellent graphics, with a huge variety of enemies and
+    worlds to explore. The side-view action will be familiar to many players, only
+    now there are new weapons and items, including the Grappling Beam, which allows
+    Samus to swing across large chasms, and the X-Ray Scope, which reveals secret
+    passages.
+  release_date: '1994-03-19'
+  platforms:
+  - Super Nintendo Entertainment System
+  - Wii
+  - Wii U
+  - New Nintendo 3DS
+  - Super Famicom
+  genres:
+  - Shooter
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Thriller
+  age_ratings:
+  - ESRB E
+  - PEGI 7
+  companies:
+  - name: Nintendo R&D1
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Playtronic
+    developer: false
+    publisher: true
+  - name: Intelligent Systems
+    developer: false
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: false
+- rank: 15
+  igdb_id: 1026
+  name: 'The Legend of Zelda: A Link to the Past'
+  slug: the-legend-of-zelda-a-link-to-the-past
+  igdb_url: https://www.igdb.com/games/the-legend-of-zelda-a-link-to-the-past
+  cover_image_id: co3vzn
+  summary: |-
+    Venture back to Hyrule and an age of magic and heroes. The predecessors of Link and Zelda face monsters on the march when a menacing magician takes over the kingdom. Only you can prevent his evil plot from shattering the land of Hyrule.
+
+    In your quest, you'll venture into twisting mazes, dungeons, palaces and shadowy forests. Test your mettle with mighty swords and magical weapons. Or heft a boulder and hurl it at your enemies. If the going gets tough, dive into a river - you can swim to escape! Learn powerful spells, locate magical artifacts and solve the mysteries of the evil magician and the hidden realm of Hyrule.
+  release_date: '1991-11-21'
+  platforms:
+  - Satellaview
+  - Super Nintendo Entertainment System
+  - Wii
+  - Wii U
+  - New Nintendo 3DS
+  - Super Famicom
+  genres:
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB E
+  - PEGI 7
+  companies:
+  - name: St. GIGA
+    developer: false
+    publisher: true
+  - name: Nintendo Entertainment Analysis & Development
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Playtronic
+    developer: false
+    publisher: true
+  - name: Gradiente
+    developer: false
+    publisher: true
+  - name: Hyundai
+    developer: false
+    publisher: true
+- rank: 16
+  igdb_id: 1070
+  name: Super Mario World
+  slug: super-mario-world
+  igdb_url: https://www.igdb.com/games/super-mario-world
+  cover_image_id: co8lo8
+  summary: A 2D platformer and first entry on the SNES in the Super Mario franchise,
+    Super Mario World follows Mario as he attempts to defeat Bowser's underlings and
+    rescue Princess Peach from his clutches. The game features a save system, a less
+    linear world map, an expanded movement arsenal and numerous new items for Mario,
+    alongside new approaches to level design and art direction.
+  release_date: '1990-11-21'
+  platforms:
+  - Arcade
+  - Super Nintendo Entertainment System
+  - Wii
+  - Wii U
+  - New Nintendo 3DS
+  - Super Famicom
+  genres:
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB E
+  - PEGI 7
+  companies:
+  - name: Nintendo Entertainment Analysis & Development
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Playtronic
+    developer: false
+    publisher: true
+  - name: Gradiente
+    developer: false
+    publisher: true
+  - name: Hyundai
+    developer: false
+    publisher: true
+- rank: 17
+  igdb_id: 72
+  name: Portal 2
+  slug: portal-2
+  igdb_url: https://www.igdb.com/games/portal-2
+  cover_image_id: co1rs4
+  summary: Sequel to the acclaimed Portal (2007), Portal 2 pits the protagonist of
+    the original game, Chell, and her new robot friend, Wheatley, against more puzzles
+    conceived by GLaDOS, an A.I. with the sole purpose of testing the Portal Gun's
+    mechanics and taking revenge on Chell for the events of Portal. As a result of
+    several interactions and revelations, Chell once again pushes to escape Aperture
+    Science Labs.
+  release_date: '2011-04-18'
+  platforms:
+  - PlayStation 3
+  - Linux
+  - PC (Microsoft Windows)
+  - Mac
+  - Xbox 360
+  - Nintendo Switch
+  genres:
+  - Platform
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  - Split screen
+  themes:
+  - Action
+  - Science fiction
+  - Comedy
+  age_ratings:
+  - ESRB E10+
+  - PEGI 12
+  companies:
+  - name: Valve
+    developer: true
+    publisher: true
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+- rank: 18
+  igdb_id: 1029
+  name: 'The Legend of Zelda: Ocarina of Time'
+  slug: the-legend-of-zelda-ocarina-of-time
+  igdb_url: https://www.igdb.com/games/the-legend-of-zelda-ocarina-of-time
+  cover_image_id: co3nnx
+  summary: 'The Legend of Zelda: Ocarina of Time is the fifth main installment of
+    The Legend of Zelda series and the first to be released for the Nintendo 64. It
+    was one of the most highly anticipated games of its age, and is listed among the
+    greatest video games ever created by numerous websites and magazines. The gameplay
+    of Ocarina of Time was revolutionary for its time, it has arguably made more of
+    an impact on later games in the series than any of its predecessors even though
+    they had the same cores of exploration, dungeons, puzzles and item usage. Among
+    the gameplay mechanics, one of the most noteworthy is the time-traveling system.
+    The game begins with the player controlling the child Link, but later on an adult
+    Link becomes a playable character as well and each of them has certain unique
+    abilities. Ocarina of Time also introduces the use of music to solve puzzles:
+    as new songs are learned, they can be used to solve puzzles, gain access to new
+    areas and warp to different locations. Dungeon exploration is somewhat more puzzle-oriented
+    than in earlier games but they are not too complex.'
+  release_date: '1998-11-21'
+  platforms:
+  - Wii
+  - Nintendo 64
+  - 64DD
+  - Wii U
+  genres:
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB E
+  - PEGI 12
+  companies:
+  - name: Nintendo Entertainment Analysis & Development
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Gradiente
+    developer: false
+    publisher: true
+  - name: iQue
+    developer: false
+    publisher: true
+- rank: 19
+  igdb_id: 74
+  name: Mass Effect 2
+  slug: mass-effect-2
+  igdb_url: https://www.igdb.com/games/mass-effect-2
+  cover_image_id: co20ac
+  summary: |-
+    Are you prepared to lose everything to save the galaxy? You'll need to be, Commander Shephard. It's time to bring together your greatest allies and recruit the galaxy's fighting elite to continue the resistance against the invading Reapers. So steel yourself, because this is an astronomical mission where sacrifices must be made. You'll face tougher choices and new, deadlier enemies. Arm yourself and prepare for an unforgettable intergalactic adventure.
+
+    Game Features:
+
+    Shift the fight in your favour. Equip yourself with powerful new weapons almost instantly thanks to a new inventory system. Plus, an improved health regeneration system means you'll spend less time hunting for restorative items.
+
+    Make every decision matter. Divisive crew members are just the tip of the iceberg, Commander, because you'll also be tasked with issues of intergalactic diplomacy. And time's a wastin' so don't be afraid to use new prompt-based actions that let you interrupt conversations, even if they could alter the fate of your crew...and the galaxy.
+
+    Forge new alliances, carefully. You'll fight alongside some of your most trustworthy crew members, but you'll also get the opportunity to recruit new talent. Just choose your new partners with care because the fate of the galaxy rests on your shoulders, Commander.
+  release_date: '2010-01-26'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Xbox 360
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+  - name: BioWare
+    developer: true
+    publisher: false
+  - name: BioWare Edmonton
+    developer: true
+    publisher: false
+  - name: BioWare Montréal
+    developer: false
+    publisher: false
+- rank: 20
+  igdb_id: 1128
+  name: 'Castlevania: Symphony of the Night'
+  slug: castlevania-symphony-of-the-night
+  igdb_url: https://www.igdb.com/games/castlevania-symphony-of-the-night
+  cover_image_id: co53m8
+  summary: |-
+    Having been awoken from his eternal slumber by the reappearance of Castlevania, Alucard must once again face the evil minions of darkness. Use your vampiric powers, along with weapons, potions, and other magical relics to change the tide of battle.
+
+    A mixture of platform and role-playing action with many hidden areas and secrets. Can you discover them all?
+  release_date: '1997-03-20'
+  platforms:
+  - PlayStation 3
+  - Sega Saturn
+  - PlayStation
+  - PlayStation Portable
+  - Xbox 360
+  genres:
+  - Platform
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Horror
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Konami Computer Entertainment Tokyo
+    developer: true
+    publisher: false
+  - name: Konami
+    developer: false
+    publisher: true
+- rank: 21
+  igdb_id: 7334
+  name: Bloodborne
+  slug: bloodborne
+  igdb_url: https://www.igdb.com/games/bloodborne
+  cover_image_id: cob99l
+  summary: An action RPG in which the player embodies a Hunter who, after being transfused
+    with the mysterious blood local to the city of Yharnam, sets off into a "night
+    of the Hunt", an extended night in which Hunters may phase in and out of dream
+    and reality in order to thin the outbreak of abominable beasts that plague the
+    land and, for the more resilient and insightful Hunters, uncover the answers to
+    the Hunt's many mysteries.
+  release_date: '2015-03-24'
+  platforms:
+  - PlayStation 4
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Fantasy
+  - Horror
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: FromSoftware
+    developer: true
+    publisher: false
+  - name: Sony Computer Entertainment
+    developer: false
+    publisher: true
+  - name: Japan Studio
+    developer: true
+    publisher: false
+- rank: 22
+  igdb_id: 45181
+  name: Mass Effect Trilogy
+  slug: mass-effect-trilogy
+  igdb_url: https://www.igdb.com/games/mass-effect-trilogy
+  cover_image_id: co4a7a
+  summary: Mass Effect Trilogy is a compilation of the first three Mass Effect games,
+    a series of action role-playing games with third-person shooter combat. Players
+    customize a central character, choose a class and abilities, and travel between
+    star systems to explore planets, complete missions, and fight in squad-based encounters.
+    Conversations use a dialogue system in which player choices shape relationships
+    and how parts of the story unfold.
+  release_date: '2012-11-06'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Xbox 360
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Bundle
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: BioWare
+    developer: true
+    publisher: false
+  - name: EA
+    developer: false
+    publisher: true
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+  - name: BioWare Edmonton
+    developer: true
+    publisher: false
+- rank: 23
+  igdb_id: 305152
+  name: 'Clair Obscur: Expedition 33'
+  slug: clair-obscur-expedition-33
+  igdb_url: https://www.igdb.com/games/clair-obscur-expedition-33
+  cover_image_id: co9gam
+  summary: Lead the members of Expedition 33 on their quest to destroy the Paintress
+    so that she can never paint death again. Explore a world of wonders inspired by
+    Belle Époque France and battle unique enemies in this turn-based RPG with real-time
+    mechanics.
+  release_date: '2025-04-24'
+  platforms:
+  - Xbox Series X|S
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  genres:
+  - Role-playing (RPG)
+  - Turn-based strategy (TBS)
+  - Adventure
+  - Indie
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Sandfall Interactive
+    developer: true
+    publisher: false
+  - name: Kepler Interactive
+    developer: false
+    publisher: true
+- rank: 24
+  igdb_id: 1105
+  name: Metroid Prime
+  slug: metroid-prime
+  igdb_url: https://www.igdb.com/games/metroid-prime
+  cover_image_id: co3w4w
+  summary: A 3D exploration-focused metroidvania with first-person shooting mechanics
+    and the first 3D entry in the Metroid series, Metroid Prime follows Samus Aran
+    after the events of Metroid (1986) as she boards a Space Pirate frigate, then
+    chases her escaping archrival Ridley into the intricately structured Tallon IV,
+    a planet full of deadly wildlife and former home to the advanced and ancient Chozo
+    race.
+  release_date: '2002-11-17'
+  platforms:
+  - Nintendo GameCube
+  genres:
+  - Shooter
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Retro Studios
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+- rank: 25
+  igdb_id: 115289
+  name: 'Hollow Knight: Silksong'
+  slug: hollow-knight-silksong
+  igdb_url: https://www.igdb.com/games/hollow-knight-silksong
+  cover_image_id: cobebu
+  summary: 'Hollow Knight: Silksong is the epic sequel to Hollow Knight, the epic
+    action-adventure of bugs and heroes. As the lethal hunter Hornet, journey to all-new
+    lands, discover new powers, battle vast hordes of bugs and beasts and uncover
+    ancient secrets tied to your nature and your past.'
+  release_date: '2025-09-04'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 4
+  - Linux
+  - Nintendo Switch 2
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Mac
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Platform
+  - Adventure
+  - Indie
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB E10+
+  - PEGI 7
+  companies:
+  - name: Team Cherry
+    developer: true
+    publisher: true
+- rank: 26
+  igdb_id: 3349
+  name: 'Paper Mario: The Thousand-Year Door'
+  slug: paper-mario-the-thousand-year-door
+  igdb_url: https://www.igdb.com/games/paper-mario-the-thousand-year-door
+  cover_image_id: co25us
+  summary: 'Paper Mario: The Thousand-Year Door is a turn-based role-playing game
+    and the second entry in the Paper Mario series, set in a world styled to look
+    like paper. Players guide Mario through themed locations, solving puzzles and
+    battling enemies in a timing-based combat system where well-timed button presses
+    strengthen attacks and defense. Battles play out on a stage before an audience
+    whose reactions can help or hinder the player, and Mario recruits a party of companions
+    with unique skills while equipping badges that grant new abilities. Brief segments
+    also let the player control Princess Peach and Bowser between chapters.'
+  release_date: '2004-07-22'
+  platforms:
+  - Nintendo GameCube
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Science fiction
+  - Comedy
+  age_ratings:
+  - ESRB E
+  - PEGI 7
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Intelligent Systems
+    developer: true
+    publisher: false
+- rank: 27
+  igdb_id: 481
+  name: Silent Hill 2
+  slug: silent-hill-2
+  igdb_url: https://www.igdb.com/games/silent-hill-2
+  cover_image_id: co2vyg
+  summary: The second entry in the Silent Hill franchise, Silent Hill 2 is a narrative-focused
+    third-person psychological survival horror game with emphasis on combat, exploration
+    and puzzle-solving elements which follows James Sunderland, a man who receives
+    a letter, seemingly sent by his three-years-deceased wife Mary, in which he is
+    beckoned to the fog-ridden town of Silent Hill at the same time as numerous other
+    people troubled by their past.
+  release_date: '2001-09-24'
+  platforms:
+  - PlayStation 2
+  genres:
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Horror
+  - Survival
+  - Drama
+  - Mystery
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Team Silent
+    developer: true
+    publisher: false
+  - name: Konami
+    developer: false
+    publisher: true
+- rank: 28
+  igdb_id: 233
+  name: Half-Life 2
+  slug: half-life-2
+  igdb_url: https://www.igdb.com/games/half-life-2
+  cover_image_id: co1nmw
+  summary: |-
+    1998. HALF-LIFE sends a shock through the game industry with its combination of pounding action and continuous, immersive storytelling.
+
+    NOW. By taking the suspense, challenge and visceral charge of the original, and adding startling new realism and responsiveness, Half-Life 2 opens the door to a world where the player's presence affects everything around them, from the physical environment to the behaviors even the emotions of both friends and enemies.
+  release_date: '2004-11-16'
+  platforms:
+  - Xbox
+  - PlayStation 3
+  - Linux
+  - Android
+  - PC (Microsoft Windows)
+  - Mac
+  - Xbox 360
+  genres:
+  - Shooter
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Horror
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Valve
+    developer: true
+    publisher: true
+  - name: NVIDIA Lightspeed Studios
+    developer: false
+    publisher: true
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+  - name: Sierra Entertainment
+    developer: false
+    publisher: true
+- rank: 29
+  igdb_id: 7331
+  name: 'Uncharted 4: A Thief''s End'
+  slug: uncharted-4-a-thief-s-end
+  igdb_url: https://www.igdb.com/games/uncharted-4-a-thief-s-end
+  cover_image_id: co1r7h
+  summary: Several years after his last adventure, retired fortune hunter, Nathan
+    Drake, is forced back into the world of thieves. With the stakes much more personal,
+    Drake embarks on a globe-trotting journey in pursuit of a historical conspiracy
+    behind a fabled pirate treasure. His greatest adventure will test his physical
+    limits, his resolve, and ultimately what he's willing to sacrifice to save the
+    ones he loves.
+  release_date: '2016-05-10'
+  platforms:
+  - PlayStation 4
+  genres:
+  - Shooter
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  - Fantasy
+  - Historical
+  - Stealth
+  age_ratings:
+  - ESRB T
+  - PEGI 16
+  companies:
+  - name: Naughty Dog
+    developer: true
+    publisher: false
+  - name: Sony Interactive Entertainment
+    developer: false
+    publisher: true
+- rank: 30
+  igdb_id: 112875
+  name: God of War Ragnarök
+  slug: god-of-war-ragnarok
+  igdb_url: https://www.igdb.com/games/god-of-war-ragnarok
+  cover_image_id: coba3d
+  summary: 'God of War: Ragnarök is the ninth installment in the God of War series
+    and the sequel to 2018''s God of War. Continuing with the Norse mythology theme,
+    the game is set in ancient Norway and features series protagonists Kratos, the
+    former Greek God of War, and his young son Atreus. The game kicked off the events
+    of Ragnarök, where Kratos and Atreus must journey to each of the Nine Realms in
+    search of answers as they prepare for the prophesied battle that will end the
+    world.'
+  release_date: '2022-11-09'
+  platforms:
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  genres:
+  - Role-playing (RPG)
+  - Hack and slash/Beat 'em up
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Sony Interactive Entertainment
+    developer: false
+    publisher: true
+  - name: Santa Monica Studio
+    developer: true
+    publisher: false
+  - name: Valkyrie Entertainment
+    developer: false
+    publisher: false
+  - name: Jetpack Interactive
+    developer: false
+    publisher: false
+  - name: Bluepoint Games
+    developer: false
+    publisher: false
+  - name: RedHot Software
+    developer: false
+    publisher: false
+  - name: Original Force
+    developer: false
+    publisher: false
+  - name: SuperAlloy Interactive
+    developer: false
+    publisher: false
+  - name: Supergenius Studio
+    developer: false
+    publisher: false
+- rank: 31
+  igdb_id: 375
+  name: Metal Gear Solid
+  slug: metal-gear-solid
+  igdb_url: https://www.igdb.com/games/metal-gear-solid
+  cover_image_id: cobpak
+  summary: 'Metal Gear Solid is a stealth game created by Hideo Kojima which follows
+    the MSX2 video games Metal Gear and Metal Gear 2: Solid Snake. Despite a transition
+    to 3D, Metal Gear Solid''s gameplay remains similar to his predecessors. The game
+    utilizes a traditional top-down view and the player must navigate the protagonist
+    Solid Snake through the game''s areas without being detected. Detection will set
+    off an alarm which draws armed enemies to his location. Conversations with Snake''s
+    allies and cutscenes are used extensively to advance the plot and gain more insight
+    into it. Metal Gear Solid is regarded as one of the greatest and most important
+    video games of all time, and helped popularize the stealth genre and in-engine
+    cinematic cutscenes.'
+  release_date: '1998-09-03'
+  platforms:
+  - PlayStation 3
+  - PlayStation
+  - PlayStation Portable
+  genres:
+  - Shooter
+  - Tactical
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Survival
+  - Stealth
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Konami Computer Entertainment Japan
+    developer: true
+    publisher: false
+  - name: Konami
+    developer: false
+    publisher: true
+- rank: 32
+  igdb_id: 732
+  name: 'Grand Theft Auto: San Andreas'
+  slug: grand-theft-auto-san-andreas
+  igdb_url: https://www.igdb.com/games/grand-theft-auto-san-andreas
+  cover_image_id: co2lb9
+  summary: Returning after his mother's murder to the semi-fictional city of Los Santos
+    (based on Los Angeles), Carl Johnson, a former gang banger, must take back the
+    streets for his family and friends by gaining respect and once again gaining control
+    over the streets. However, a story filled with crime, lies and corruption will
+    lead him to trudge the entire state of San Andreas (based on California and Nevada)
+    to rebuild his life.
+  release_date: '2004-10-26'
+  platforms:
+  - Xbox
+  - PlayStation 3
+  - PlayStation 4
+  - Windows Phone
+  - Android
+  - PC (Microsoft Windows)
+  - iOS
+  - Mac
+  - Xbox 360
+  - PlayStation 2
+  genres:
+  - Shooter
+  - Racing
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Co-operative
+  themes:
+  - Action
+  - Stealth
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Rockstar North
+    developer: true
+    publisher: false
+  - name: Take-Two Interactive
+    developer: false
+    publisher: true
+  - name: Rockstar Games
+    developer: false
+    publisher: true
+  - name: TransGaming Inc.
+    developer: false
+    publisher: false
+  - name: War Drum Studios
+    developer: false
+    publisher: false
+- rank: 33
+  igdb_id: 26192
+  name: The Last of Us Part II
+  slug: the-last-of-us-part-ii
+  igdb_url: https://www.igdb.com/games/the-last-of-us-part-ii
+  cover_image_id: co5ziw
+  summary: The Last of Us Part II is an action-adventure game set five years after
+    the events of The Last of Us. The player traverses post-apocalyptic environments
+    such as buildings and forests to advance the story. They can use firearms, improvised
+    weapons, and stealth to defend against hostile humans and cannibalistic creatures
+    infected by a mutated strain of the Cordyceps fungus. The game intermittently
+    switches control between Ellie and Abby, and also briefly Joel in the opening
+    sequence. The nimble nature of the player character introduces platforming elements,
+    allowing the player to jump and climb to traverse environments and gain advantages
+    during combat.
+  release_date: '2020-06-19'
+  platforms:
+  - PlayStation 4
+  - PlayStation 5
+  genres:
+  - Shooter
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Horror
+  - Survival
+  - Stealth
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Sony Interactive Entertainment
+    developer: false
+    publisher: true
+  - name: Naughty Dog
+    developer: true
+    publisher: false
+- rank: 34
+  igdb_id: 116
+  name: 'Star Wars: Knights of the Old Republic'
+  slug: star-wars-knights-of-the-old-republic
+  igdb_url: https://www.igdb.com/games/star-wars-knights-of-the-old-republic
+  cover_image_id: co1tmz
+  summary: |-
+    Choose Your Path! Set 4,000 years before the Galactic Empire, you are the last hope for the Jedi Order and the Republic - can you master the ways of the Force to become their savior? Or will you fall to the dark side and achieve ultimate power? Hero, villain, peacekeeper, or chaos-bringer... you and your party will determine the fate of the galaxy!
+
+    Star Wars: Knights of the Old Republic is a role-playing video game. Players will be able to create their own characters and be able to choose what gender, appearance, class, skills, attributes, and feats they have throughout the game - no two characters will be the same!
+  release_date: '2003-07-15'
+  platforms:
+  - Xbox
+  - Android
+  - PC (Microsoft Windows)
+  - iOS
+  - Mac
+  - Nintendo Switch
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Stealth
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: LucasArts
+    developer: false
+    publisher: true
+  - name: Activision
+    developer: false
+    publisher: true
+  - name: BioWare
+    developer: true
+    publisher: false
+  - name: Aspyr Media
+    developer: false
+    publisher: true
+- rank: 35
+  igdb_id: 1020
+  name: Grand Theft Auto V
+  slug: grand-theft-auto-v
+  igdb_url: https://www.igdb.com/games/grand-theft-auto-v
+  cover_image_id: co2lbd
+  summary: Grand Theft Auto V is a vast open world game set in Los Santos, a sprawling
+    sun-soaked metropolis struggling to stay afloat in an era of economic uncertainty
+    and cheap reality TV. The game blends storytelling and gameplay in new ways as
+    players repeatedly jump in and out of the lives of the game’s three lead characters,
+    playing all sides of the game’s interwoven story.
+  release_date: '2013-09-17'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 3
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Xbox 360
+  - Xbox One
+  genres:
+  - Shooter
+  - Racing
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Comedy
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Take-Two Interactive
+    developer: false
+    publisher: true
+  - name: Rockstar Games
+    developer: false
+    publisher: true
+  - name: Rockstar North
+    developer: true
+    publisher: false
+  - name: Rockstar Toronto
+    developer: false
+    publisher: false
+- rank: 36
+  igdb_id: 11208
+  name: 'NieR: Automata'
+  slug: nier-automata
+  igdb_url: https://www.igdb.com/games/nier-automata
+  cover_image_id: co5pcj
+  summary: 'NieR: Automata tells the story of androids 2B, 9S and A2 and their battle
+    to reclaim the machine-driven dystopia overrun by powerful machines.'
+  release_date: '2017-02-23'
+  platforms:
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - Xbox One
+  genres:
+  - Role-playing (RPG)
+  - Hack and slash/Beat 'em up
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Science fiction
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: PlatinumGames
+    developer: true
+    publisher: false
+  - name: Square Enix
+    developer: false
+    publisher: true
+  - name: ILCA
+    developer: false
+    publisher: false
+  - name: Square Enix Business Division 6
+    developer: true
+    publisher: false
+- rank: 37
+  igdb_id: 126098
+  name: 'Half-Life: Alyx'
+  slug: half-life-alyx
+  igdb_url: https://www.igdb.com/games/half-life-alyx
+  cover_image_id: co87vg
+  summary: 'Half-Life: Alyx is Valve’s VR return to the Half-Life series. It’s the
+    story of an impossible fight against a vicious alien race known as the Combine,
+    set between the events of Half-Life and Half-Life 2. Alyx Vance and her father
+    Eli mount an early resistance to the Combine''s brutal occupation of Earth.'
+  release_date: '2020-03-23'
+  platforms:
+  - SteamVR
+  genres:
+  - Shooter
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  age_ratings: []
+  companies:
+  - name: Valve
+    developer: true
+    publisher: true
+- rank: 38
+  igdb_id: 76882
+  name: 'Sekiro: Shadows Die Twice'
+  slug: sekiro-shadows-die-twice
+  igdb_url: https://www.igdb.com/games/sekiro-shadows-die-twice
+  cover_image_id: co2a23
+  summary: |-
+    Sekiro: Shadows Die Twice is an action-adventure game set in a reimagined late 1500s Sengoku-era Japan.
+
+    Players control Wolf, a shinobi on a mission to rescue his kidnapped lord and seek revenge on his enemies. The game emphasizes precise sword combat, stealth, and mobility, replacing traditional RPG elements with a posture-based dueling system.
+  release_date: '2019-03-22'
+  platforms:
+  - Google Stadia
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - Xbox One
+  genres:
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Historical
+  - Stealth
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Activision
+    developer: false
+    publisher: true
+  - name: FromSoftware
+    developer: true
+    publisher: false
+- rank: 39
+  igdb_id: 113112
+  name: Hades
+  slug: hades--1
+  igdb_url: https://www.igdb.com/games/hades--1
+  cover_image_id: cob9kr
+  summary: A rogue-lite hack and slash dungeon crawler in which Zagreus, son of Hades
+    the Greek god of the dead, attempts to escape his home and his oppressive father
+    by fighting the souls of the dead through the various layers of the ever-shifting
+    underworld, while getting to know and forging relationships with its inhabitants.
+  release_date: '2020-09-17'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - iOS
+  - PlayStation 5
+  - Mac
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Role-playing (RPG)
+  - Hack and slash/Beat 'em up
+  - Adventure
+  - Indie
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Drama
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Supergiant Games
+    developer: true
+    publisher: true
+  - name: Netflix
+    developer: false
+    publisher: true
+  - name: Secret 6
+    developer: false
+    publisher: false
+- rank: 40
+  igdb_id: 1068
+  name: Super Mario Bros. 3
+  slug: super-mario-bros-3
+  igdb_url: https://www.igdb.com/games/super-mario-bros-3
+  cover_image_id: co7ozx
+  summary: Super Mario Bros. 3, the third entry in the Super Mario Bros. series and
+    Super Mario franchise, sees Mario or Luigi navigate a nonlinear world map containing
+    platforming levels and optional minigames and challenges. The game features more
+    diverse movement options and new items alongside more complex level designs and
+    boss battles.
+  release_date: '1988-10-23'
+  platforms:
+  - Arcade
+  - Nintendo 3DS
+  - Wii
+  - Family Computer
+  - Wii U
+  - Nintendo Entertainment System
+  genres:
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB E
+  - PEGI 3
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Nintendo R&D4
+    developer: true
+    publisher: false
+  - name: Playtronic
+    developer: false
+    publisher: true
+- rank: 41
+  igdb_id: 434
+  name: Red Dead Redemption
+  slug: red-dead-redemption
+  igdb_url: https://www.igdb.com/games/red-dead-redemption
+  cover_image_id: co2lcv
+  summary: A modern-day Western epic, Red Dead Redemption takes John Marston, a relic
+    from the fast-closing time of the gunslinger, through an open world filled with
+    wildlife, mini-games, and shootouts. Marston sets out to hunt down his old gang
+    mates for the government, who have taken away his family. Along his journey, he
+    meets many characters emblematic of the Wild West, heroism, and the new civilization.
+  release_date: '2010-05-18'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Xbox 360
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Rockstar Games
+    developer: false
+    publisher: true
+  - name: Rockstar North
+    developer: true
+    publisher: false
+  - name: Take-Two Interactive
+    developer: false
+    publisher: true
+  - name: Rockstar San Diego
+    developer: true
+    publisher: false
+- rank: 42
+  igdb_id: 298526
+  name: 'Kingdom Come: Deliverance II'
+  slug: kingdom-come-deliverance-ii
+  igdb_url: https://www.igdb.com/games/kingdom-come-deliverance-ii
+  cover_image_id: co8qmv
+  summary: A thrilling story-driven action RPG, with a rich open world, set in 15th
+    century Medieval Europe. Experience the ultimate medieval adventure - through
+    the eyes of young Henry - as you embark on a journey of epic proportions.
+  release_date: '2025-02-04'
+  platforms:
+  - Xbox Series X|S
+  - Nintendo Switch 2
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  genres:
+  - Role-playing (RPG)
+  - Simulator
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Historical
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Deep Silver
+    developer: false
+    publisher: true
+  - name: Warhorse Studios
+    developer: true
+    publisher: false
+- rank: 43
+  igdb_id: 364
+  name: 'Heroes of Might and Magic III: The Restoration of Erathia'
+  slug: heroes-of-might-and-magic-iii-the-restoration-of-erathia
+  igdb_url: https://www.igdb.com/games/heroes-of-might-and-magic-iii-the-restoration-of-erathia
+  cover_image_id: co2a47
+  summary: |-
+    Heroes of Might and Magic III: The Restoration of Erathia is a turn-based strategy game and the third installment of the Heroes of Might and Magic series.
+
+    The game's story is first referenced throughout Might and Magic VI: The Mandate of Heaven and takes place before Might and Magic VII: For Blood and Honor. The player can choose to play through six different campaigns telling the story, or play in a scenario against computer or human opponents.
+  release_date: '1999-02-28'
+  platforms:
+  - Linux
+  - PC (Microsoft Windows)
+  - Mac
+  - Dreamcast
+  genres:
+  - Role-playing (RPG)
+  - Strategy
+  - Turn-based strategy (TBS)
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Fantasy
+  age_ratings:
+  - ESRB E
+  companies:
+  - name: New World Computing
+    developer: true
+    publisher: false
+  - name: Loki Software
+    developer: true
+    publisher: true
+  - name: The 3DO Company
+    developer: false
+    publisher: true
+- rank: 44
+  igdb_id: 7194
+  name: Steins;Gate
+  slug: steins-gate
+  igdb_url: https://www.igdb.com/games/steins-gate
+  cover_image_id: co5ff7
+  summary: Steins;Gate is a Japanese visual novel developed by 5pb. and Nitroplus.
+    It is the second game in the Science Adventure series following Chaos;Head. The
+    game is described by the development team as a "hypothetical science ADV" and
+    explores time and time travel in 2010 Akihabara. The gameplay follows non-linear
+    plot lines which offer branching scenarios with courses of interaction.
+  release_date: '2009-10-15'
+  platforms:
+  - PlayStation 3
+  - PlayStation 4
+  - Android
+  - PC (Microsoft Windows)
+  - iOS
+  - PlayStation Vita
+  - PlayStation Portable
+  - Xbox 360
+  genres:
+  - Adventure
+  - Visual Novel
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Science fiction
+  - Survival
+  - Historical
+  - Mystery
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: PQube
+    developer: false
+    publisher: true
+  - name: JAST USA
+    developer: false
+    publisher: true
+  - name: MAGES.
+    developer: true
+    publisher: true
+  - name: Kadokawa Shoten
+    developer: false
+    publisher: true
+  - name: Nitro Plus
+    developer: true
+    publisher: false
+  - name: 5pb.
+    developer: true
+    publisher: true
+- rank: 45
+  igdb_id: 2207
+  name: Shadow of the Colossus
+  slug: shadow-of-the-colossus
+  igdb_url: https://www.igdb.com/games/shadow-of-the-colossus
+  cover_image_id: co1ozz
+  summary: An open-world action/adventure game in which a young wanderer, along with
+    a stolen magical sword and his steed companion, trespasses a cursed land, makes
+    a deal with an ancient being to bring a sacrificial victim back to life, and sets
+    off to fulfill his end of the bargain, which involves tracking down and infiltrating
+    the abodes of sixteen colossi and sacrificing them to achieve his goal.
+  release_date: '2005-10-18'
+  platforms:
+  - PlayStation 2
+  genres:
+  - Platform
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Team Ico
+    developer: true
+    publisher: false
+  - name: Sony Computer Entertainment
+    developer: false
+    publisher: true
+- rank: 46
+  igdb_id: 26758
+  name: Super Mario Odyssey
+  slug: super-mario-odyssey
+  igdb_url: https://www.igdb.com/games/super-mario-odyssey
+  cover_image_id: co1mxf
+  summary: Explore incredible places far from the Mushroom Kingdom as you join Mario
+    and his new ally Cappy on a massive, globe-trotting 3D adventure. Use amazing
+    new abilities, like the power to capture and control objects, animals, and enemies
+    to collect Power Moons so you can power up the Odyssey airship and save Princess
+    Peach from Bowser’s wedding plans!
+  release_date: '2017-10-27'
+  platforms:
+  - Nintendo Switch 2
+  - Nintendo Switch
+  genres:
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Co-operative
+  themes:
+  - Action
+  - Fantasy
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB E10+
+  - PEGI 7
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: 1-UP Studio
+    developer: false
+    publisher: false
+  - name: Nintendo EPD Production Group No. 8
+    developer: true
+    publisher: false
+  - name: Panic Button Games
+    developer: false
+    publisher: false
+- rank: 47
+  igdb_id: 426
+  name: Final Fantasy III
+  slug: final-fantasy-iii--7
+  igdb_url: https://www.igdb.com/games/final-fantasy-iii--7
+  cover_image_id: coaq5k
+  summary: |-
+    Final Fantasy VI is the sixth main installment in the Final Fantasy series, developed and published by Square. It was the final title in the series to feature two-dimensional graphics, and the first story that did not revolve around crystals.
+
+    The game gives players up to fourteen playable characters, the largest cast in the series, and features the Active Time Battle pseudo-turn based menu command system. A party can consist of up to four characters, though some events require the player to assemble three different parties of up to four and switch between them.
+
+    Each character has a unique command ability, such as Terra's Trance, Locke's Steal, Edgar's Tools or Sabin's Blitz, and can also learn Magic spells from earning AP from battles with magicite equipped. Each character's rare Desperation Attack will randomly activate after using the Attack command when at critical health.
+  release_date: '1994-04-02'
+  platforms:
+  - Super Nintendo Entertainment System
+  - Wii
+  - Wii U
+  - New Nintendo 3DS
+  - Super Famicom
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Fantasy
+  age_ratings:
+  - ESRB E10+
+  - PEGI 7
+  companies:
+  - name: Square
+    developer: true
+    publisher: true
+  - name: Square Enix
+    developer: false
+    publisher: true
+- rank: 48
+  igdb_id: 565
+  name: 'Uncharted 2: Among Thieves'
+  slug: uncharted-2-among-thieves
+  igdb_url: https://www.igdb.com/games/uncharted-2-among-thieves
+  cover_image_id: co1tnb
+  summary: In the sequel to Drake's Fortune, Nathan Drake comes across a map that
+    showcases the location of Marco Polo's missing ships. It takes him on a journey
+    to find the infamous Cintamani Stone, and uncover the truth behind it.
+  release_date: '2009-10-13'
+  platforms:
+  - PlayStation 3
+  genres:
+  - Shooter
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Fantasy
+  - Historical
+  age_ratings:
+  - ESRB T
+  - PEGI 16
+  companies:
+  - name: Naughty Dog
+    developer: true
+    publisher: false
+  - name: Sony Computer Entertainment
+    developer: false
+    publisher: true
+- rank: 49
+  igdb_id: 231
+  name: Half-Life
+  slug: half-life
+  igdb_url: https://www.igdb.com/games/half-life
+  cover_image_id: coc2ea
+  summary: Half-Life is a 1998 first-person shooter (FPS) game developed by Valve
+    Corporation and published by Sierra Studios for Windows. It was Valve's debut
+    product and the first game in the Half-Life series. The player assumes the role
+    of Gordon Freeman, a theoretical physicist who must escape from the Black Mesa
+    Research Facility after it is overrun by aliens following a disastrous scientific
+    experiment. Its gameplay consists of diverse combat, exploration and puzzles.
+  release_date: '1998-11-19'
+  platforms:
+  - Linux
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Shooter
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  - Science fiction
+  - Horror
+  - Thriller
+  - Warfare
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Valve
+    developer: true
+    publisher: true
+  - name: Sierra Entertainment
+    developer: false
+    publisher: true
+- rank: 50
+  igdb_id: 14
+  name: Fallout 2
+  slug: fallout-2
+  igdb_url: https://www.igdb.com/games/fallout-2
+  cover_image_id: co8ado
+  summary: A turn-based tactical Western RPG in which the Chosen One is tasked with
+    exploring post-nuclear California to locate and retrieve the fabled Garden of
+    Eden Creation Kit for their famine-stricken tribe, while coming into contact through
+    branching dialogue trees with numerous tribes, factions and micro-civilizations,
+    each with their own virtues, vices, socioeconomic situations and political agendas.
+  release_date: '1998-10-29'
+  platforms:
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Puzzle
+  - Role-playing (RPG)
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Science fiction
+  - Survival
+  - Stealth
+  - Comedy
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Interplay Entertainment
+    developer: false
+    publisher: true
+  - name: Black Isle Studios
+    developer: true
+    publisher: false
+  - name: MacPlay
+    developer: false
+    publisher: true
+  - name: The Omni Group
+    developer: false
+    publisher: false
+  - name: Bethesda Softworks
+    developer: false
+    publisher: true
+- rank: 51
+  igdb_id: 11737
+  name: Outer Wilds
+  slug: outer-wilds
+  igdb_url: https://www.igdb.com/games/outer-wilds
+  cover_image_id: co65ac
+  summary: Outer Wilds is a critically-acclaimed and award-winning open world mystery
+    about a solar system trapped in an endless time loop. The newest member of the
+    space program in a small village on the planet Timber Hearth, the player navigates
+    a space shuttle and travels across their solar system to get to the bottom of
+    its mysteries by exploring the cosmos and gathering the knowledge hidden within
+    each of the system's planets, left behind by another civilization in the distant
+    past.
+  release_date: '2019-05-28'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Puzzle
+  - Simulator
+  - Adventure
+  - Indie
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Open world
+  - Mystery
+  age_ratings:
+  - ESRB E10+
+  - PEGI 7
+  companies:
+  - name: Annapurna Interactive
+    developer: false
+    publisher: false
+  - name: Annapurna Interactive
+    developer: false
+    publisher: true
+  - name: Mobius Digital
+    developer: true
+    publisher: false
+  - name: Limited Run Games
+    developer: false
+    publisher: true
+- rank: 52
+  igdb_id: 1074
+  name: Super Mario 64
+  slug: super-mario-64
+  igdb_url: https://www.igdb.com/games/super-mario-64
+  cover_image_id: co721v
+  summary: |-
+    Mario is super in a whole new way! Combining the finest 3-D graphics ever developed for a video game and an explosive soundtrack, Super Mario 64 becomes a new standard for video games. It's packed with bruising battles, daunting obstacle courses, and underwater adventures. Retrieve the Power Stars from their hidden locations and confront your arch-nemesis— Bowser, King of the Koopas!
+
+    • Run freely in a grassy meadow, tip-toe through a gloomy dungeon, climb to the top of a mountain, or take a swim in the moat!
+    • Leap headfirst into a watery painting and soon you'll be searching for the surface in an underwater realm!
+    • On-the-fly, 3-D rendered gameplay delivers the action of ruthless enemy attacks from every angle!
+    • Find the Caps that give Mario super powers and ponder the mysteries of the pyramid; you can even race Koopas for fabulous prizes!
+    • With the Nintendo 64 Controller and its analog
+    Control Stick, Mario can crawl, kick down obstacles, swim, do reverse flips, and even stick the landing on his backwards somersault!
+    • Saved game information is stored for up to four players in memory.
+  release_date: '1996-06-23'
+  platforms:
+  - Wii
+  - Nintendo 64
+  - Wii U
+  genres:
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Open world
+  age_ratings:
+  - ESRB E
+  - PEGI 3
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Nintendo Entertainment Analysis & Development
+    developer: true
+    publisher: false
+  - name: Playtronic
+    developer: false
+    publisher: true
+  - name: Gradiente
+    developer: false
+    publisher: true
+- rank: 53
+  igdb_id: 1077
+  name: Super Mario Galaxy
+  slug: super-mario-galaxy
+  igdb_url: https://www.igdb.com/games/super-mario-galaxy
+  cover_image_id: co21ro
+  summary: A 3D platformer and first Wii entry in the Super Mario franchise, Super
+    Mario Galaxy sees Mario jump across planets and galaxies with varying items, enemies,
+    geographies and gravity mechanics in order to reach his enemy Bowser, who has
+    attacked the Mushroom Kingdom and hijacked Princess Peach's castle with her inside.
+  release_date: '2007-11-01'
+  platforms:
+  - Wii
+  - Wii U
+  genres:
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Co-operative
+  themes:
+  - Action
+  - Science fiction
+  age_ratings:
+  - ESRB E
+  - PEGI 3
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Nintendo Entertainment Analysis & Development
+    developer: true
+    publisher: false
+- rank: 54
+  igdb_id: 376
+  name: 'Metal Gear Solid 2: Sons of Liberty'
+  slug: metal-gear-solid-2-sons-of-liberty
+  igdb_url: https://www.igdb.com/games/metal-gear-solid-2-sons-of-liberty
+  cover_image_id: co5e1c
+  summary: 'Metal Gear Solid 2: Sons of Liberty is the sequel to the espionage action
+    game Metal Gear Solid. Much of the gameplay remains the same, as the game''s protagonist
+    has to sneak past guards, outsmart them using various gadgets and defeat the tricky
+    boss enemies. The game expanded its predecessor''s cover mechanic, with Solid
+    Snake or Raiden able to take cover behind walls or objects and pop out to shoot
+    at enemies, while the improved enemy AI allowed enemies to also take cover from
+    the player. Metal Gear Solid 2 is considered to be one of the greatest video games
+    of all time, as well as a leading example of artistic expression in video games.'
+  release_date: '2001-11-13'
+  platforms:
+  - PlayStation 2
+  genres:
+  - Shooter
+  - Tactical
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Stealth
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Konami
+    developer: false
+    publisher: true
+  - name: Konami Computer Entertainment Japan
+    developer: true
+    publisher: false
+- rank: 55
+  igdb_id: 126
+  name: Diablo II
+  slug: diablo-ii
+  igdb_url: https://www.igdb.com/games/diablo-ii
+  cover_image_id: co3gfq
+  summary: Like its predecessor, Diablo II is an action role-playing game with dark
+    fantasy and horror themes. The player controls a new hero attempting to stop the
+    destruction unleashed by Diablo's return. The game's 4 acts feature a variety
+    of locations and settings to explore and battle in, as well as an increased cast
+    of characters to play as and interact with. Diablo II had become one of the most
+    popular online games of all time. Major factors that contributed to Diablo II's
+    success include what fans found to be addictive hack-and-slash gameplay and free
+    access to Battle.net.
+  release_date: '2000-06-29'
+  platforms:
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Role-playing (RPG)
+  - Hack and slash/Beat 'em up
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Blizzard North
+    developer: true
+    publisher: false
+  - name: Blizzard Entertainment
+    developer: false
+    publisher: true
+- rank: 56
+  igdb_id: 1078
+  name: Super Mario Galaxy 2
+  slug: super-mario-galaxy-2
+  igdb_url: https://www.igdb.com/games/super-mario-galaxy-2
+  cover_image_id: co21tl
+  summary: Super Mario Galaxy 2 is the sequel to Super Mario Galaxy and the fourth
+    3D platformer entry in the Mario franchise. The sequel retains many elements from
+    its predecessor, such as the adventure being in outer space, the element of gravity,
+    and recurring objects such as Launch Stars and Sling Stars. Returning items include
+    the Bee Mushroom and the Fire Flower. However, the game introduces new elements
+    as well, such as the utilization of Yoshi, new power-ups like the Cloud Flower,
+    and the use of a guide within the game for beginner players.
+  release_date: '2010-05-23'
+  platforms:
+  - Wii
+  - Wii U
+  genres:
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  age_ratings:
+  - ESRB E
+  - PEGI 3
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Nintendo Entertainment Analysis & Development
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: true
+    publisher: false
+- rank: 57
+  igdb_id: 1627
+  name: Super Smash Bros. Melee
+  slug: super-smash-bros-melee
+  igdb_url: https://www.igdb.com/games/super-smash-bros-melee
+  cover_image_id: co21yv
+  summary: A crossover platform fighting game featuring characters from Nintendo franchises
+    including Mario, The Legend of Zelda, Star Fox, Pokémon, and Fire Emblem. Unlike
+    traditional fighters, the goal is to knock opponents off the stage rather than
+    deplete a health bar. Damage accumulates as a percentage, increasing the distance
+    a character is launched when hit. Players use simple one-button inputs combined
+    with joystick directions to execute moves. The game supports up to four players
+    simultaneously and includes various single-player modes alongside its multiplayer
+    focus. Its fast-paced, aggressive gameplay fostered a long-running competitive
+    esports scene that persisted well beyond the game's original lifespan.
+  release_date: '2001-11-21'
+  platforms:
+  - Nintendo GameCube
+  genres:
+  - Fighting
+  - Platform
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  age_ratings:
+  - ESRB T
+  - PEGI 3
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: HAL Laboratory
+    developer: true
+    publisher: false
+  - name: Gradiente
+    developer: false
+    publisher: true
+- rank: 58
+  igdb_id: 132
+  name: 'Warcraft III: Reign of Chaos'
+  slug: warcraft-iii-reign-of-chaos
+  igdb_url: https://www.igdb.com/games/warcraft-iii-reign-of-chaos
+  cover_image_id: co1xuq
+  summary: 'Warcraft III: Reign of Chaos is a real-time strategy game set in the high
+    fantasy world of Azeroth. Players control one of four factions, the Human Alliance,
+    Orcish Horde, Night Elves, or Undead Scourge, each with unique units, structures,
+    and hero characters that gain experience and abilities through combat. The single-player
+    campaign follows a sequential narrative across four faction-specific chapters.
+    Multiplayer is supported through Battle.net with ranked matchmaking. The game
+    includes a World Editor that allows players to create custom maps and scenarios,
+    which gave rise to influential community creations including the mod Defense of
+    the Ancients.'
+  release_date: '2002-07-03'
+  platforms:
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Real Time Strategy (RTS)
+  - Strategy
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Fantasy
+  - Warfare
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Sierra Entertainment
+    developer: false
+    publisher: true
+  - name: Capcom
+    developer: false
+    publisher: true
+  - name: Blizzard Entertainment
+    developer: true
+    publisher: true
+- rank: 59
+  igdb_id: 9643
+  name: Return of the Obra Dinn
+  slug: return-of-the-obra-dinn
+  igdb_url: https://www.igdb.com/games/return-of-the-obra-dinn
+  cover_image_id: co27j9
+  summary: In this 1-bit first-person mystery game, a merchant ship called the Obra
+    Dinn has appeared at a London harbor, years after being declared lost at sea.
+    As an insurance adjuster, the player must examine the ship for clues.
+  release_date: '2018-10-18'
+  platforms:
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - Mac
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Puzzle
+  - Adventure
+  - Indie
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Fantasy
+  - Historical
+  - Mystery
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Warp Digital Entertainment
+    developer: false
+    publisher: false
+  - name: Lucas Pope
+    developer: true
+    publisher: false
+  - name: '3909'
+    developer: false
+    publisher: true
+- rank: 60
+  igdb_id: 135243
+  name: It Takes Two
+  slug: it-takes-two
+  igdb_url: https://www.igdb.com/games/it-takes-two
+  cover_image_id: cob22v
+  summary: It Takes Two is a cooperative action-adventure game designed exclusively
+    for two players, playable in local split-screen or online. Players control Cody
+    and May, a married couple transformed into dolls, as they travel through fantastical
+    environments based on their home and relationship. Gameplay combines platforming,
+    puzzle-solving, and action sequences, with each level introducing new mechanics
+    and giving the two characters different abilities that must be used together to
+    progress. The game frequently changes its core mechanics from chapter to chapter,
+    incorporating sections involving shooting, racing, flight, and other genres.
+  release_date: '2021-03-25'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 4
+  - Nintendo Switch 2
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Platform
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Multiplayer
+  - Co-operative
+  - Split screen
+  themes:
+  - Action
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+  - name: Hazelight Studios
+    developer: true
+    publisher: false
+  - name: Turn Me Up Games
+    developer: false
+    publisher: false
+- rank: 61
+  igdb_id: 472
+  name: 'The Elder Scrolls V: Skyrim'
+  slug: the-elder-scrolls-v-skyrim
+  igdb_url: https://www.igdb.com/games/the-elder-scrolls-v-skyrim
+  cover_image_id: cocs1l
+  summary: Skyrim reimagines and revolutionizes the open-world fantasy epic, bringing
+    to life a complete virtual world open for you to explore any way you choose. Play
+    any type of character you can imagine, and do whatever you want; the legendary
+    freedom of choice, storytelling, and adventure of The Elder Scrolls is realized
+    like never before.
+  release_date: '2011-11-10'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Xbox 360
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Stealth
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Bethesda Game Studios
+    developer: true
+    publisher: false
+  - name: Bethesda Softworks
+    developer: false
+    publisher: true
+- rank: 62
+  igdb_id: 75235
+  name: Ghost of Tsushima
+  slug: ghost-of-tsushima
+  igdb_url: https://www.igdb.com/games/ghost-of-tsushima
+  cover_image_id: co2crj
+  summary: Uncover the hidden wonders of Tsushima in this open-world action adventure.
+    Forge a new path and wage an unconventional war for the freedom of Tsushima. Challenge
+    opponents with your katana, master the bow to eliminate distant threats, develop
+    stealth tactics to ambush enemies in order to win over the mongols.
+  release_date: '2020-07-17'
+  platforms:
+  - PlayStation 4
+  - PlayStation 5
+  genres:
+  - Role-playing (RPG)
+  - Hack and slash/Beat 'em up
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Historical
+  - Stealth
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Sony Interactive Entertainment
+    developer: false
+    publisher: true
+  - name: Sucker Punch Productions
+    developer: true
+    publisher: false
+- rank: 63
+  igdb_id: 140839
+  name: Mass Effect Legendary Edition
+  slug: mass-effect-legendary-edition
+  igdb_url: https://www.igdb.com/games/mass-effect-legendary-edition
+  cover_image_id: co2k5h
+  summary: One person is all that stands between humanity and the greatest threat
+    it’s ever faced. Relive the legend of Commander Shepard in the highly acclaimed
+    Mass Effect trilogy with the Mass Effect Legendary Edition. Includes single-player
+    base content and over 40 DLCs from Mass Effect, Mass Effect 2, and Mass Effect
+    3 games, including promo weapons, armors and packs. Experience an amazingly rich
+    and detailed universe where your decisions have profound consequences on the action
+    and the outcome.
+  release_date: '2021-05-14'
+  platforms:
+  - Xbox Series X|S
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  - Xbox One
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  - Strategy
+  - Adventure
+  game_type: Bundle
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  - Science fiction
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+  - name: BioWare
+    developer: true
+    publisher: false
+- rank: 64
+  igdb_id: 2899
+  name: EarthBound
+  slug: earthbound
+  igdb_url: https://www.igdb.com/games/earthbound
+  cover_image_id: co6v07
+  summary: A turn-based JRPG and sequel to the then-Japan-only Earthbound Beginnings
+    (1989) in which Ness, a young boy living in a land based on the USA, leaves home
+    to go on an adventure through strange locations, get to know quirky characters,
+    and defeat an unknowable alien threat called Giygas while facing up to the realities
+    of growing up and becoming familiar with the real world.
+  release_date: '1994-08-27'
+  platforms:
+  - Super Nintendo Entertainment System
+  - Wii U
+  - New Nintendo 3DS
+  - Game Boy Advance
+  - Super Famicom
+  genres:
+  - Role-playing (RPG)
+  - Turn-based strategy (TBS)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Science fiction
+  - Drama
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: HAL Laboratory
+    developer: true
+    publisher: false
+  - name: Ape
+    developer: true
+    publisher: false
+- rank: 65
+  igdb_id: 501
+  name: 'Batman: Arkham City'
+  slug: batman-arkham-city
+  igdb_url: https://www.igdb.com/games/batman-arkham-city
+  cover_image_id: co1voh
+  summary: |-
+    Batman: Arkham City builds upon the intense, atmospheric foundation of Batman: Arkham Asylum, sending players soaring into Arkham City, the new maximum security "home" for all of Gotham City's thugs, gangsters and insane criminal masterminds.
+
+    Set inside the heavily fortified walls of a sprawling district in the heart of Gotham City, this highly anticipated sequel introduces a brand-new story that draws together a new all-star cast of classic characters and murderous villains from the Batman universe, as well as a vast range of new and enhanced gameplay features to deliver the ultimate experience as the Dark Knight.
+  release_date: '2011-10-18'
+  platforms:
+  - OnLive Game System
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Xbox 360
+  - Nintendo Switch
+  genres:
+  - Hack and slash/Beat 'em up
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Stealth
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 16
+  companies:
+  - name: WB Games
+    developer: false
+    publisher: true
+  - name: DC Entertainment
+    developer: false
+    publisher: true
+  - name: Rocksteady Studios
+    developer: true
+    publisher: false
+- rank: 66
+  igdb_id: 230
+  name: StarCraft
+  slug: starcraft
+  igdb_url: https://www.igdb.com/games/starcraft
+  cover_image_id: co9n6m
+  summary: 'StarCraft is a real-time strategy game set in a distant sector of the
+    Milky Way galaxy in the 26th century. Players command one of three species across
+    separate campaigns: the Terrans, resourceful human colonists cut off from Earth;
+    the Zerg, an insectoid swarm that assimilates other species; and the Protoss,
+    a technologically advanced race with powerful psionic abilities. Each species
+    features distinct units, structures, and strategic options. The game includes
+    a story-driven single-player campaign for each faction and competitive multiplayer
+    via Battle.net.'
+  release_date: '1998-03-31'
+  platforms:
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Real Time Strategy (RTS)
+  - Strategy
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Science fiction
+  - Warfare
+  age_ratings:
+  - ESRB T
+  - PEGI 16
+  companies:
+  - name: Blizzard Entertainment
+    developer: true
+    publisher: true
+- rank: 67
+  igdb_id: 1221
+  name: Kingdom Hearts II
+  slug: kingdom-hearts-ii
+  igdb_url: https://www.igdb.com/games/kingdom-hearts-ii
+  cover_image_id: co30t1
+  summary: Kingdom Hearts II is an action role-playing game, and the primary entry
+    to the series since the 2002 Disney Interactive and Square collaboration. The
+    game's setting is a collection of various levels (referred to in-game as "worlds")
+    that the player progresses through. As in the first game, it II allows the player
+    to travel to locales from various Disney works, along with original worlds specifically
+    created for the series.
+  release_date: '2005-12-22'
+  platforms:
+  - PlayStation 2
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB E10+
+  - PEGI 12
+  companies:
+  - name: Square Enix
+    developer: false
+    publisher: true
+  - name: Square Enix Product Development Division 1
+    developer: true
+    publisher: false
+- rank: 68
+  igdb_id: 421
+  name: Final Fantasy IX
+  slug: final-fantasy-ix
+  igdb_url: https://www.igdb.com/games/final-fantasy-ix
+  cover_image_id: co2unc
+  summary: Final Fantasy IX is the ninth main installment in the FF series. The title
+    is a return to the series's roots, with gameplay features and references to the
+    past games featuring throughout, as well as a medieval fantasy setting and cartoonish
+    art style as a break from the sci-fi slant style of Final Fantasy VII and Final
+    Fantasy VIII.
+  release_date: '2000-07-07'
+  platforms:
+  - PlayStation 3
+  - PlayStation
+  - PlayStation Portable
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Fantasy
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Square USA
+    developer: true
+    publisher: false
+  - name: Square
+    developer: false
+    publisher: true
+  - name: Square Electronic Arts
+    developer: false
+    publisher: true
+  - name: Square Enix
+    developer: false
+    publisher: true
+  - name: Square Product Development Division 1
+    developer: true
+    publisher: false
+- rank: 69
+  igdb_id: 1092
+  name: 'Donkey Kong Country 2: Diddy''s Kong Quest'
+  slug: donkey-kong-country-2-diddy-s-kong-quest
+  igdb_url: https://www.igdb.com/games/donkey-kong-country-2-diddy-s-kong-quest
+  cover_image_id: co217m
+  summary: 'Donkey Kong Country 2: Diddy''s Kong Quest is the sequel to Donkey Kong
+    Country. It was developed by Rare and is one of the best selling Super Nintendo
+    games.'
+  release_date: '1995-11-21'
+  platforms:
+  - Super Nintendo Entertainment System
+  - Wii
+  - Wii U
+  - New Nintendo 3DS
+  - Super Famicom
+  genres:
+  - Platform
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  - Fantasy
+  - Comedy
+  age_ratings:
+  - ESRB E
+  - PEGI 3
+  companies:
+  - name: Rare
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Gradiente
+    developer: false
+    publisher: true
+  - name: Playtronic
+    developer: false
+    publisher: true
+  - name: Hyundai
+    developer: false
+    publisher: true
+  - name: Nintendo
+    developer: false
+    publisher: false
+- rank: 70
+  igdb_id: 6
+  name: 'Baldur''s Gate II: Shadows of Amn'
+  slug: baldurs-gate-ii-shadows-of-amn
+  igdb_url: https://www.igdb.com/games/baldurs-gate-ii-shadows-of-amn
+  cover_image_id: co71yr
+  summary: 'Every World has conflict. Good and evil. Friend and foe. Safety and danger.
+    In Baldur''s Gate II: Shadows of Amn, you''ll find yourself between these factions.
+    This epic sequel to the Roleplaying Game of the Year will immerse you in a world
+    of intrigue, adventure and fierce combat where your ability to discern the difference
+    between these sides - with the assistance of steel and spell - determines your
+    fate. Set in the Forgotten Realms campaign setting, Baldur''s Gate II is the most
+    stunning Advanced Dungeons and Dragons game to date.'
+  release_date: '2000-09-21'
+  platforms:
+  - Linux
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Role-playing (RPG)
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Co-operative
+  themes:
+  - Fantasy
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: MacPlay
+    developer: false
+    publisher: true
+  - name: Black Isle Studios
+    developer: false
+    publisher: true
+  - name: BioWare Edmonton
+    developer: true
+    publisher: false
+  - name: Interplay Entertainment
+    developer: false
+    publisher: true
+  - name: BioWare
+    developer: true
+    publisher: false
+  - name: MumboJumbo
+    developer: true
+    publisher: false
+- rank: 71
+  igdb_id: 733
+  name: 'Grand Theft Auto: Vice City'
+  slug: grand-theft-auto-vice-city
+  igdb_url: https://www.igdb.com/games/grand-theft-auto-vice-city
+  cover_image_id: co2lbb
+  summary: 'In the year 1986, Tommy Vercetti is heavily indebted to his mafia superiors
+    after a drug deal gone awry, but his dreams of taking over Vice City (based on
+    Miami) push him down a different path. Featuring a wide variety of vehicles and
+    weapons, radio stations playing hit songs from the era and an intense atmosphere,
+    GTA: Vice City is an open-world sandbox satire of ''80''s Miami.'
+  release_date: '2002-10-27'
+  platforms:
+  - Xbox
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Mac
+  - PlayStation 2
+  genres:
+  - Shooter
+  - Racing
+  - Adventure
+  - Arcade
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Comedy
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Rockstar Games
+    developer: false
+    publisher: true
+  - name: Rockstar Vienna
+    developer: false
+    publisher: false
+  - name: Rockstar North
+    developer: true
+    publisher: false
+  - name: Take-Two Interactive
+    developer: false
+    publisher: true
+  - name: TransGaming Inc.
+    developer: false
+    publisher: false
+- rank: 72
+  igdb_id: 11156
+  name: Horizon Zero Dawn
+  slug: horizon-zero-dawn
+  igdb_url: https://www.igdb.com/games/horizon-zero-dawn
+  cover_image_id: co2una
+  summary: Welcome to a vibrant world rich with the beauty of nature – but inhabited
+    by awe-inspiring, highly advanced machines. As a young machine hunter named Aloy,
+    you must unravel the mysteries of this world and find your own destiny.
+  release_date: '2017-02-28'
+  platforms:
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Stealth
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 16
+  companies:
+  - name: Guerrilla Games
+    developer: true
+    publisher: false
+  - name: Sony Interactive Entertainment
+    developer: false
+    publisher: true
+- rank: 73
+  igdb_id: 418
+  name: Final Fantasy X
+  slug: final-fantasy-x
+  igdb_url: https://www.igdb.com/games/final-fantasy-x
+  cover_image_id: co1tr1
+  summary: Final Fantasy X is the tenth main installment in the FF series and the
+    first title released on sixth-generation consoles. It was also the first game
+    to feature fully three-dimensional areas rather than including pre-rendered backdrops,
+    and the first to include voice acting. Final Fantasy X tells the story of a star
+    blitzball player, Tidus, who journeys with a young and beautiful summoner named
+    Yuna on her quest to save the world of Spira from an endless cycle of destruction
+    wrought by the colossal menace Sin.
+  release_date: '2001-07-19'
+  platforms:
+  - PlayStation 2
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Fantasy
+  - Science fiction
+  - Drama
+  - Romance
+  age_ratings:
+  - ESRB T
+  companies:
+  - name: Square Electronic Arts
+    developer: false
+    publisher: true
+  - name: Square
+    developer: false
+    publisher: true
+  - name: Square Product Development Division 1
+    developer: true
+    publisher: false
+  - name: Sony Computer Entertainment
+    developer: false
+    publisher: true
+- rank: 74
+  igdb_id: 16
+  name: 'Fallout: New Vegas'
+  slug: fallout-new-vegas
+  igdb_url: https://www.igdb.com/games/fallout-new-vegas
+  cover_image_id: co1u60
+  summary: In this first-person Western RPG, the player takes on the role of Courier
+    6, barely surviving after being robbed of their cargo, shot and put into a shallow
+    grave by a New Vegas mob boss. The Courier sets out to track down their robbers
+    and retrieve their cargo, and winds up getting tangled in the complex ideological
+    and socioeconomic web of the many factions and settlements of post-nuclear Nevada.
+  release_date: '2010-10-19'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Xbox 360
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Survival
+  - Stealth
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Bandai Namco Entertainment
+    developer: false
+    publisher: true
+  - name: Obsidian Entertainment
+    developer: true
+    publisher: false
+  - name: 1C/Cenega
+    developer: false
+    publisher: true
+  - name: Bethesda Softworks
+    developer: false
+    publisher: true
+- rank: 75
+  igdb_id: 61
+  name: 'Monkey Island 2: LeChuck''s Revenge'
+  slug: monkey-island-2-lechuck-s-revenge
+  igdb_url: https://www.igdb.com/games/monkey-island-2-lechuck-s-revenge
+  cover_image_id: co30yr
+  summary: 'Monkey Island 2: LeChuck''s Revenge is a point-and-click graphic adventure
+    and the second entry in the Monkey Island series. Players guide the pirate Guybrush
+    Threepwood through a comedic Caribbean setting, using a verb-based command interface
+    and an inventory of items to explore locations, talk with characters, and solve
+    puzzles. The game offers a choice of puzzle difficulty at the start, letting players
+    pick a standard experience or a streamlined one.'
+  release_date: '1991-12-01'
+  platforms:
+  - Mac
+  - DOS
+  - Amiga
+  genres:
+  - Point-and-click
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Historical
+  - Comedy
+  age_ratings: []
+  companies:
+  - name: LucasArts
+    developer: true
+    publisher: true
+- rank: 76
+  igdb_id: 974
+  name: Resident Evil 4
+  slug: resident-evil-4
+  igdb_url: https://www.igdb.com/games/resident-evil-4
+  cover_image_id: co2wk8
+  summary: Resident Evil 4 is the sixth installment in the Resident Evil series and
+    is often noted for its departure from the fixed camera angles of earlier titles.
+    It introduced an over-the-shoulder third-person perspective, faster-paced gunplay,
+    and more dynamic controls. The game features larger, more open environments and
+    a new AI system that enables enemies to coordinate attacks and attempt to corner
+    the player. Enemies exhibit more human-like behavior, such as climbing ladders,
+    opening doors, and using weapons.
+  release_date: '2005-01-11'
+  platforms:
+  - Nintendo GameCube
+  genres:
+  - Shooter
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Horror
+  - Survival
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Capcom Production Studio 4
+    developer: true
+    publisher: false
+  - name: Capcom
+    developer: false
+    publisher: true
+- rank: 77
+  igdb_id: 19565
+  name: Marvel's Spider-Man
+  slug: marvels-spider-man
+  igdb_url: https://www.igdb.com/games/marvels-spider-man
+  cover_image_id: co1r77
+  summary: Starring the world’s most iconic Super Hero, Spider-Man features the acrobatic
+    abilities, improvisation and web-slinging that the wall-crawler is famous for,
+    while also introducing elements never-before-seen in a Spider-Man game. From traversing
+    with parkour and utilizing the environment, to new combat and blockbuster set
+    pieces, it’s Spider-Man unlike any you’ve played before.
+  release_date: '2018-09-07'
+  platforms:
+  - PlayStation 4
+  genres:
+  - Hack and slash/Beat 'em up
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Stealth
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 16
+  companies:
+  - name: Sony Interactive Entertainment
+    developer: false
+    publisher: true
+  - name: Insomniac Games
+    developer: true
+    publisher: false
+- rank: 78
+  igdb_id: 11133
+  name: Dark Souls III
+  slug: dark-souls-iii
+  igdb_url: https://www.igdb.com/games/dark-souls-iii
+  cover_image_id: cob9ed
+  summary: |-
+    Dark Souls III is an action role-playing game developed by FromSoftware and published by Bandai Namco Entertainment. Released in March 2016, it is the fourth entry in the Souls series and the final instalment in the Dark Souls trilogy. Set in the decaying kingdom of Lothric, players take on the role of the "Ashen One," an undead warrior tasked with rekindling the First Flame to prevent the world from falling into darkness.
+
+    The game features challenging combat, intricate level design, and a deep, lore-rich narrative.
+  release_date: '2016-03-24'
+  platforms:
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - Xbox One
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: Bandai Namco Entertainment
+    developer: false
+    publisher: true
+  - name: FromSoftware
+    developer: true
+    publisher: true
+- rank: 79
+  igdb_id: 184
+  name: Indiana Jones and the Fate of Atlantis
+  slug: indiana-jones-and-the-fate-of-atlantis--1
+  igdb_url: https://www.igdb.com/games/indiana-jones-and-the-fate-of-atlantis--1
+  cover_image_id: co6ys2
+  summary: A point-and-click adventure game by LucasArts originally released in 1992.
+    Almost a year later, it was reissued on CD-ROM as an enhanced "talkie" edition
+    with full voice acting and digitized sound effects. In 2009, this version was
+    also released as an unlockable extra of the Wii action game Indiana Jones and
+    the Staff of Kings, and as a digitally distributed Steam title. The seventh game
+    to use the script language SCUMM, Fate of Atlantis has the player explore environments
+    and interact with objects and characters by using commands constructed with predetermined
+    verbs. It features three unique paths to select, influencing story development,
+    gameplay and puzzles.
+  release_date: '1992-06-01'
+  platforms:
+  - Linux
+  - Wii
+  - PC (Microsoft Windows)
+  - Mac
+  - DOS
+  - Amiga
+  genres:
+  - Point-and-click
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Thriller
+  - Historical
+  - Comedy
+  age_ratings:
+  - ESRB E
+  - PEGI 12
+  companies:
+  - name: U.S. Gold
+    developer: false
+    publisher: true
+  - name: LucasArts
+    developer: true
+    publisher: true
+  - name: Disney Interactive
+    developer: false
+    publisher: true
+- rank: 80
+  igdb_id: 127
+  name: Assassin's Creed II
+  slug: assassin-s-creed-ii
+  igdb_url: https://www.igdb.com/games/assassin-s-creed-ii
+  cover_image_id: co1rcf
+  summary: |-
+    Discover an intriguing and epic story of power, revenge and conspiracy set during a pivotal moment in history: the Italian Renaissance.
+    Experience the freedom and immersion of an all new open world and mission structure with settings such as the rooftops and canals of beautiful Venice. Your options in combat, assassination and escape are vast, with many new weapons, settings and gameplay elements.
+  release_date: '2009-11-17'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Mac
+  - Xbox 360
+  genres:
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Science fiction
+  - Historical
+  - Stealth
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Ubisoft Montreal
+    developer: true
+    publisher: false
+  - name: Ubisoft Entertainment
+    developer: false
+    publisher: true
+  - name: Ubisoft Singapore
+    developer: false
+    publisher: false
+- rank: 81
+  igdb_id: 20
+  name: BioShock
+  slug: bioshock
+  igdb_url: https://www.igdb.com/games/bioshock
+  cover_image_id: co2mli
+  summary: 'BioShock is a horror-themed first-person shooter set in a steampunk underwater
+    dystopia. The player is urged to turn everything into a weapon: biologically modifying
+    their own body with Plasmids, hacking devices and systems, upgrading their weapons,
+    crafting new ammo variants, and experimenting with different battle techniques
+    are all possible. The game is described by the developers as a spiritual successor
+    to their previous PC title System Shock 2. BioShock received high praise in critical
+    reviews for its atmospheric audio and visual quality, absorbing and original plot
+    and its unique gaming experience.'
+  release_date: '2007-08-21'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Mac
+  - Xbox 360
+  genres:
+  - Shooter
+  - Puzzle
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Horror
+  - Stealth
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Demiurge Studios
+    developer: false
+    publisher: false
+  - name: 2K Boston
+    developer: true
+    publisher: false
+  - name: Robosoft Technologies
+    developer: false
+    publisher: false
+  - name: 2K Australia
+    developer: true
+    publisher: false
+  - name: 2K Australia
+    developer: false
+    publisher: false
+  - name: Digital Extremes
+    developer: false
+    publisher: false
+  - name: Plastic Wax
+    developer: false
+    publisher: false
+  - name: 2K Games
+    developer: false
+    publisher: true
+  - name: 2K Marin
+    developer: false
+    publisher: false
+  - name: 2K Boston
+    developer: false
+    publisher: false
+- rank: 82
+  igdb_id: 347668
+  name: Resident Evil Requiem
+  slug: resident-evil-requiem
+  igdb_url: https://www.igdb.com/games/resident-evil-requiem
+  cover_image_id: cobmj0
+  summary: Resident Evil Requiem is the ninth entry in the Resident Evil series. Experience
+    terrifying survival horror with FBI analyst Grace Ashcroft, and dive into pulse-pounding
+    action with legendary agent Leon S. Kennedy. Both of their journeys and unique
+    gameplay styles intertwine into a heart-stopping, emotional experience that will
+    chill you to your core.
+  release_date: '2026-02-27'
+  platforms:
+  - Xbox Series X|S
+  - Nintendo Switch 2
+  - PC (Microsoft Windows)
+  - PlayStation 5
+  genres:
+  - Shooter
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Horror
+  - Survival
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Capcom
+    developer: false
+    publisher: true
+  - name: Capcom Development Division 1
+    developer: true
+    publisher: false
+- rank: 83
+  igdb_id: 1033
+  name: 'The Legend of Zelda: The Wind Waker'
+  slug: the-legend-of-zelda-the-wind-waker
+  igdb_url: https://www.igdb.com/games/the-legend-of-zelda-the-wind-waker
+  cover_image_id: co3ohz
+  summary: 'The Legend of Zelda: The Wind Waker is the first Zelda game for the Nintendo
+    GameCube and also the first in the series to employ cel-shading, a lighting and
+    texturing technique that results in the game having a cartoon-like appearance.
+    Like its predecessors, The Wind Waker is an action game with puzzle-solving and
+    light role-playing elements. Basic gameplay mechanics are similar to those found
+    in Ocarina of Time, but it differentiates itself with its massive Great Sea which
+    must be explored using a boat named King of Red Lions.'
+  release_date: '2002-12-13'
+  platforms:
+  - Nintendo GameCube
+  genres:
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB E
+  - PEGI 7
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Nintendo Entertainment Analysis & Development
+    developer: true
+    publisher: false
+- rank: 84
+  igdb_id: 193
+  name: Day of the Tentacle
+  slug: day-of-the-tentacle
+  igdb_url: https://www.igdb.com/games/day-of-the-tentacle
+  cover_image_id: co30yt
+  summary: |-
+    Day of the Tentacle, also known as Maniac Mansion II: Day of the Tentacle, is a 1993 graphic adventure game developed and published by LucasArts. It is the sequel to the 1987 game Maniac Mansion. The game's plot follows Bernard Bernoulli and his friends Hoagie and Laverne as they attempt to stop the evil Purple Tentacle — a sentient, disembodied tentacle — from taking over the world. The player takes control of the three and solves puzzles while using time travel to explore different periods of history.
+
+    Dave Grossman and Tim Schafer co-led the game's development, their first time in such a role. The pair carried over a limited amount of elements from Maniac Mansion and forwent the character selection aspect to simplify development. Inspirations included Chuck Jones cartoons and the history of the United States. Day of the Tentacle is the eighth LucasArts title to use the SCUMM engine, and the company's first title to feature voice acting.
+
+    The game was released simultaneously on floppy disk and CD-ROM to critical acclaim and commercial success. Critics focused on its cartoon-style visuals and comedic elements. Day of the Tentacle has featured regularly in lists of "top" games published more than two decades after its release, and aspects have been referenced in popular culture.
+  release_date: '1993-06-25'
+  platforms:
+  - Mac
+  - DOS
+  - Amiga
+  genres:
+  - Point-and-click
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Fantasy
+  - Science fiction
+  - Historical
+  - Comedy
+  age_ratings:
+  - ESRB E
+  - PEGI 7
+  companies:
+  - name: LucasArts
+    developer: true
+    publisher: true
+- rank: 85
+  igdb_id: 71
+  name: Portal
+  slug: portal
+  igdb_url: https://www.igdb.com/games/portal
+  cover_image_id: coay61
+  summary: Waking up in a seemingly empty laboratory, the player is made to complete
+    various physics-based puzzle challenges through numerous test chambers in order
+    to test out the new Aperture Science Handheld Portal Device, without an explanation
+    as to how, why or by whom.
+  release_date: '2007-10-10'
+  platforms:
+  - PlayStation 3
+  - Linux
+  - Android
+  - PC (Microsoft Windows)
+  - Mac
+  - Xbox 360
+  - Nintendo Switch
+  genres:
+  - Platform
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Comedy
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: Valve
+    developer: true
+    publisher: true
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+- rank: 86
+  igdb_id: 22
+  name: System Shock 2
+  slug: system-shock-2
+  igdb_url: https://www.igdb.com/games/system-shock-2
+  cover_image_id: co4bak
+  summary: A first-person cyberpunk exploratory horror RPG and sequel to System Shock
+    (1994) in which a soldier wakes up in the starship Von Braun in the aftermath
+    of a disaster and finds himself in the midst of a conflict between SHODAN, the
+    artificial intelligence antagonist of System Shock seeking mastery over humanity,
+    and The Many, a flesh-based psychic hive mind led by the ship's corrupted AI.
+  release_date: '1999-08-11'
+  platforms:
+  - Linux
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Co-operative
+  themes:
+  - Action
+  - Science fiction
+  - Horror
+  - Survival
+  - Stealth
+  age_ratings:
+  - ESRB M
+  companies:
+  - name: Looking Glass Studios
+    developer: true
+    publisher: false
+  - name: Irrational Games
+    developer: true
+    publisher: false
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+  - name: Nightdive Studios
+    developer: false
+    publisher: true
+- rank: 87
+  igdb_id: 380
+  name: 'Metal Gear Solid 4: Guns of the Patriots'
+  slug: metal-gear-solid-4-guns-of-the-patriots
+  igdb_url: https://www.igdb.com/games/metal-gear-solid-4-guns-of-the-patriots
+  cover_image_id: co5eju
+  summary: 'Metal Gear Solid 4: Guns of the Patriots is the final canonical Metal
+    Gear game to feature Solid Snake as the main character. The gameplay of the previous
+    games have been kept along with some new features, such as the ability to roll
+    on your back and also to hide in bins scattered around the environment. Most of
+    the story and the relationship between the characters are explained through cut-scenes
+    with a considerable length, so knowledge of the prior games is recommended to
+    fully understand the story. The game also features a complex multiplayer mode
+    entitled Metal Gear Online with some original missions based on the stealth aspects
+    of the single-player games.'
+  release_date: '2008-06-12'
+  platforms:
+  - PlayStation 3
+  genres:
+  - Shooter
+  - Tactical
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Survival
+  - Historical
+  - Stealth
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Konami
+    developer: false
+    publisher: true
+  - name: Kojima Productions
+    developer: true
+    publisher: false
+- rank: 88
+  igdb_id: 832
+  name: 'Planescape: Torment'
+  slug: planescape-torment
+  igdb_url: https://www.igdb.com/games/planescape-torment
+  cover_image_id: co3ggb
+  summary: A CRPG set in the Dungeons & Dragons setting of Planescape in which The
+    Nameless One, an immortal amnesiac, sets off on a quest across the infinite Planes
+    and gathers a party of conflicted companions to find out who he is and reclaim
+    his mortality. Throughout it, he faces the consequences of the horrors he committed
+    in his past lives and tries to find the root of all the torment plaguing his companions
+    and the Planes.
+  release_date: '1999-12-12'
+  platforms:
+  - Linux
+  - PC (Microsoft Windows)
+  - iOS
+  - Mac
+  genres:
+  - Puzzle
+  - Role-playing (RPG)
+  - Strategy
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Fantasy
+  - Drama
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 16
+  companies:
+  - name: Black Isle Studios
+    developer: true
+    publisher: false
+  - name: Interplay Entertainment
+    developer: false
+    publisher: true
+- rank: 89
+  igdb_id: 26226
+  name: Celeste
+  slug: celeste
+  igdb_url: https://www.igdb.com/games/celeste
+  cover_image_id: cob9dh
+  summary: Help Madeline survive her inner demons on her journey to the top of Celeste
+    Mountain, in this super-tight platformer from the creators of TowerFall. Brave
+    hundreds of hand-crafted challenges, uncover devious secrets, and piece together
+    the mystery of the mountain.
+  release_date: '2018-01-25'
+  platforms:
+  - Google Stadia
+  - PlayStation 4
+  - Linux
+  - PC (Microsoft Windows)
+  - Mac
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Platform
+  - Adventure
+  - Indie
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB E10+
+  - PEGI 7
+  companies:
+  - name: Extremely OK Games
+    developer: true
+    publisher: false
+  - name: Maddy Makes Games
+    developer: false
+    publisher: true
+  - name: Sickhead Games
+    developer: false
+    publisher: false
+- rank: 90
+  igdb_id: 239
+  name: 'StarCraft II: Wings of Liberty'
+  slug: starcraft-ii-wings-of-liberty
+  igdb_url: https://www.igdb.com/games/starcraft-ii-wings-of-liberty
+  cover_image_id: co1tnn
+  summary: |-
+    StarCraft II: Wings of Liberty is a science fiction real-time strategy game and the sequel to the original StarCraft. Set four years after the events of Brood War, the game revolves around three species: the Terrans, the Zerg, and the Protoss. The single-player campaign focuses on the Terrans, following Jim Raynor as he leads an insurgent group against the autocratic Terran Dominion. The campaign is non-linear, with players taking missions for money and using those funds to buy additional units and upgrades between missions aboard the battlecruiser Hyperion.
+
+    The game features competitive multiplayer with a matchmaking ladder system, a map editor for user-created content, and support for three playable races with distinct units and abilities. Wings of Liberty has been free-to-play since November 2017 and was followed by two expansion packs: Heart of the Swarm, focusing on the Zerg, and Legacy of the Void, focusing on the Protoss.
+  release_date: '2010-07-27'
+  platforms:
+  - PC (Microsoft Windows)
+  - Mac
+  genres:
+  - Real Time Strategy (RTS)
+  - Strategy
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Science fiction
+  - Warfare
+  age_ratings:
+  - ESRB T
+  - PEGI 16
+  companies:
+  - name: Blizzard Entertainment
+    developer: true
+    publisher: true
+- rank: 91
+  igdb_id: 7344
+  name: Ori and the Blind Forest
+  slug: ori-and-the-blind-forest
+  igdb_url: https://www.igdb.com/games/ori-and-the-blind-forest
+  cover_image_id: co1y41
+  summary: The forest of Nibel is dying. After a powerful storm sets a series of devastating
+    events in motion, an unlikely hero must journey to find his courage and confront
+    a dark nemesis to save his home. Ori and the Blind Forest tells the tale of a
+    young orphan destined for heroics, through a visually stunning action-platformer
+    crafted by Moon Studios for Xbox One and PC. Featuring hand-painted artwork, meticulously
+    animated character performance, and a fully orchestrated score, Ori and the Blind
+    Forest explores a deeply emotional story about love and sacrifice, and the hope
+    that exists in us all.
+  release_date: '2015-03-11'
+  platforms:
+  - PC (Microsoft Windows)
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Platform
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Thriller
+  age_ratings:
+  - ESRB E
+  - PEGI 7
+  companies:
+  - name: Microsoft Studios
+    developer: false
+    publisher: true
+  - name: Moon Studios
+    developer: true
+    publisher: false
+- rank: 92
+  igdb_id: 1073
+  name: 'Super Mario World 2: Yoshi''s Island'
+  slug: super-mario-world-2-yoshi-s-island
+  igdb_url: https://www.igdb.com/games/super-mario-world-2-yoshi-s-island
+  cover_image_id: co2kn9
+  summary: 'Super Mario World 2: Yoshi''s Island is a platform video game acting as
+    a prequel to 1990''s Super Mario World. The game casts players as Yoshi as he
+    escorts Baby Mario through 48 levels in order to reunite him with his brother
+    Luigi, who had been kidnapped by Baby Bowser''s minions. As a Super Mario series
+    platformer, Yoshi runs and jumps to reach the end of the level while solving puzzles
+    and collecting items. In a style new to the series, the game has a hand-drawn
+    aesthetic and is the first to have Yoshi as its main character. The game introduces
+    his signature abilities to flutter jump, produce eggs from swallowed enemies,
+    and transform into vehicles.'
+  release_date: '1995-08-05'
+  platforms:
+  - Satellaview
+  - Super Nintendo Entertainment System
+  - Super Famicom
+  genres:
+  - Platform
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  themes:
+  - Action
+  - Fantasy
+  - Kids
+  age_ratings:
+  - ESRB E
+  companies:
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Hyundai
+    developer: false
+    publisher: true
+  - name: St. GIGA
+    developer: false
+    publisher: true
+  - name: Nintendo Entertainment Analysis & Development
+    developer: true
+    publisher: false
+  - name: Playtronic
+    developer: false
+    publisher: true
+- rank: 93
+  igdb_id: 2155
+  name: Dark Souls
+  slug: dark-souls
+  igdb_url: https://www.igdb.com/games/dark-souls
+  cover_image_id: co1x78
+  summary: |-
+    Dark Souls is an action role-playing game developed by FromSoftware and published by Bandai Namco Entertainment. Released in September 2011 as a spiritual sequel to Demon's Souls, it is set in a dark, medieval fantasy world. It is renowned for its challenging gameplay, intricate level design, and deep lore. Players control a customizable character known as the Chosen Undead, embarking on a perilous journey to uncover the secrets of the cursed land of Lordran.
+
+    Dark Souls is known for its punishing difficulty, requiring players to carefully manage combat, stamina, and resources while navigating hostile environments filled with dangerous enemies and formidable bosses. The game features a unique multiplayer component, allowing players to leave messages for others, summon allies for cooperative play, or invade other players' worlds for PvP combat.
+
+    The original release of Dark Souls received critical acclaim for its atmospheric world, innovative mechanics, and rewarding gameplay, solidifying its place as a seminal title in the action RPG genre.
+  release_date: '2011-09-22'
+  platforms:
+  - PlayStation 3
+  - PlayStation 4
+  - PC (Microsoft Windows)
+  - Xbox 360
+  - Xbox One
+  - Nintendo Switch
+  genres:
+  - Role-playing (RPG)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Fantasy
+  age_ratings:
+  - ESRB M
+  - PEGI 16
+  companies:
+  - name: FromSoftware
+    developer: true
+    publisher: false
+  - name: Bandai Namco Entertainment
+    developer: false
+    publisher: true
+  - name: Namco Bandai Games
+    developer: false
+    publisher: true
+  - name: Bandai
+    developer: false
+    publisher: true
+  - name: QLOC
+    developer: false
+    publisher: false
+  - name: Virtuos
+    developer: false
+    publisher: false
+- rank: 94
+  igdb_id: 2909
+  name: 'The Legend of Zelda: A Link Between Worlds'
+  slug: the-legend-of-zelda-a-link-between-worlds
+  igdb_url: https://www.igdb.com/games/the-legend-of-zelda-a-link-between-worlds
+  cover_image_id: co3p0j
+  summary: 'The Legend of Zelda: A Link Between Worlds is the first Zelda game made
+    exclusively for the Nintendo 3DS. It is an indirect sequel to A Link to the Past
+    with the same version of Hyrule but with new characters and gameplay elements.
+    Unlike the series'' tradition, many areas of the world are accessible from the
+    beginning of the game and the dungeons can be visited in any order. Puzzles are
+    encountered not only in dungeons but also in the open world, a part of them revolves
+    around the game''s 3D visual effect. The 3DS touch-screen display shows the world,
+    dungeon or map depending on where you are.'
+  release_date: '2013-11-22'
+  platforms:
+  - Nintendo 3DS
+  genres:
+  - Puzzle
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Historical
+  - Sandbox
+  - Open world
+  age_ratings:
+  - ESRB E
+  - PEGI 7
+  companies:
+  - name: Nintendo EAD Software Development Group No.3
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+  - name: Monolith Soft
+    developer: false
+    publisher: false
+- rank: 95
+  igdb_id: 76
+  name: 'Dragon Age: Origins'
+  slug: dragon-age-origins
+  igdb_url: https://www.igdb.com/games/dragon-age-origins
+  cover_image_id: co2mvs
+  summary: 'Dragon Age: Origins is a third-person role-playing game described as a
+    spiritual successor to Baldur''s Gate and Neverwinter Nights franchises. Players
+    create their own character by customizing gender and appearance as well as choosing
+    a race and class. Combat is in real time with the ability to pause at any moment:
+    tactical options include an editor which allows the player to give the AI detailed
+    instructions on how to behave in every possible situation. Although the main storyline
+    is the same for every character created, the game features six unique prologues,
+    two for each race. Dragon Age: Origins received critical acclaim upon release,
+    with praise mostly directed at its story, setting, characters, music and combat
+    system.'
+  release_date: '2009-11-03'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Mac
+  - Xbox 360
+  genres:
+  - Role-playing (RPG)
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Fantasy
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+  - name: Edge of Reality
+    developer: false
+    publisher: false
+  - name: BioWare Edmonton
+    developer: true
+    publisher: false
+- rank: 96
+  igdb_id: 73
+  name: Mass Effect
+  slug: mass-effect
+  igdb_url: https://www.igdb.com/games/mass-effect
+  cover_image_id: co1x7o
+  summary: |-
+    Mass Effect is an action role-playing game set in the year 2183. The player takes the role of Commander Shepard, a customizable character who serves as Executive Officer aboard the SSV Normandy. After a routine mission goes wrong, Shepard assembles a squad and pursues a threat that escalates into a galaxy-wide conflict. The game features real-time squad-based combat where players choose companions and tactics suited to different enemy types, from biotic-wielding opponents to heavily armored machines.
+
+    The game spans a large science fiction universe, with explorable locations ranging from the Citadel space station to alien homeworlds and remote outposts. Player decisions affect mission outcomes, crew relationships, and the overarching narrative across the trilogy.
+  release_date: '2007-11-20'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Xbox 360
+  genres:
+  - Shooter
+  - Role-playing (RPG)
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Romance
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: BioWare
+    developer: true
+    publisher: false
+  - name: Demiurge Studios
+    developer: false
+    publisher: false
+  - name: Edge of Reality
+    developer: false
+    publisher: false
+  - name: BioWare Edmonton
+    developer: true
+    publisher: false
+  - name: Microsoft Game Studios
+    developer: false
+    publisher: true
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+- rank: 97
+  igdb_id: 39
+  name: Mafia
+  slug: mafia
+  igdb_url: https://www.igdb.com/games/mafia
+  cover_image_id: co1qrt
+  summary: Mafia is a 3D action crime epic set in the seedy underworld of the 1930's.
+    Rise from the lowly but well-dressed Footsoldier, to an envied and feared Made
+    Man in an era of mob hits, car chases, and bootlegging. Earn a reputation as a
+    tough enforcer, daring getaway driver, and deadly hitman in your quest for respect
+    and power within the Salieri Family.
+  release_date: '2002-08-29'
+  platforms:
+  - Xbox
+  - PC (Microsoft Windows)
+  - PlayStation 2
+  genres:
+  - Fighting
+  - Shooter
+  - Racing
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Stealth
+  - Open world
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Illusion Softworks
+    developer: true
+    publisher: false
+  - name: Gathering of Developers
+    developer: false
+    publisher: true
+  - name: Take-Two Interactive
+    developer: false
+    publisher: true
+- rank: 98
+  igdb_id: 90101
+  name: Super Smash Bros. Ultimate
+  slug: super-smash-bros-ultimate
+  igdb_url: https://www.igdb.com/games/super-smash-bros-ultimate
+  cover_image_id: co2255
+  summary: Super Smash Bros. Ultimate is a crossover fighting game for the Nintendo
+    Switch and the fifth main entry in the series. It features every playable fighter
+    from previous installments alongside new additions such as Inkling and Ridley.
+    The game includes faster combat, new items, and expanded defensive mechanics.
+    Modes include local and online multiplayer, a single-player adventure mode called
+    World of Light, and various casual and competitive rulesets.
+  release_date: '2018-12-07'
+  platforms:
+  - Nintendo Switch
+  genres:
+  - Fighting
+  - Platform
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Fantasy
+  - Science fiction
+  - Party
+  age_ratings:
+  - ESRB E10+
+  - PEGI 12
+  companies:
+  - name: Sora
+    developer: true
+    publisher: false
+  - name: Bandai Namco Studios
+    developer: true
+    publisher: false
+  - name: Nintendo
+    developer: false
+    publisher: true
+- rank: 99
+  igdb_id: 38
+  name: Dead Space 2
+  slug: dead-space-2
+  igdb_url: https://www.igdb.com/games/dead-space-2
+  cover_image_id: co20xq
+  summary: Three years after the Necromorph infestation aboard the USS Ishimura, Isaac
+    Clarke awakens from a coma, confused, disoriented, and on a space station called
+    The Sprawl. Just as his health begins to improve, The Sprawl is overrun with even
+    more advanced forms of the alien-zombie hybrids.
+  release_date: '2011-01-25'
+  platforms:
+  - PlayStation 3
+  - PC (Microsoft Windows)
+  - Xbox 360
+  genres:
+  - Shooter
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  - Multiplayer
+  - Co-operative
+  themes:
+  - Action
+  - Science fiction
+  - Horror
+  - Survival
+  age_ratings:
+  - ESRB M
+  - PEGI 18
+  companies:
+  - name: Visceral Games
+    developer: true
+    publisher: false
+  - name: Visceral Melbourne
+    developer: false
+    publisher: false
+  - name: Visceral Montreal
+    developer: false
+    publisher: false
+  - name: Electronic Arts
+    developer: false
+    publisher: true
+- rank: 100
+  igdb_id: 118
+  name: 'Star Wars: Knights of the Old Republic II - The Sith Lords'
+  slug: star-wars-knights-of-the-old-republic-ii-the-sith-lords
+  igdb_url: https://www.igdb.com/games/star-wars-knights-of-the-old-republic-ii-the-sith-lords
+  cover_image_id: co1qrj
+  summary: 'Star Wars Knights of the Old Republic II: The Sith Lords is a sequel to
+    the blockbuster RPG Star Wars Knights of the Old Republic. Players continue to
+    enjoy the title''s emotionally compelling and story-driven theme, additions to
+    features such as new characters, classes, locations and force powers as well as
+    a deeper look into the founding lore.'
+  release_date: '2004-12-06'
+  platforms:
+  - Xbox
+  - Linux
+  - Android
+  - PC (Microsoft Windows)
+  - iOS
+  - Mac
+  - Nintendo Switch
+  genres:
+  - Role-playing (RPG)
+  - Strategy
+  - Turn-based strategy (TBS)
+  - Adventure
+  game_type: Main Game
+  game_modes:
+  - Single player
+  themes:
+  - Action
+  - Science fiction
+  - Open world
+  age_ratings:
+  - ESRB T
+  - PEGI 12
+  companies:
+  - name: LucasArts
+    developer: false
+    publisher: true
+  - name: Obsidian Entertainment
+    developer: true
+    publisher: false
+  - name: Activision
+    developer: false
+    publisher: true
+  - name: Aspyr Media
+    developer: false
+    publisher: true
