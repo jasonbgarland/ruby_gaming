@@ -3,11 +3,15 @@
 <%= tag.div(flash[:alert], class: "flash flash-alert") if flash[:alert] %>
 <%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
 
-<h1><%= @collection.title %></h1>
-<p><%= link_to "Edit", edit_collection_path(@collection) %></p>
-<%= button_to "Delete", collection_path(@collection), method: :delete,
-      form: { data: { turbo_confirm: "Delete “#{@collection.title}” and everything in it?" } } %>
-<%= tag.p(@collection.description) if @collection.description.present? %>
+<header class="page-header">
+  <h1><%= @collection.title %></h1>
+  <div class="page-actions">
+    <%= link_to "Edit", edit_collection_path(@collection), class: "button button-secondary" %>
+    <%= button_to "Delete", collection_path(@collection), method: :delete, class: "button-danger",
+          form: { class: "inline-form", data: { turbo_confirm: "Delete “#{@collection.title}” and everything in it?" } } %>
+  </div>
+</header>
+<%= tag.p(@collection.description, class: "page-description") if @collection.description.present? %>
 
 <% if @collection_games.empty? %>
   <p>No games in this collection yet.</p>
@@ -21,8 +25,9 @@
         <% end %>
         <div class="game-result-details">
           <h3><%= link_to game.name, game_path(game.igdb_id) %></h3>
-          <p><%= collection_game.platform %></p>
-          <%= button_to "Remove", collection_collection_game_path(@collection, collection_game), method: :delete %>
+          <p><%= tag.span platform_label(collection_game.platform), class: "chip", title: collection_game.platform %></p>
+          <%= button_to "Remove", collection_collection_game_path(@collection, collection_game), method: :delete,
+                class: "button-quiet" %>
         </div>
       </li>
     <% end %>
