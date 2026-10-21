@@ -33,8 +33,8 @@ Facts worth having up front:
   protection is **not** enabled: GitHub needs Pro or a public repo for it
   (API payload saved in `.claude/PLAN.md`).
 
-State at last update: on `main` with `demo-seeds` merged (a docs branch fixes
-the HISTORY hashes), 193 regular tests + 15 system tests expected green.
+State at last update: on branch `ui-polish` (HISTORY item 22), pushed once the
+PR opens; 200 regular tests + 15 system tests expected green.
 
 ## Explicitly deferred (not built yet)
 
@@ -73,8 +73,10 @@ Details are in the `.claude/PLAN.md` backlog ("Auth hardening"):
 1. **Finish the manual browser pass** — only look and feel is left; rules are
    covered by automated tests. Dev server: `bin/rails server` (needs Postgres).
 2. **Sprint 1: demo-ready** (plan in `.claude/PLAN.md`) — in progress.
-   `companies` and `demo-seeds` are merged. Next, one branch and PR each:
-   `ui-polish`, `readme`, `pre-public`.
+   `companies` and `demo-seeds` are merged; `ui-polish` is code-complete and
+   browser-checked on its branch (push it, open the PR with rebase and merge,
+   then fix the item 22 hashes in HISTORY if they change). Next, one branch
+   and PR each: `readme`, `pre-public`.
 3. **Product-direction discussion** (the user wants it after the sprint): what
    the site is for, what data we own (reviews, ratings, tags, play status)
    versus rely on IGDB for. It decides the screenshots/trailer story,

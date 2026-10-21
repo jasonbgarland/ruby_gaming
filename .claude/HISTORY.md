@@ -9,7 +9,7 @@ Current status and next steps are in `.claude/HANDOFF.md`; the backlog is in
 Note: all commit hashes here were remapped after a one-time history rewrite
 on 2026-10-08 (item 15), before the first push.
 
-Last updated: 2026-10-09
+Last updated: 2026-10-21
 
 1. **Initial scaffold** (`960dbea`) — vanilla Rails 8 app, Docker/Kamal
    deploy config present but not configured for a real target yet.
@@ -134,3 +134,18 @@ Last updated: 2026-10-09
     user (`demo@example.com`) and three collections (8, 4 and 5 games). It
     refuses to run in production, since the demo password is public (README).
     `bin/ci` runs it too. 193 regular tests.
+22. **UI polish** (`8d33c1c`, `ae40490`, `d3dd78c`, `34c03a6`, `372740a`,
+    `0802790`) — plain CSS, no framework: the palette is CSS variables in
+    `application.css`, the container is 960px, and `.card`, `.chip`, `.badge`
+    and button variants are shared. `GamesHelper#platform_label` shortens IGDB
+    platform names ("PC (Microsoft Windows)" to "PC"; unlisted ones keep
+    their full name) and is used by the game page, search rows and collection
+    rows. `games/_panel` now has platform pills, a facts grid, chip groups for
+    modes, themes and genres, age-rating badges, a type badge only when the
+    game is not a "Main Game", and a long summary folded behind a native
+    `<details>` (CSS `:has` hides the preview once it is open). At 640px and
+    below the cover stacks above the details. The collection page has a
+    header with Edit and Delete, platform chips and a quiet Remove; the nav
+    wraps with a gap. Existing show-flow tests were rewritten as
+    `assert_select`. 200 regular tests + 15 system tests. Follow-ups are in
+    `PLAN.md`: site-wide polish, link back to the base game, undo a removal.
