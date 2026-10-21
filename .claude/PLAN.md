@@ -43,7 +43,7 @@ One-line prompts to flesh out when ready; not scheduled.
   the type badge shown by the game page (ui-polish adds the badge, with no
   hint text yet), and care for a parent not yet cached (link by `igdb_id`;
   the game page already fetches on demand). Decide the badge wording for
-  add-ons ("needs the base game") versus variants (remake, port, standalone
+  add-ons ("needs the base game"; IGDB names one type "Pack / Addon") versus variants (remake, port, standalone
   expansion) once real data shows the types in use.
 - **IGDB data principle** — pull only static, factual IGDB data. Crowd-sourced
   fields (ratings, franchises, collections, time to beat, storyline) were
@@ -64,6 +64,13 @@ One-line prompts to flesh out when ready; not scheduled.
   platform names, text fallback, check icon licensing); chips for themes and
   modes; age-rating badges; group into facts / play style / about blocks; a
   larger cover or artwork banner; fold a very long summary.
+- **Site-wide UI polish** — follow-up to the Sprint 1 `ui-polish` story, which
+  covers only the game page, collection show page and search results. Still
+  plain: the "Your collections / Add to a collection" block on the game page
+  (`games/_your_stuff`), the collections index, the collection and settings
+  forms, login/registration/password pages (could use a narrow container), the
+  home page and the nav. Reuse the `.card`, `.chip` and `.badge` styles and the
+  CSS variables from `ui-polish`; add a phone-width check for each page.
 - **Reuse `games/_search`** elsewhere (e.g. a review form) via a different
   `action_partial`.
 - **Auth hardening** — the Rails 8 authentication generator already throttles
