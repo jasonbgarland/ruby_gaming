@@ -1,41 +1,82 @@
 <%# The game showcase: everything we know about the game itself, the same for
     every user. Takes a `game` local (a Game record). User-specific things
-    (collections, reviews, ...) live in games/_your_stuff, not here. %>
+    (collections, reviews, ...) live in games/_your_stuff, not here.
+    Blocks: the title (with a type badge unless it is a Main Game), platforms, the facts, the play style chips
+    (modes, themes, genres), then the summary. Empty blocks are left out. %>
 <section class="game-panel">
   <% if game.cover_url %>
     <%= image_tag game.cover_url, alt: game.name, class: "game-cover" %>
   <% end %>
   <div class="game-panel-details">
     <h1><%= game.name %></h1>
-    <% if game.first_release_date %>
-      <p>Released <%= l game.first_release_date, format: :long %></p>
+    <%# Most games are a "Main Game", so only flag the exceptions (DLC,
+        expansion, remaster, ...) rather than label every page. %>
+    <% if game.game_type.present? && game.game_type != "Main Game" %>
+      <p class="game-type"><span class="badge badge-type"><%= game.game_type %></span></p>
     <% end %>
-    <% developers = game.company_names("developer") %>
-    <% if developers.any? %>
-      <p><strong>Developer:</strong> <%= developers.join(", ") %></p>
-    <% end %>
-    <% publishers = game.company_names("publisher") %>
-    <% if publishers.any? %>
-      <p><strong>Publisher:</strong> <%= publishers.join(", ") %></p>
-    <% end %>
+
     <% if game.platforms.present? %>
-      <p><strong>Platforms:</strong> <%= game.platforms.join(", ") %></p>
+      <ul class="chips platforms">
+        <% game.platforms.each do |platform| %>
+          <%= tag.li platform_label(platform), class: "chip", title: platform %>
+        <% end %>
+      </ul>
     <% end %>
-    <% if game.genres.present? %>
-      <p><strong>Genres:</strong> <%= game.genres.join(", ") %></p>
+
+    <% developers = game.company_names("developer") %>
+    <% publishers = game.company_names("publisher") %>
+    <% if game.first_release_date || developers.any? || publishers.any? %>
+      <dl class="facts">
+        <% if game.first_release_date %>
+          <div><dt>Released</dt><dd><%= l game.first_release_date, format: :long %></dd></div>
+        <% end %>
+        <% if developers.any? %>
+          <div><dt>Developer</dt><dd><%= developers.join(", ") %></dd></div>
+        <% end %>
+        <% if publishers.any? %>
+          <div><dt>Publisher</dt><dd><%= publishers.join(", ") %></dd></div>
+        <% end %>
+      </dl>
     <% end %>
-    <% if game.game_type.present? %>
-      <p><strong>Type:</strong> <%= game.game_type %></p>
+
+    <% { "Game modes" => game.game_modes, "Themes" => game.themes, "Genres" => game.genres }.each do |label, values| %>
+      <% if values.present? %>
+        <div class="chip-group">
+          <h2 class="chip-group-label"><%= label %></h2>
+          <ul class="chips">
+            <% values.each do |value| %>
+              <%= tag.li value, class: "chip" %>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     <% end %>
-    <% if game.game_modes.present? %>
-      <p><strong>Game modes:</strong> <%= game.game_modes.join(", ") %></p>
-    <% end %>
-    <% if game.themes.present? %>
-      <p><strong>Themes:</strong> <%= game.themes.join(", ") %></p>
-    <% end %>
+
     <% if game.age_ratings.present? %>
-      <p><strong>Age ratings:</strong> <%= game.age_ratings.join(", ") %></p>
+      <div class="chip-group">
+        <h2 class="chip-group-label">Age ratings</h2>
+        <ul class="chips">
+          <% game.age_ratings.each do |rating| %>
+            <%= tag.li rating, class: "badge" %>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
-    <%= tag.p(game.summary) if game.summary.present? %>
+
+    <% if game.summary.present? %>
+      <%# A long summary shows a short preview with a native <details> toggle
+          for the rest (no JavaScript); CSS hides the preview once it's open. %>
+      <% if game.summary.length > 400 %>
+        <div class="summary">
+          <p class="summary-preview"><%= truncate(game.summary, length: 300, separator: " ", omission: "…") %></p>
+          <details>
+            <summary>Read more</summary>
+            <p><%= game.summary %></p>
+          </details>
+        </div>
+      <% else %>
+        <p class="summary"><%= game.summary %></p>
+      <% end %>
+    <% end %>
   </div>
 </section>
