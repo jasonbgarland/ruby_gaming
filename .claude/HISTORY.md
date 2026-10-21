@@ -134,8 +134,8 @@ Last updated: 2026-10-21
     user (`demo@example.com`) and three collections (8, 4 and 5 games). It
     refuses to run in production, since the demo password is public (README).
     `bin/ci` runs it too. 193 regular tests.
-22. **UI polish** (`8d33c1c`, `ae40490`, `d3dd78c`, `34c03a6`, `372740a`,
-    `0802790`) — plain CSS, no framework: the palette is CSS variables in
+22. **UI polish** (`1bbd6d1`, `19b85dd`, `d33820a`, `7895eb5`, `598e8b4`,
+    `4f26c08`) — plain CSS, no framework: the palette is CSS variables in
     `application.css`, the container is 960px, and `.card`, `.chip`, `.badge`
     and button variants are shared. `GamesHelper#platform_label` shortens IGDB
     platform names ("PC (Microsoft Windows)" to "PC"; unlisted ones keep
