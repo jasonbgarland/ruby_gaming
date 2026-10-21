@@ -8,8 +8,8 @@ commits); current status and next steps are in `.claude/HANDOFF.md`.
 Goal: a reviewer can watch a 2-3 minute video, read a real README and look at
 a public repo. About 15 hours; if it slips, cut scope. One branch and PR each:
 
-1. `companies` — developer/publisher (code done; PR pending).
-2. `demo-seeds` — idempotent `db:seed`: a demo user and a few populated
+1. `companies` — developer/publisher (done, merged).
+2. `demo-seeds` — (code done; PR pending) idempotent `db:seed`: a demo user and a few populated
    collections from static game data, so seeding needs no IGDB credentials.
    Fail-soft refresh: with no IGDB credentials, a stale game is served from
    the cache instead of raising. Document the demo login in the README.
