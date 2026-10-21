@@ -124,7 +124,7 @@ Last updated: 2026-10-09
     temporary `igdb-fields.md` was folded into the `PLAN.md` backlog and deleted. The finished-plan
     archives (`plan_archives/`) were deleted too, ahead of making the repo
     public; the rationale is in the commits and the items above.
-21. **Demo seeds** (`b651035`, `aa150ea`, `f9c2834`) — `Game.find_or_refresh`
+21. **Demo seeds** (`b7d634a`, `1980bfd`, `b3611a1`) — `Game.find_or_refresh`
     now serves the stale cached row when IGDB fails (missing credentials,
     network or API errors) and still raises when nothing is cached; the client
     is built inside the method, because a default argument would raise where
