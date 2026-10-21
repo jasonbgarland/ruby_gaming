@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-10-20
+Last updated: 2026-10-21
 
 ## What this project is
 
@@ -33,8 +33,8 @@ Facts worth having up front:
   protection is **not** enabled: GitHub needs Pro or a public repo for it
   (API payload saved in `.claude/PLAN.md`).
 
-State at last update: on branch `companies` (not yet pushed, no PR; the PR is
-the next step), 185 regular tests + 15 system tests expected green.
+State at last update: `companies` is merged to `main` (rebase and merge); 185
+regular tests + 15 system tests expected green.
 
 ## Explicitly deferred (not built yet)
 
@@ -73,11 +73,9 @@ Details are in the `.claude/PLAN.md` backlog ("Auth hardening"):
 1. **Finish the manual browser pass** — only look and feel is left; rules are
    covered by automated tests. Dev server: `bin/rails server` (needs Postgres).
 2. **Sprint 1: demo-ready** (plan in `.claude/PLAN.md`) — in progress.
-   Richer IGDB details part 2 (companies) is code-complete on branch
-   `companies` (details in HISTORY item 20); push it and open the PR
-   (rebase and merge), then fix the commit hashes in HISTORY if the rebase
-   changes them. Then, one branch and PR each: `demo-seeds`, `ui-polish`,
-   `readme`, `pre-public`.
+   Richer IGDB details part 2 (companies) is done and merged (HISTORY item
+   20). Next, one branch and PR each: `demo-seeds`, `ui-polish`, `readme`,
+   `pre-public`.
 3. **Product-direction discussion** (the user wants it after the sprint): what
    the site is for, what data we own (reviews, ratings, tags, play status)
    versus rely on IGDB for. It decides the screenshots/trailer story,

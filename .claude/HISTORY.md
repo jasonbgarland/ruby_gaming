@@ -112,8 +112,8 @@ Last updated: 2026-10-09
     saved by `Game.upsert_from_igdb`. The game page shows them and an
     "Game details sourced from IGDB" link under the panel. Companies are parsed
     by the client but not stored yet (part 2). 175 regular tests.
-20. **Richer IGDB details, part 2: companies** (`39ca3e2`, `f320d8d`,
-    `50172e3`) — `companies` (unique on `lower(name)`) and a `game_companies`
+20. **Richer IGDB details, part 2: companies** (`4e913d3`, `a90c3e1`,
+    `cfd487b`) — `companies` (unique on `lower(name)`) and a `game_companies`
     join with a `role` (developer or publisher; unique per game, company and
     role). Companies match by name, case-insensitively, because the client
     returns no IGDB company ids; a company that both develops and publishes a
