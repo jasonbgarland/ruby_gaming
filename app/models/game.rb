@@ -10,15 +10,24 @@ class Game < ApplicationRecord
   validates :name, presence: true
 
   # Local cache lookup: returns a fresh Game row for the given igdb_id,
-  # fetching/upserting from IGDB when the row is missing or stale
-  def self.find_or_refresh(igdb_id, client: IgdbClient.new)
+  # fetching/upserting from IGDB when the row is missing or stale. If IGDB
+  # can't be reached (no credentials, network or API failure), a stale row is
+  # served as-is; with no row at all there is nothing to serve, so it raises.
+  # The client is built inside the method (not as a default argument) so a
+  # missing-credentials error is raised where the rescue can see it.
+  def self.find_or_refresh(igdb_id, client: nil)
     game = find_by(igdb_id: igdb_id)
     return game if game && !game.stale?
 
-    remote_game = client.find(igdb_id)
+    remote_game = (client || IgdbClient.new).find(igdb_id)
     return game unless remote_game
 
     upsert_from_igdb(remote_game)
+  rescue IgdbClient::Error => e
+    raise unless game
+
+    Rails.logger.warn("IGDB refresh failed for #{igdb_id}, serving cached row: #{e.class}: #{e.message}")
+    game
   end
 
   def self.upsert_from_igdb(igdb_game)

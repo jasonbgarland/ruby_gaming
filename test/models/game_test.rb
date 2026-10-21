@@ -21,6 +21,14 @@ class GameTest < ActiveSupport::TestCase
     fake_client({})
   end
 
+  def without_igdb_credentials
+    original = Rails.application.credentials.igdb
+    Rails.application.credentials.igdb = {}
+    yield
+  ensure
+    Rails.application.credentials.igdb = original
+  end
+
   def igdb_game(overrides = {})
     IgdbClient::Game.new(
       **{
@@ -206,5 +214,32 @@ class GameTest < ActiveSupport::TestCase
     client = fake_client(424_242 => nil)
 
     assert_nil Game.find_or_refresh(424_242, client: client)
+  end
+
+  test "find_or_refresh serves the stale row when IGDB fails" do
+    game = Game.upsert_from_igdb(igdb_game)
+    game.update!(refreshed_at: (Game::REFRESH_INTERVAL + 1.minute).ago)
+
+    [ IgdbClient::RequestError, IgdbClient::AuthenticationError, IgdbClient::ResponseError ].each do |error|
+      client = Object.new
+      client.define_singleton_method(:find) { |_id| raise error, "boom" }
+
+      assert_equal game.id, Game.find_or_refresh(1022, client: client).id, error.name
+    end
+  end
+
+  test "find_or_refresh serves the stale row when IGDB credentials are missing" do
+    game = Game.upsert_from_igdb(igdb_game)
+    game.update!(refreshed_at: (Game::REFRESH_INTERVAL + 1.minute).ago)
+
+    without_igdb_credentials do
+      assert_equal game.id, Game.find_or_refresh(1022).id
+    end
+  end
+
+  test "find_or_refresh raises when IGDB fails and nothing is cached" do
+    without_igdb_credentials do
+      assert_raises(IgdbClient::ConfigurationError) { Game.find_or_refresh(1022) }
+    end
   end
 end
