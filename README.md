@@ -11,6 +11,7 @@ bin/setup                  # install gems, prepare the database
 bin/rails server           # run the app at http://localhost:3000
 bin/rails console          # Ruby console with the app loaded
 bin/rails db:migrate       # apply pending migrations
+bin/rails db:seed          # load the demo data (see "Demo data" below)
 bin/rails routes           # list all routes
 
 bin/rails test             # model, controller, integration, service tests (no browser)
@@ -31,3 +32,20 @@ bin/ci                     # CI run: setup, rubocop, security audits, tests, see
 Rails "integration tests" (`test/integration/`) are plain HTTP-level tests
 with no browser, so they run as part of `bin/rails test`. Only system tests
 need `test:system`.
+
+## Demo data
+
+`bin/rails db:seed` loads IGDB's top 100 games (a static snapshot in
+`db/seeds/games.yml`, so it needs no IGDB credentials) and a demo user with
+three populated collections. It is safe to run repeatedly and refuses to run
+in production.
+
+Log in with:
+
+```
+email:    demo@example.com
+password: demo-password-123
+```
+
+Live game search still needs IGDB credentials. A cached game whose refresh
+fails (for example, with no credentials) is served from the local copy.
