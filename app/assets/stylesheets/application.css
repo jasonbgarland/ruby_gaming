@@ -322,3 +322,20 @@ button:hover {
 .game-type {
   margin: 0 0 0.5rem;
 }
+
+/* Phone width: stack the cover above the details so the text can use the
+   full width instead of a narrow column beside a 260px cover. */
+@media (max-width: 640px) {
+  .game-panel {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-panel .game-cover {
+    width: 180px;
+  }
+
+  .game-panel-details {
+    width: 100%;
+  }
+}
