@@ -35,6 +35,16 @@ One-line prompts to flesh out when ready; not scheduled.
   and a game-page section.
 - **Discovery** — `similar_games` ("you might also like", linking to other
   game pages) and related releases (DLCs, remasters). Its own story.
+- **Link back to the base game** — when a game page is not a Main Game (DLC,
+  expansion, episode, mod, ...), link to its parent game. IGDB has
+  `parent_game` (and `version_parent` for remasters/editions); both are static
+  and factual, so they fit the data principle. Needs the wider `find` fields,
+  a place to store the parent's `igdb_id` (a column on `games`), the link on
+  the type badge shown by the game page (ui-polish adds the badge, with no
+  hint text yet), and care for a parent not yet cached (link by `igdb_id`;
+  the game page already fetches on demand). Decide the badge wording for
+  add-ons ("needs the base game") versus variants (remake, port, standalone
+  expansion) once real data shows the types in use.
 - **IGDB data principle** — pull only static, factual IGDB data. Crowd-sourced
   fields (ratings, franchises, collections, time to beat, storyline) were
   probed and dropped; the site should own that kind of data itself (reviews,
