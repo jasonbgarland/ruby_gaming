@@ -71,6 +71,13 @@ One-line prompts to flesh out when ready; not scheduled.
   forms, login/registration/password pages (could use a narrow container), the
   home page and the nav. Reuse the `.card`, `.chip` and `.badge` styles and the
   CSS variables from `ui-polish`; add a phone-width check for each page.
+- **Undo a removal** (much later) — Remove on a collection entry deletes at
+  once and only shows a "Removed ..." flash. Add an Undo action on that flash
+  that restores the entry (same collection, game and platform). Needs a
+  decision first: re-create the row from the flash's data, or soft-delete
+  (a `removed_at` column) so Undo is a true restore. Applies to every Remove
+  button (collection page and the game page's collections block); Delete of a
+  whole collection already asks for confirmation, so it is not the target.
 - **Reuse `games/_search`** elsewhere (e.g. a review form) via a different
   `action_partial`.
 - **Auth hardening** — the Rails 8 authentication generator already throttles
