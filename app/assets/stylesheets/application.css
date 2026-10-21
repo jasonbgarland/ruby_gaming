@@ -206,11 +206,57 @@ button:hover {
 }
 
 .game-panel .game-cover {
-  width: 200px;
+  width: 260px;
+}
+
+.game-panel-details {
+  min-width: 0;
 }
 
 .game-panel-details h1 {
-  margin-top: 0;
+  margin: 0 0 0.5rem;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0.75rem 1.5rem;
+  margin: 1rem 0;
+}
+
+.facts dt,
+.chip-group-label {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.facts dd {
+  margin: 0;
+}
+
+.chip-group {
+  margin-top: 1rem;
+}
+
+.summary {
+  margin: 1.25rem 0 0;
+}
+
+.summary-preview {
+  margin: 0;
+}
+
+.summary details summary {
+  cursor: pointer;
+  color: var(--color-primary);
+}
+
+.summary:has(details[open]) .summary-preview {
+  display: none;
 }
 
 .attribution {
@@ -265,4 +311,14 @@ button:hover {
   font-size: 0.8rem;
   font-weight: 700;
   white-space: nowrap;
+}
+
+.badge-type {
+  border-color: var(--color-chip-text);
+  background-color: var(--color-chip-text);
+  color: #fff;
+}
+
+.game-type {
+  margin: 0 0 0.5rem;
 }

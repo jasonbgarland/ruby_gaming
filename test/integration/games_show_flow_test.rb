@@ -22,10 +22,47 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", "The Legend of Zelda"
     assert_select "img.game-cover[src=?]", "https://example.com/zelda.jpg"
-    assert_match "February 21, 1986", response.body
-    assert_match "NES, Switch", response.body
-    assert_match "Adventure", response.body
-    assert_match "An adventure.", response.body
+    assert_select "dl.facts div", text: "ReleasedFebruary 21, 1986"
+    assert_select ".platforms .chip", count: 2
+    assert_select ".platforms .chip", text: "NES"
+    assert_select ".chip-group .chip", text: "Adventure"
+    assert_select "p.summary", text: "An adventure."
+  end
+
+  test "flags a game that is not a Main Game with a type badge" do
+    @game.update!(game_type: "DLC")
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".game-type .badge-type", text: "DLC"
+    assert_select "dl.facts dt", text: "Type", count: 0
+  end
+
+  test "shows short platform names with the full IGDB name as a tooltip" do
+    @game.update!(platforms: [ "PC (Microsoft Windows)", "Xbox Series X|S" ])
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".platforms .chip[title=?]", "PC (Microsoft Windows)", text: "PC"
+    assert_select ".platforms .chip", text: "Xbox Series X|S"
+  end
+
+  test "shows a short summary in full with no toggle" do
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".summary details", count: 0
+  end
+
+  test "folds a long summary behind a native details toggle" do
+    long_summary = "word " * 120
+    @game.update!(summary: long_summary)
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".summary-preview", text: /\Aword word.*…\z/
+    assert_select ".summary details summary", text: "Read more"
+    assert_select ".summary details p", text: long_summary.strip
   end
 
   test "shows the IGDB detail fields and an attribution link" do
@@ -37,10 +74,13 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     sign_in(@user)
     get game_path(@game.igdb_id)
 
-    assert_match "Main Game", response.body
-    assert_match "Single player, Co-operative", response.body
-    assert_match "Fantasy, Action", response.body
-    assert_match "ESRB E10+, PEGI 7", response.body
+    assert_select ".game-type", count: 0
+    assert_select ".chip-group .chip", text: "Single player"
+    assert_select ".chip-group .chip", text: "Co-operative"
+    assert_select ".chip-group .chip", text: "Fantasy"
+    assert_select ".chip-group .chip", text: "Action"
+    assert_select ".chip-group .badge", text: "ESRB E10+"
+    assert_select ".chip-group .badge", text: "PEGI 7"
     assert_select "p.attribution a[href=?]", "https://www.igdb.com/games/the-legend-of-zelda", text: "IGDB"
   end
 
@@ -53,8 +93,8 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     sign_in(@user)
     get game_path(@game.igdb_id)
 
-    assert_match "Developer:</strong> Nintendo</p>", response.body
-    assert_match "Publisher:</strong> Capcom, Nintendo</p>", response.body
+    assert_select "dl.facts div", text: "DeveloperNintendo"
+    assert_select "dl.facts div", text: "PublisherCapcom, Nintendo"
   end
 
   test "attributes IGDB as plain text when the game has no IGDB url yet" do
@@ -72,15 +112,11 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "img.game-cover", count: 0
-    assert_no_match "Released", response.body
-    assert_no_match "Platforms:", response.body
-    assert_no_match "Genres:", response.body
-    assert_no_match "Developer:", response.body
-    assert_no_match "Publisher:", response.body
-    assert_no_match "Type:", response.body
-    assert_no_match "Game modes:", response.body
-    assert_no_match "Themes:", response.body
-    assert_no_match "Age ratings:", response.body
+    assert_select ".platforms", count: 0
+    assert_select "dl.facts", count: 0
+    assert_select ".game-type", count: 0
+    assert_select ".chip-group", count: 0
+    assert_select ".summary", count: 0
   end
 
   test "lists only the current user's collections that contain the game" do
@@ -177,13 +213,14 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_equal [ "Single player", "Multiplayer" ], saved.game_modes
     assert_equal [ "ESRB M" ], saved.age_ratings
     assert_select "h1", "Elden Ring"
-    assert_match "Single player, Multiplayer", response.body
-    assert_match "Fantasy, Open world", response.body
+    assert_select ".chip-group .chip", text: "Single player"
+    assert_select ".chip-group .chip", text: "Multiplayer"
+    assert_select ".chip-group .chip", text: "Open world"
     assert_equal [ [ "Bandai Namco", "publisher" ], [ "FromSoftware", "developer" ] ],
       saved.game_companies.includes(:company).map { |gc| [ gc.company.name, gc.role ] }.sort
-    assert_match "Developer:</strong> FromSoftware</p>", response.body
-    assert_match "Publisher:</strong> Bandai Namco</p>", response.body
-    assert_match "ESRB M", response.body
+    assert_select "dl.facts div", text: "DeveloperFromSoftware"
+    assert_select "dl.facts div", text: "PublisherBandai Namco"
+    assert_select ".chip-group .badge", text: "ESRB M"
     assert_no_match "CERO", response.body
     assert_select "p.attribution a[href=?]", "https://www.igdb.com/games/elden-ring"
   end
