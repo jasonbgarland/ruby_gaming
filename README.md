@@ -11,7 +11,7 @@ games into your own collections by platform.
   <img src="docs/media/mobile.png" alt="The game page at phone width" width="20%">
 </p>
 
-<!-- TODO: ~30 second screencap. -->
+![A 30 second walkthrough: browse a collection, search as you type, and add a game](docs/media/demo.gif)
 
 ## Why this project
 
