@@ -3,7 +3,15 @@
 A Rails 8.1 app for tracking the games you own or want: search IGDB, then sort
 games into your own collections by platform.
 
-<!-- TODO: 3-4 screenshots (docs/media/) and a ~30 second screencap. -->
+![A game's details page, with the user's collections below](docs/media/game_details.png)
+
+<p>
+  <img src="docs/media/collection.png" alt="A collection of games with platform chips" width="39%">
+  <img src="docs/media/search.png" alt="Live search results with an add-to-collection control" width="39%">
+  <img src="docs/media/mobile.png" alt="The game page at phone width" width="20%">
+</p>
+
+<!-- TODO: ~30 second screencap. -->
 
 ## Why this project
 
