@@ -9,7 +9,7 @@ Current status and next steps are in `.claude/HANDOFF.md`; the backlog is in
 Note: all commit hashes here were remapped after a one-time history rewrite
 on 2026-10-08 (item 15), before the first push.
 
-Last updated: 2026-10-21
+Last updated: 2026-10-22
 
 1. **Initial scaffold** (`960dbea`) — vanilla Rails 8 app, Docker/Kamal
    deploy config present but not configured for a real target yet.
@@ -149,3 +149,18 @@ Last updated: 2026-10-21
     wraps with a gap. Existing show-flow tests were rewritten as
     `assert_select`. 200 regular tests + 15 system tests. Follow-ups are in
     `PLAN.md`: site-wide polish, link back to the base game, undo a removal.
+23. **Game page collections card** (`bec67fb`, PR #24) — the "Your
+    collections" block on the game page (`games/_your_stuff`) is now a
+    `.card`, with label headings, one row per entry (title link, platform chip,
+    quiet Remove) and the add form on one wrapping row. Found in the manual
+    browser pass; the rest of that pass needed no changes. The sign-in pages'
+    missing theme and the default link colors went to the `PLAN.md` backlog.
+24. **Portfolio README** (`260b20d`, `21a874d`, `7a66f28`, PR #25) — the
+    README now opens with screenshots and a GIF (`docs/media/`), then why the
+    project exists, what it demonstrates, how it was built, how to run it
+    (live search needs a Twitch developer account and IGDB credentials; the
+    seeded demo does not), what's next, and a LinkedIn contact. Screenshots are
+    2x retina crops; Safari's Responsive Design Mode and the macOS screenshot
+    tool gave full-page captures, so they were cropped with `sips` (note:
+    `--cropOffset 0` centers the crop; use 1). The GIF was made from a
+    screen recording with `ffmpeg` (800px wide, 12 fps, custom palette; 1.9 MB).
