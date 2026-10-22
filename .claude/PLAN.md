@@ -9,14 +9,17 @@ Goal: a reviewer can watch a 2-3 minute video, read a real README and look at
 a public repo. About 15 hours; if it slips, cut scope. One branch and PR each:
 
 1. `companies` — developer/publisher (done, merged).
-2. `demo-seeds` — (code done; PR pending) idempotent `db:seed`: a demo user and a few populated
+2. `demo-seeds` — (done, merged) idempotent `db:seed`: a demo user and a few populated
    collections from static game data, so seeding needs no IGDB credentials.
    Fail-soft refresh: with no IGDB credentials, a stale game is served from
    the cache instead of raising. Document the demo login in the README.
 3. `ui-polish` — chips for themes and modes, age-rating badges, larger cover,
-   styled collection and search pages; keep the partial-page refresh behavior.
-4. `readme` — portfolio README, 3-4 screenshots, short demo-video steps.
-5. `pre-public` — secrets re-check, CI green, then the repo goes public.
+   styled collection and search pages; keep the partial-page refresh behavior
+   (done, merged; the game page's collections card followed in PR #24).
+4. `readme` — portfolio README, 4 screenshots and a 30 second GIF in
+   `docs/media/` (done, merged, PR #25).
+5. `pre-public` — secrets re-check, a clean-clone test of the README's
+   credentials steps, CI green, then the repo goes public. Next.
 
 Cut order if time runs short: offline mode (stretch), restyling the collection
 and search pages, age-rating badges.
@@ -66,8 +69,10 @@ One-line prompts to flesh out when ready; not scheduled.
   larger cover or artwork banner; fold a very long summary.
 - **Site-wide UI polish** — follow-up to the Sprint 1 `ui-polish` story, which
   covers only the game page, collection show page and search results. Still
-  plain: the "Your collections / Add to a collection" block on the game page
-  (`games/_your_stuff`), the collections index, the collection and settings
+  plain (the game page's "Your collections" block is done, PR #24): the
+  collections index, an overall theme and color scheme (sign-in and sign-up
+  have none), the default blue/purple link colors on collection and search
+  titles, the collection and settings
   forms, login/registration/password pages (could use a narrow container), the
   home page and the nav. Reuse the `.card`, `.chip` and `.badge` styles and the
   CSS variables from `ui-polish`; add a phone-width check for each page.
