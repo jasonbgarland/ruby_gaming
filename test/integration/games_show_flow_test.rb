@@ -132,8 +132,8 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
 
     assert_select ".your-stuff li", count: 2
     assert_select ".your-stuff li a[href=?]", collection_path(mine), text: "Wishlist"
-    assert_match "(NES)", response.body
-    assert_match "(Switch)", response.body
+    assert_select ".your-stuff li .chip", text: "NES"
+    assert_select ".your-stuff li .chip", text: "Switch"
     assert_no_match "Graces Secret List", response.body
     assert_select ".your-stuff li", text: /Empty/, count: 0
   end
