@@ -42,7 +42,8 @@ class GamesTest < ApplicationSystemTestCase
 
     assert_current_path game_path(1022)
     assert_text "Added The Legend of Zelda (Switch) to Wishlist."
-    assert_selector ".your-stuff li", text: "Wishlist (Switch)"
+    assert_selector ".your-stuff li a", text: "Wishlist"
+    assert_selector ".your-stuff li .chip", text: "Switch"
 
     click_on "Remove"
 

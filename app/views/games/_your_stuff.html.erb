@@ -6,30 +6,31 @@
       game             - the Game being shown
       collection_games - the user's CollectionGame rows for this game
       collections      - all of the user's collections (for the add dropdown) %>
-<section class="your-stuff">
-  <h2>Your collections</h2>
+<section class="your-stuff card">
+  <h2 class="chip-group-label">Your collections</h2>
   <% if collection_games.empty? %>
-    <p>This game isn't in any of your collections yet.</p>
+    <p class="your-stuff-empty">This game isn't in any of your collections yet.</p>
   <% else %>
-    <ul>
+    <ul class="your-stuff-list">
       <% collection_games.each do |collection_game| %>
         <li>
           <%= link_to collection_game.collection.title, collection_path(collection_game.collection) %>
-          (<%= collection_game.platform %>)
+          <%= tag.span platform_label(collection_game.platform), class: "chip", title: collection_game.platform %>
           <%= button_to "Remove", collection_collection_game_path(collection_game.collection, collection_game),
-                method: :delete, params: { from: "game" }, form: { class: "inline-form" } %>
+                method: :delete, params: { from: "game" }, class: "button-quiet",
+                form: { class: "inline-form" } %>
         </li>
       <% end %>
     </ul>
   <% end %>
 
-  <h3>Add to a collection</h3>
+  <h2 class="chip-group-label your-stuff-add-label">Add to a collection</h2>
   <% if collections.empty? %>
     <p>You don't have any collections yet. <%= link_to "Create one", new_collection_path %>.</p>
   <% elsif game.platforms.blank? %>
     <p>No platforms listed for this game, so it can't be added to a collection.</p>
   <% else %>
-    <%= form_with url: collection_games_path do |form| %>
+    <%= form_with url: collection_games_path, class: "your-stuff-form" do |form| %>
       <%= form.hidden_field :igdb_id, value: game.igdb_id %>
       <%= form.hidden_field :from, value: "game" %>
       <%= form.label :collection_id, "Collection", class: "sr-only" %>
