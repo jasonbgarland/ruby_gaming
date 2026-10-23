@@ -3,7 +3,7 @@
 What's built is indexed in `.claude/HISTORY.md` (design rationale lives in the
 commits); current status and next steps are in `.claude/HANDOFF.md`.
 
-## In flight: Sprint 1, demo-ready (week of 2026-10-20)
+## Sprint 1, demo-ready (week of 2026-10-20) — complete
 
 Goal: a reviewer can watch a 2-3 minute video, read a real README and look at
 a public repo. About 15 hours; if it slips, cut scope. One branch and PR each:
@@ -19,7 +19,8 @@ a public repo. About 15 hours; if it slips, cut scope. One branch and PR each:
 4. `readme` — portfolio README, 4 screenshots and a 30 second GIF in
    `docs/media/` (done, merged, PR #25).
 5. `pre-public` — secrets re-check, a clean-clone test of the README's
-   credentials steps, CI green, then the repo goes public. Next.
+   credentials steps, CI green, then the repo goes public and `main` gets
+   branch protection (done 2026-10-23; HISTORY item 25).
 
 Cut order if time runs short: offline mode (stretch), restyling the collection
 and search pages, age-rating badges.
@@ -92,7 +93,9 @@ One-line prompts to flesh out when ready; not scheduled.
   rate-limit tracking. Email verification of a user's address is also not
   built and needs its own design pass (the generator doesn't provide it).
 
-## Before making the GitHub repo public
+## Going public (done 2026-10-23)
+
+All of this is finished; kept as a record of what was checked.
 
 - A real `README.md` (what it is, screenshots, how to run it).
 - LICENSE: decided, none (all rights reserved), so the code stays free to
@@ -102,10 +105,11 @@ One-line prompts to flesh out when ready; not scheduled.
 - Secrets re-check: only `config/credentials.yml.enc` tracked, no
   `master.key` or `.env` anywhere in history.
 - CI green on `main`.
-- Then turn on branch protection for `main` (free on public repos; on a
-  private free repo the API returns 403 "Upgrade to GitHub Pro", tried
-  2026-10-08). Put this JSON in a file and run
-  `gh api -X PUT repos/jasonbgarland/ruby_gaming/branches/main/protection --input <file>`:
+- Branch protection for `main` (free on public repos; on a private free repo
+  the API returned 403 "Upgrade to GitHub Pro", tried 2026-10-08). Applied
+  with this JSON via
+  `gh api -X PUT repos/jasonbgarland/ruby_gaming/branches/main/protection --input <file>`
+  (to change it, re-run the same call with an edited file):
 
   ```json
   {
@@ -120,5 +124,5 @@ One-line prompts to flesh out when ready; not scheduled.
   }
   ```
 
-  Until then the rule in `CLAUDE.md` (no direct commits to `main`) is the
-  only guard.
+  The rule in `CLAUDE.md` (no direct commits to `main`) is now enforced by
+  GitHub as well.

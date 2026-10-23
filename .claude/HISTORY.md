@@ -164,3 +164,15 @@ Last updated: 2026-10-22
     tool gave full-page captures, so they were cropped with `sips` (note:
     `--cropOffset 0` centers the crop; use 1). The GIF was made from a
     screen recording with `ffmpeg` (800px wide, 12 fps, custom palette; 1.9 MB).
+25. **Going public** (no code changes; docs only) — secrets re-check: only
+    `config/credentials.yml.enc` and the stock `.kamal/secrets` template are
+    tracked, no key, `.env` or `.pem` file has ever been committed on any
+    branch, and a history grep found only variable names and docs. Clean-clone
+    test in the scratchpad (databases renamed so the dev data stayed
+    untouched): the README's credentials steps (`rm config/credentials.yml.enc`,
+    then `bin/rails credentials:edit`) work, `bin/setup` seeds 100 games and
+    the demo user, 200 tests + 15 system tests pass, and the server boots.
+    CI was green on `main`. The repo was made public on 2026-10-23 and pinned
+    on the GitHub profile, then branch protection was applied with the
+    `PLAN.md` payload (five required CI jobs, up-to-date branches, linear
+    history, no force-pushes or deletions, admins included).

@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-10-22
+Last updated: 2026-10-23
 
 ## What this project is
 
@@ -11,9 +11,9 @@ to grow into a larger demo project hosted on the web, possibly commercial.
 
 ## What's built
 
-Items 1–24 (scaffold → accounts → IGDB client → Postgres → collections →
+Items 1–25 (scaffold → accounts → IGDB client → Postgres → collections →
 system tests → live search → GitHub + CI → game details page → richer IGDB
-details → demo seeds → UI polish → portfolio README) are in
+details → demo seeds → UI polish → portfolio README → going public) are in
 **`.claude/HISTORY.md`**, with commit hashes. The backlog is in `.claude/PLAN.md`.
 
 Facts worth having up front:
@@ -24,19 +24,22 @@ Facts worth having up front:
   (Capybara + headless Chrome); commands are in `README.md`. Tests use fake
   IGDB credentials (`test/test_helper.rb`), so they don't need
   `config/master.key`.
-- Repo: **private** `github.com/jasonbgarland/ruby_gaming`, branch `main`.
-  CI (`.github/workflows/ci.yml`: Brakeman + bundler-audit, importmap audit,
+- Repo: **public** `github.com/jasonbgarland/ruby_gaming` (since 2026-10-23,
+  pinned on the GitHub profile), branch `main`. CI
+  (`.github/workflows/ci.yml`: Brakeman + bundler-audit, importmap audit,
   RuboCop, tests, system tests) passes. Dependabot checks monthly; minor and
   patch bumps arrive as one grouped PR, majors separately. Only "Rebase and
   merge" is enabled on the repo.
 - Git workflow (branch per story, PR, rebase-and-merge, no direct commits to
-  `main`, no Claude attribution lines) is written in `CLAUDE.md`. Branch
-  protection is **not** enabled: GitHub needs Pro or a public repo for it
-  (API payload saved in `.claude/PLAN.md`).
+  `main`, no Claude attribution lines) is written in `CLAUDE.md`. **Branch
+  protection is on** for `main`: the five CI jobs must pass and the branch must
+  be up to date, history stays linear, no force-pushes or deletions, and
+  admins are included. So every change, docs too, goes through a PR, and a
+  PR must be rebased onto `main` before it can merge. No reviews are required
+  (a solo repo). The payload is in `.claude/PLAN.md`.
 
-State at last update: `main` has the README rewrite with screenshots and a GIF
-(HISTORY item 24); 200 regular tests + 15 system tests green. Sprint 1 has one
-story left, `pre-public`.
+State at last update: `main` is public with the portfolio README (HISTORY items
+24 and 25); 200 regular tests + 15 system tests green. Sprint 1 is complete.
 
 ## Explicitly deferred (not built yet)
 
@@ -72,22 +75,20 @@ Details are in the `.claude/PLAN.md` backlog ("Auth hardening"):
 
 ## Next steps
 
-1. **Sprint 1, last story: `pre-public`** (plan in `.claude/PLAN.md`), one
-   branch and PR. Do these in order:
-   - Secrets re-check: only `config/credentials.yml.enc` tracked; no
-     `master.key` or `.env` anywhere in history.
-   - Clean-clone test of the README's "Run it locally" steps, especially the
-     credentials note (`rm config/credentials.yml.enc`, then
-     `bin/rails credentials:edit`), which has not been tried on a fresh clone.
-   - CI green on `main`.
-   - Make the repo public, then branch protection (checklist in `PLAN.md`).
+Sprint 1 is done; nothing is in flight. Pick one:
+
+1. **Product-direction discussion** (the user wants it first): what the site
+   is for, what data we own (reviews, ratings, tags, play status) versus rely
+   on IGDB for. It decides the screenshots/trailer story, tags/keywords and
+   discovery. See `.claude/PLAN.md` backlog.
 2. **Visual theme and front-end pass** (later UX sprint): an overall theme and
    color scheme (sign-in has none), the default blue/purple link colors, the
    other plain pages. See "Site-wide UI polish" in `PLAN.md`.
-3. **Product-direction discussion** (the user wants it after the sprint): what
-   the site is for, what data we own (reviews, ratings, tags, play status)
-   versus rely on IGDB for. It decides the screenshots/trailer story,
-   tags/keywords and discovery. See `.claude/PLAN.md` backlog.
+3. **Small cleanups** from "Open items" below, e.g. removing the redundant
+   `/games/search` Add.
+
+Optional polish on the public repo: a one-line About description and topics
+(`rails`, `hotwire`) on the GitHub repo page.
 
 ## Open items / decisions to revisit
 
@@ -113,12 +114,10 @@ Details are in the `.claude/PLAN.md` backlog ("Auth hardening"):
   clean (and find out why the dump order differs).
 - Editor auto-format once un-indented methods under `private`; project
   convention (and Rails') is indented, rubocop allows both.
-- CI housekeeping: `ubuntu-latest` moves to Ubuntu 26 on 2026-10-19; if CI
-  breaks around then, look there first.
 - `image_processing` 2.x (updated 2026-10-08) no longer pulls in an image
   backend, and nothing uses Active Storage variants yet. When we add uploads,
   add `gem "ruby-vips"` explicitly (Rails defaults to vips; CI already
   installs `libvips`). The gem could also be dropped until then.
-- GitHub Actions minutes: private repos on the free plan have a monthly
-  allowance (believed 2,000 Linux minutes); check
-  github.com/settings/billing if runs stop.
+- The repo's encrypted credentials hold the real IGDB client secret. That is
+  safe while `config/master.key` stays private; rotate the Twitch client
+  secret if the key is ever exposed.
