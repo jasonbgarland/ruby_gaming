@@ -11,6 +11,7 @@ class GamesController < ApplicationController
 
     @game = Game.find_or_refresh(params[:id]) or raise ActiveRecord::RecordNotFound
     @collections = Current.user.collections.order(:title)
+    @rating = Current.user.ratings.find_by(game: @game)
     @collection_games = CollectionGame.where(game: @game, collection: Current.user.collections)
       .includes(:collection).references(:collection).order("collections.title", :platform)
   end

@@ -1,0 +1,46 @@
+<%# The signed-in user's star rating of this game, plus everyone's average.
+    Ten radios, one per half-star (value 1-10), drawn as five stars by CSS.
+    Clicking one submits the form (autosubmit controller), which replaces the
+    user's rating. The radios are listed highest first because the CSS fills
+    "this star and all lower ones" with a sibling selector; the row is
+    flipped back for display. Without JavaScript the noscript button submits.
+    Locals:
+      game   - the Game being shown
+      rating - the user's Rating for it, or nil %>
+<section class="rating card">
+  <h2 class="chip-group-label">Your rating</h2>
+
+  <%= form_with url: game_rating_path(game.igdb_id), class: "rating-form",
+        data: { controller: "autosubmit", autosubmit_delay_value: 0 } do |form| %>
+    <fieldset class="rating-stars">
+      <legend class="sr-only">Your rating</legend>
+      <% 10.downto(1) do |halves| %>
+        <%= radio_button_tag :rating_halves, halves, rating&.rating_halves == halves,
+              class: "sr-only", data: { action: "change->autosubmit#submit" } %>
+        <%= label_tag "rating_halves_#{halves}", class: "rating-star #{halves.odd? ? 'rating-star-left' : 'rating-star-right'}" do %>
+          <span class="sr-only"><%= stars_label(halves / 2.0) %></span>
+        <% end %>
+      <% end %>
+    </fieldset>
+    <noscript><%= form.submit "Save rating" %></noscript>
+  <% end %>
+
+  <div class="rating-summary">
+    <% if rating %>
+      <span>You rated it <strong><%= stars_label(rating) %></strong>.</span>
+      <%= button_to "Clear", game_rating_path(game.igdb_id), method: :delete,
+            class: "button-quiet", form: { class: "inline-form" } %>
+    <% else %>
+      <span>You haven't rated this game yet.</span>
+    <% end %>
+  </div>
+
+  <p class="rating-average">
+    <% if game.ratings_count.zero? %>
+      No ratings yet.
+    <% else %>
+      Average <strong><%= stars_label(game.average_stars) %></strong>
+      from <%= pluralize(game.ratings_count, "rating") %>.
+    <% end %>
+  </p>
+</section>

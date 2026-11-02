@@ -6,4 +6,5 @@
   Game details sourced from
   <%= @game.igdb_url.present? ? link_to("IGDB", @game.igdb_url) : "IGDB" %>.
 </p>
+<%= render "games/rating", game: @game, rating: @rating %>
 <%= render "games/your_stuff", game: @game, collection_games: @collection_games, collections: @collections %>

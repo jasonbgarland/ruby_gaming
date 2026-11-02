@@ -27,6 +27,8 @@
   --color-badge-bg: #fff3c4;
   --color-badge-text: #5c4400;
   --color-danger: #b42318;
+  --color-star: #e8a317;
+  --color-star-empty: #cbd2d9;
   --radius: 8px;
   --shadow: 0 1px 3px rgba(16, 42, 67, 0.12);
 }
@@ -320,6 +322,75 @@ button:hover {
   background-color: var(--color-surface);
   font-size: 1rem;
   max-width: 100%;
+}
+
+.rating {
+  margin-top: 1.5rem;
+}
+
+/* Ten radios -> five stars. Each label is half a star wide and clips the
+   glyph: the left label shows the left half, the right label (shifted back by
+   half a glyph) shows the right half. The DOM runs 10..1 and the row is
+   reversed, so "checked input ~ label" fills the chosen star and every lower
+   one. */
+.rating-stars {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* Sized here, not on the fieldset: the global `label` rule would override an
+   inherited size. */
+.rating-star {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: normal;
+  width: 0.5em;
+  height: 1.2em;
+  overflow: hidden;
+  line-height: 1.2;
+  color: var(--color-star-empty);
+  cursor: pointer;
+}
+
+.rating-star::before {
+  content: "\2605";
+  display: inline-block;
+  width: 1em;
+  text-align: center;
+}
+
+.rating-star-right::before {
+  margin-left: -0.5em;
+}
+
+.rating-stars input:checked ~ .rating-star,
+.rating-star:hover,
+.rating-star:hover ~ .rating-star {
+  color: var(--color-star);
+}
+
+.rating-stars input:focus-visible + .rating-star {
+  outline: 2px solid var(--color-primary);
+}
+
+.rating-summary,
+.rating-average {
+  margin: 0.25rem 0 0;
+}
+
+/* The sentence is one span so only it and the Clear button are flex items. */
+.rating-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rating-average {
+  color: var(--color-muted);
 }
 
 .inline-form {
