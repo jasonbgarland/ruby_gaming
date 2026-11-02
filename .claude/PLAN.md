@@ -5,34 +5,59 @@ commits); current status and next steps are in `.claude/HANDOFF.md`.
 
 ## Sprint 1, demo-ready (week of 2026-10-20) — complete
 
-Goal: a reviewer can watch a 2-3 minute video, read a real README and look at
-a public repo. About 15 hours; if it slips, cut scope. One branch and PR each:
-
-1. `companies` — developer/publisher (done, merged).
-2. `demo-seeds` — (done, merged) idempotent `db:seed`: a demo user and a few populated
-   collections from static game data, so seeding needs no IGDB credentials.
-   Fail-soft refresh: with no IGDB credentials, a stale game is served from
-   the cache instead of raising. Document the demo login in the README.
-3. `ui-polish` — chips for themes and modes, age-rating badges, larger cover,
-   styled collection and search pages; keep the partial-page refresh behavior
-   (done, merged; the game page's collections card followed in PR #24).
-4. `readme` — portfolio README, 4 screenshots and a 30 second GIF in
-   `docs/media/` (done, merged, PR #25).
-5. `pre-public` — secrets re-check, a clean-clone test of the README's
-   credentials steps, CI green, then the repo goes public and `main` gets
-   branch protection (done 2026-10-23; HISTORY item 25).
-
-Cut order if time runs short: offline mode (stretch), restyling the collection
-and search pages, age-rating badges.
+A reviewer can watch a 2-3 minute video, read a real README and look at a
+public repo. Shipped as HISTORY items 20-25 (companies, demo seeds, ui-polish,
+README, going public).
 
 Decisions: no LICENSE file (all rights reserved); `.claude/` stays public; no
-hosting yet (local demo and video only). Stretch: an `IGDB_OFFLINE=1` mode
-where search queries the local `games` table, as a safety net for live demos.
+hosting yet (local demo and video only). Stretch, never built: an
+`IGDB_OFFLINE=1` mode where search queries the local `games` table, as a safety
+net for live demos.
+
+## Sprint 2, social: ratings and reviews (week of 2026-11-02)
+
+Direction (decided in review, 2026-11-02): a **social** games site; ratings and
+reviews are this iteration's signature feature. Social features arrive as
+individual slices; a follow/friends feed comes after enough slices exist. One
+branch and PR each, in order (realistically this week fits 1 and 2):
+
+1. `ratings` — 5 stars with half stars, stored as integer `rating_halves`
+   1-10 in its own `ratings` table (one per user per game, no review needed).
+   Game page gets a "your data" section: rate control, aggregate.
+2. `reviews` — `reviews` table, one per user per game, any game (no collection
+   needed). `kind` short (about 280 chars, no media, optional title, shown as
+   a horizontally scrolling row of cards) or long (title, body about 1000
+   chars). Text only; no HTML. Spoilers via `||text||` (escape HTML first, then
+   click-to-reveal). Civility notice, Report button, `reports` table and a
+   `hidden` flag on reviews. The game page links to your review (or to write
+   one) and to everyone's reviews.
+3. `now-playing` — up to 3 games per user, cover squares on the profile; a 4th
+   is refused with a nudge to finish one; no collection required; the game
+   page shows how many people are playing it.
+4. `profiles` — public profile showing now-playing, ratings and reviews.
+5. Image uploads for long-review screenshots, then theme and UI polish. Uploads
+   need Active Storage and `gem "ruby-vips"` added explicitly: `image_processing`
+   2.x (updated 2026-10-08) no longer pulls in an image backend, and CI already
+   installs `libvips`. Until then the `image_processing` gem could be dropped.
+
+Visibility: ratings and reviews are public. Collections and Now Playing get a
+privacy setting (public / friends only / private); v1 ships public + private
+and stores the setting so friends-only slots in later.
+
+Provisional defaults (approved 2026-11-02): new accounts default to public;
+short reviews cap at 280 characters; moderation is an `admin` boolean on users
+plus the `hidden` flag.
 
 ## Backlog
 
 One-line prompts to flesh out when ready; not scheduled.
 
+- **Social follow-ups** — comments and likes on reviews; upvoting reviews and a
+  "top 3 reviews" block on the game page; follows, friends and an activity
+  feed (after the individual slices); friends-only visibility.
+- **Play history** — dates and hours played. Works best with platform API
+  integrations, but many platforms have no public API; needs its own design
+  thinking.
 - **Screenshots and trailer** — IGDB gives an `image_id` for screenshots and
   artworks (build CDN URLs like the cover; nothing is downloaded) and a YouTube
   `video_id` for trailers (iframe embed). Needs wider `find` fields, storage,
@@ -40,15 +65,13 @@ One-line prompts to flesh out when ready; not scheduled.
 - **Discovery** — `similar_games` ("you might also like", linking to other
   game pages) and related releases (DLCs, remasters). Its own story.
 - **Link back to the base game** — when a game page is not a Main Game (DLC,
-  expansion, episode, mod, ...), link to its parent game. IGDB has
-  `parent_game` (and `version_parent` for remasters/editions); both are static
-  and factual, so they fit the data principle. Needs the wider `find` fields,
-  a place to store the parent's `igdb_id` (a column on `games`), the link on
-  the type badge shown by the game page (ui-polish adds the badge, with no
-  hint text yet), and care for a parent not yet cached (link by `igdb_id`;
-  the game page already fetches on demand). Decide the badge wording for
-  add-ons ("needs the base game"; IGDB names one type "Pack / Addon") versus variants (remake, port, standalone
-  expansion) once real data shows the types in use.
+  expansion, episode, mod, ...), link to its parent game via IGDB's static
+  `parent_game` (and `version_parent` for remasters/editions). Needs the wider
+  `find` fields, a parent `igdb_id` column on `games`, the link on the game
+  page's type badge, and care for a parent not yet cached (link by `igdb_id`;
+  the page fetches on demand). Decide badge wording for add-ons ("needs the
+  base game"; IGDB names one type "Pack / Addon") versus variants (remake,
+  port, standalone expansion) once real data shows the types in use.
 - **IGDB data principle** — pull only static, factual IGDB data. Crowd-sourced
   fields (ratings, franchises, collections, time to beat, storyline) were
   probed and dropped; the site should own that kind of data itself (reviews,
@@ -57,33 +80,26 @@ One-line prompts to flesh out when ready; not scheduled.
   `language_supports`, `game_engine`.
 - **Tags / keywords** — a signature feature to investigate in detail before
   building: IGDB's own `keywords` list vs. our own user-defined tags (and how
-  they combine).
+  they combine). Deferred to its own sprint.
 - **Chore: rename `full_row` to `search_row`** in
   `test/services/igdb_client_test.rb`. It is the search-shaped fixture; the
-  fuller one is now `detail_row`. Own tiny commit, after the richer-details work.
-- **UI polish pass** — collection show/search markup is unstyled (platform
-  picker beside Add, etc.). Needed before making the repo public. Do it after
-  the richer-details stories and the product-direction discussion, on the whole
-  game page at once. Game page ideas: platform icons (own mapping from IGDB
-  platform names, text fallback, check icon licensing); chips for themes and
-  modes; age-rating badges; group into facts / play style / about blocks; a
-  larger cover or artwork banner; fold a very long summary.
+  fuller one is now `detail_row`. Own tiny commit.
 - **Site-wide UI polish** — follow-up to the Sprint 1 `ui-polish` story, which
-  covers only the game page, collection show page and search results. Still
-  plain (the game page's "Your collections" block is done, PR #24): the
-  collections index, an overall theme and color scheme (sign-in and sign-up
-  have none), the default blue/purple link colors on collection and search
-  titles, the collection and settings
-  forms, login/registration/password pages (could use a narrow container), the
-  home page and the nav. Reuse the `.card`, `.chip` and `.badge` styles and the
-  CSS variables from `ui-polish`; add a phone-width check for each page.
+  covered the game page (including its collections card), collection show page
+  and search results. Still plain: the collections index, an overall theme and
+  color scheme (sign-in and sign-up have none), the default blue/purple link
+  colors on collection and search titles, the collection and settings forms,
+  login/registration/password pages (could use a narrow container), the home
+  page and the nav. Also game page ideas: platform icons (own mapping from IGDB
+  platform names, text fallback, check icon licensing). Reuse the `.card`,
+  `.chip` and `.badge` styles and the CSS variables from `ui-polish`; add a
+  phone-width check for each page.
 - **Undo a removal** (much later) — Remove on a collection entry deletes at
-  once and only shows a "Removed ..." flash. Add an Undo action on that flash
-  that restores the entry (same collection, game and platform). Needs a
-  decision first: re-create the row from the flash's data, or soft-delete
-  (a `removed_at` column) so Undo is a true restore. Applies to every Remove
-  button (collection page and the game page's collections block); Delete of a
-  whole collection already asks for confirmation, so it is not the target.
+  once and only shows a "Removed ..." flash. Add an Undo on that flash. Decide
+  first: re-create the row from the flash's data, or soft-delete (a
+  `removed_at` column) so Undo is a true restore. Applies to every Remove
+  button (collection page and the game page's collections card); deleting a
+  whole collection already asks for confirmation.
 - **Reuse `games/_search`** elsewhere (e.g. a review form) via a different
   `action_partial`.
 - **Auth hardening** — the Rails 8 authentication generator already throttles
@@ -93,36 +109,22 @@ One-line prompts to flesh out when ready; not scheduled.
   rate-limit tracking. Email verification of a user's address is also not
   built and needs its own design pass (the generator doesn't provide it).
 
-## Going public (done 2026-10-23)
+## Branch protection for `main`
 
-All of this is finished; kept as a record of what was checked.
+Enabled 2026-10-23 (free on public repos; a private free repo returned 403
+"Upgrade to GitHub Pro" on 2026-10-08). Applied with
+`gh api -X PUT repos/jasonbgarland/ruby_gaming/branches/main/protection --input <file>`;
+to change it, re-run the same call with an edited file:
 
-- A real `README.md` (what it is, screenshots, how to run it).
-- LICENSE: decided, none (all rights reserved), so the code stays free to
-  commercialize.
-- The UI polish pass above.
-- `.claude/` (handoff, plans, workflow retros) stays public: decided.
-- Secrets re-check: only `config/credentials.yml.enc` tracked, no
-  `master.key` or `.env` anywhere in history.
-- CI green on `main`.
-- Branch protection for `main` (free on public repos; on a private free repo
-  the API returned 403 "Upgrade to GitHub Pro", tried 2026-10-08). Applied
-  with this JSON via
-  `gh api -X PUT repos/jasonbgarland/ruby_gaming/branches/main/protection --input <file>`
-  (to change it, re-run the same call with an edited file):
-
-  ```json
-  {
-    "required_status_checks": { "strict": true,
-      "contexts": ["scan_ruby", "scan_js", "lint", "test", "system-test"] },
-    "enforce_admins": true,
-    "required_pull_request_reviews": null,
-    "restrictions": null,
-    "required_linear_history": true,
-    "allow_force_pushes": false,
-    "allow_deletions": false
-  }
-  ```
-
-  The rule in `CLAUDE.md` (no direct commits to `main`) is now enforced by
-  GitHub as well.
+```json
+{
+  "required_status_checks": { "strict": true,
+    "contexts": ["scan_ruby", "scan_js", "lint", "test", "system-test"] },
+  "enforce_admins": true,
+  "required_pull_request_reviews": null,
+  "restrictions": null,
+  "required_linear_history": true,
+  "allow_force_pushes": false,
+  "allow_deletions": false
+}
+```

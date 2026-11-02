@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-10-23
+Last updated: 2026-11-02
 
 ## What this project is
 
@@ -24,29 +24,22 @@ Facts worth having up front:
   (Capybara + headless Chrome); commands are in `README.md`. Tests use fake
   IGDB credentials (`test/test_helper.rb`), so they don't need
   `config/master.key`.
-- Repo: **public** `github.com/jasonbgarland/ruby_gaming` (since 2026-10-23,
-  pinned on the GitHub profile), branch `main`. CI
-  (`.github/workflows/ci.yml`: Brakeman + bundler-audit, importmap audit,
-  RuboCop, tests, system tests) passes. Dependabot checks monthly; minor and
-  patch bumps arrive as one grouped PR, majors separately. Only "Rebase and
-  merge" is enabled on the repo.
-- Git workflow (branch per story, PR, rebase-and-merge, no direct commits to
-  `main`, no Claude attribution lines) is written in `CLAUDE.md`. **Branch
-  protection is on** for `main`: the five CI jobs must pass and the branch must
-  be up to date, history stays linear, no force-pushes or deletions, and
-  admins are included. So every change, docs too, goes through a PR, and a
-  PR must be rebased onto `main` before it can merge. No reviews are required
-  (a solo repo). The payload is in `.claude/PLAN.md`.
+- Repo: **public** `github.com/jasonbgarland/ruby_gaming` (since 2026-10-23),
+  branch `main`, CI in `.github/workflows/ci.yml` (five jobs, all required).
+  Dependabot checks monthly (minor/patch grouped, majors separate).
+- Git workflow is in `CLAUDE.md`. `main` is protected (CI must pass, branch
+  up to date, linear history, no force-push, admins included), so every
+  change, docs too, goes through a PR rebased onto `main`. No reviews are
+  required. The protection payload is in `.claude/PLAN.md`.
 
 State at last update: `main` is public with the portfolio README (HISTORY items
 24 and 25); 200 regular tests + 15 system tests green. Sprint 1 is complete.
+The product-direction discussion happened 2026-11-02: the site is **social**,
+and ratings and reviews are the signature feature. Sprint 2 is planned in
+`.claude/PLAN.md` (nothing built yet).
 
-## Explicitly deferred (not built yet)
-
-Details are in the `.claude/PLAN.md` backlog ("Auth hardening"):
-- Advanced rate-limit/lockout hardening beyond generator defaults.
-- Email verification/confirmation of a user's address (needs its own
-  design pass).
+Deferred work (auth hardening, email verification, tags, play history, ...) is
+in the `.claude/PLAN.md` backlog.
 
 ## Process notes worth remembering
 
@@ -71,21 +64,22 @@ Details are in the `.claude/PLAN.md` backlog ("Auth hardening"):
   the platform picker — see `search_and_add` in `collections_test.rb`).
 - Keep this file to current status and next steps; finished work goes in
   `.claude/HISTORY.md`.
-- Docs-only changes also go through a branch + PR now.
+- No docs-only branches/PRs: docs ride the story branch (plan in the first
+  commit, "Update docs after X" as the last). See `CLAUDE.md`.
 
 ## Next steps
 
-Sprint 1 is done; nothing is in flight. Pick one:
+Sprint 2 (social: ratings and reviews) is planned in `.claude/PLAN.md`;
+nothing is in flight. In order:
 
-1. **Product-direction discussion** (the user wants it first): what the site
-   is for, what data we own (reviews, ratings, tags, play status) versus rely
-   on IGDB for. It decides the screenshots/trailer story, tags/keywords and
-   discovery. See `.claude/PLAN.md` backlog.
-2. **Visual theme and front-end pass** (later UX sprint): an overall theme and
-   color scheme (sign-in has none), the default blue/purple link colors, the
-   other plain pages. See "Site-wide UI polish" in `PLAN.md`.
-3. **Small cleanups** from "Open items" below, e.g. removing the redundant
-   `/games/search` Add.
+1. **`ratings`** — half-star ratings in their own table, plus the game page's
+   "your data" section. Start here.
+2. **`reviews`** — short and long, spoiler markup, Report button (text only).
+3. **`now-playing`**, then **`profiles`**, then image uploads for long-review
+   screenshots. Realistically this week fits 1 and 2.
+
+Parked: the visual theme pass, tags, discovery, and the small cleanups under
+"Open items" below. They make good warm-ups between stories.
 
 Optional polish on the public repo: a one-line About description and topics
 (`rails`, `hotwire`) on the GitHub repo page.
@@ -114,10 +108,8 @@ Optional polish on the public repo: a one-line About description and topics
   clean (and find out why the dump order differs).
 - Editor auto-format once un-indented methods under `private`; project
   convention (and Rails') is indented, rubocop allows both.
-- `image_processing` 2.x (updated 2026-10-08) no longer pulls in an image
-  backend, and nothing uses Active Storage variants yet. When we add uploads,
-  add `gem "ruby-vips"` explicitly (Rails defaults to vips; CI already
-  installs `libvips`). The gem could also be dropped until then.
+- `image_processing` has no image backend; the fix (`ruby-vips`) is noted in
+  Sprint 2 item 5 in `.claude/PLAN.md`.
 - The repo's encrypted credentials hold the real IGDB client secret. That is
   safe while `config/master.key` stays private; rotate the Twitch client
   secret if the key is ever exposed.
