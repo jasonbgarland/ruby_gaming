@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_14_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_02_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,6 +77,18 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_14_120000) do
     t.index ["platforms"], name: "index_games_on_platforms", using: :gin
   end
 
+  create_table "ratings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "game_id", null: false
+    t.integer "rating_halves", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["game_id"], name: "index_ratings_on_game_id"
+    t.index ["user_id", "game_id"], name: "index_ratings_on_user_and_game", unique: true
+    t.index ["user_id"], name: "index_ratings_on_user_id"
+    t.check_constraint "rating_halves >= 1 AND rating_halves <= 10", name: "ratings_rating_halves_range"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "ip_address"
@@ -104,5 +116,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_14_120000) do
   add_foreign_key "collections", "users"
   add_foreign_key "game_companies", "companies"
   add_foreign_key "game_companies", "games"
+  add_foreign_key "ratings", "games"
+  add_foreign_key "ratings", "users"
   add_foreign_key "sessions", "users"
 end
