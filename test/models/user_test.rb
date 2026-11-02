@@ -111,4 +111,14 @@ class UserTest < ActiveSupport::TestCase
     assert_includes columns, "password_digest"
     assert_not_includes columns, "password"
   end
+
+  test "destroying a user destroys their ratings" do
+    user = users(:one)
+    game = Game.create!(igdb_id: 1, name: "Rated", refreshed_at: Time.current)
+    user.ratings.create!(game: game, rating_halves: 7)
+
+    assert_difference -> { Rating.count }, -1 do
+      user.destroy
+    end
+  end
 end
