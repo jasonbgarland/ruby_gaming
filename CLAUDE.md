@@ -21,4 +21,10 @@ GitHub flow, one short-lived branch per story:
   **Rebase and merge** (keeps every commit, linear history, no merge commits).
 - Once on GitHub, protect `main`: require CI to pass, block force-pushes.
 - Never rewrite history that has been pushed.
+- No docs-only branches or PRs. Docs (`.claude/PLAN.md`, `HANDOFF.md`,
+  `HISTORY.md`, README) ride the story branch: the first commit plans or
+  updates the handoff, the last is "Update docs after <story>" so `main`
+  never has stale status. Edits from a planning session with no branch yet
+  are carried onto the next story's branch. If a doc change truly must land
+  alone, say so and make it a one-off exception.
 - Commit messages and PR descriptions carry no Claude attribution lines.
