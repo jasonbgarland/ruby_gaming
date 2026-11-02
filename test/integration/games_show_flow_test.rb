@@ -241,4 +241,50 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     get game_path(999_999)
     assert_response :not_found
   end
+
+  test "shows ten half-star radios, none checked, when the user has not rated" do
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select "form.rating-form[action=?]", game_rating_path(@game.igdb_id)
+    assert_select "input[type=radio][name=rating_halves]", count: 10
+    assert_select "input[type=radio][name=rating_halves][checked]", count: 0
+    assert_select ".rating-summary", text: /haven't rated/
+    assert_select ".rating-summary form[action=?]", game_rating_path(@game.igdb_id), count: 0
+  end
+
+  test "checks the user's own rating and offers Clear" do
+    @user.ratings.create!(game: @game, rating_halves: 9)
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select "input[type=radio][name=rating_halves][checked]", count: 1
+    assert_select "input[type=radio][name=rating_halves][value=?][checked]", "9"
+    assert_select ".rating-summary", text: /You rated it 4\.5 stars/
+    assert_select ".rating-summary form[action=?] button", game_rating_path(@game.igdb_id), text: "Clear"
+  end
+
+  test "says so when nobody has rated the game" do
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".rating-average", text: /No ratings yet/
+  end
+
+  test "shows the average and count across all users, not just the viewer's" do
+    @user.ratings.create!(game: @game, rating_halves: 9)
+    users(:two).ratings.create!(game: @game, rating_halves: 6)
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".rating-average", text: /Average 3\.8 stars from 2 ratings/
+  end
+
+  test "another user's rating is not checked for the viewer" do
+    users(:two).ratings.create!(game: @game, rating_halves: 6)
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select "input[type=radio][name=rating_halves][checked]", count: 0
+  end
 end
