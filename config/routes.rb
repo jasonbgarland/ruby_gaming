@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   patch "settings/password", to: "settings#update_password", as: :settings_password
 
   get "games/search", to: "games#search", as: :games_search
-  resources :games, only: %i[ show create ]
+  resources :games, only: %i[ show create ] do
+    resource :rating, only: %i[ create destroy ]
+  end
 
   # Create without a collection in the URL, for forms that pick the collection
   # from a dropdown (the game page). Same action as the nested route below.
