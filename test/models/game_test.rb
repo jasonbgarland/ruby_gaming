@@ -242,4 +242,29 @@ class GameTest < ActiveSupport::TestCase
       assert_raises(IgdbClient::ConfigurationError) { Game.find_or_refresh(1022) }
     end
   end
+
+  test "average_stars is nil with no ratings" do
+    game = Game.create!(igdb_id: 1, name: "Unrated", refreshed_at: Time.current)
+
+    assert_nil game.average_stars
+    assert_equal 0, game.ratings_count
+  end
+
+  test "average_stars and ratings_count aggregate every user's rating" do
+    game = Game.create!(igdb_id: 2, name: "Rated", refreshed_at: Time.current)
+    game.ratings.create!(user: users(:one), rating_halves: 9)
+    game.ratings.create!(user: users(:two), rating_halves: 6)
+
+    assert_equal 3.8, game.average_stars # (4.5 + 3.0) / 2 = 3.75, rounded
+    assert_equal 2, game.ratings_count
+  end
+
+  test "destroying a game destroys its ratings" do
+    game = Game.create!(igdb_id: 3, name: "Doomed", refreshed_at: Time.current)
+    game.ratings.create!(user: users(:one), rating_halves: 4)
+
+    assert_difference -> { Rating.count }, -1 do
+      game.destroy
+    end
+  end
 end

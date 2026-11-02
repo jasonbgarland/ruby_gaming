@@ -5,6 +5,7 @@ class Game < ApplicationRecord
   has_many :collections, through: :collection_games
   has_many :game_companies, dependent: :destroy
   has_many :companies, through: :game_companies
+  has_many :ratings, dependent: :destroy
 
   validates :igdb_id, presence: true, uniqueness: true
   validates :name, presence: true
@@ -75,6 +76,17 @@ class Game < ApplicationRecord
   # sorted by name. Filters in Ruby so one eager load serves both roles.
   def company_names(role)
     game_companies.includes(:company).select { |gc| gc.role == role }.map { |gc| gc.company.name }.sort
+  end
+
+  # Average rating in stars (e.g. 4.5), or nil when nobody has rated it. One
+  # SQL AVG over the half-star integers, so no rows are loaded.
+  def average_stars
+    average = ratings.average(:rating_halves)
+    average && (average / 2).round(1).to_f
+  end
+
+  def ratings_count
+    ratings.count
   end
 
   def stale?
