@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-11-02 (after `ratings`)
+Last updated: 2026-11-02 (`reviews` in flight)
 
 ## What this project is
 
@@ -66,6 +66,19 @@ in the `.claude/PLAN.md` backlog.
   `.claude/HISTORY.md`.
 - No docs-only branches/PRs: docs ride the story branch (plan in the first
   commit, "Update docs after X" as the last). See `CLAUDE.md`.
+
+## In flight: `reviews` (core PR)
+
+On the `reviews` branch, one commit so far (the plan). Untracked first drafts,
+**never run**, sit in the working tree: `db/migrate/20261103120000_create_reviews.rb`,
+`app/models/review.rb`, `test/models/review_test.rb` (kind short/long, body
+caps 280/1000, title required for long, one review per user per game, DB check
+and unique index). Review them before trusting them. The migration is pending
+in the dev database and `db/schema.rb` does not have the table yet: run
+`bin/rails db:migrate`, then restore `schema.rb` from git and add only the
+`reviews` table, columns sorted (see the schema column-order open item).
+Then: associations and `Game` helpers, controller and routes, the form with the
+short/long toggle, the game page cards row, a system test, docs.
 
 ## Next steps
 
