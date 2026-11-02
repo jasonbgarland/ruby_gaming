@@ -21,7 +21,7 @@ reviews are this iteration's signature feature. Social features arrive as
 individual slices; a follow/friends feed comes after enough slices exist. One
 branch and PR each, in order (realistically this week fits 1 and 2):
 
-1. `ratings` — 5 stars with half stars, stored as integer `rating_halves`
+1. `ratings` (done, HISTORY item 26) — 5 stars with half stars, stored as integer `rating_halves`
    1-10 in its own `ratings` table (one per user per game, no review needed).
    Game page gets a "your data" section: rate control, aggregate.
 2. `reviews` — `reviews` table, one per user per game, any game (no collection
