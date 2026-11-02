@@ -24,13 +24,18 @@ branch and PR each, in order (realistically this week fits 1 and 2):
 1. `ratings` (done, HISTORY item 26) — 5 stars with half stars, stored as integer `rating_halves`
    1-10 in its own `ratings` table (one per user per game, no review needed).
    Game page gets a "your data" section: rate control, aggregate.
-2. `reviews` — `reviews` table, one per user per game, any game (no collection
-   needed). `kind` short (about 280 chars, no media, optional title, shown as
-   a horizontally scrolling row of cards) or long (title, body about 1000
-   chars). Text only; no HTML. Spoilers via `||text||` (escape HTML first, then
-   click-to-reveal). Civility notice, Report button, `reports` table and a
-   `hidden` flag on reviews. The game page links to your review (or to write
-   one) and to everyone's reviews.
+2. `reviews` — sliced into three PRs (decided 2026-11-02), one review per user
+   per game, any game (no collection needed), text only, no HTML:
+   - `reviews`: `reviews` table; one form with a short/long toggle that sets
+     `kind` (short about 280 chars, optional title; long about 1000 chars with a
+     required title; switchable when editing). Own pages: `/games/:id/reviews`
+     (everyone's) and write/edit under it. The game page shows a horizontally
+     scrolling row of short-review cards plus "Write your review" (or a link to
+     yours) and "See all reviews".
+   - `review-spoilers`: `||text||` markup (escape HTML first, then
+     click-to-reveal).
+   - `review-reports`: civility notice, Report button, `reports` table, `hidden`
+     flag on reviews, `admin` boolean on users.
 3. `now-playing` — up to 3 games per user, cover squares on the profile; a 4th
    is refused with a nudge to finish one; no collection required; the game
    page shows how many people are playing it.

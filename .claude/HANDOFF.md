@@ -34,8 +34,8 @@ Facts worth having up front:
 
 State at last update: `main` is public with the portfolio README (HISTORY items
 24 and 25); the site is **social**, with ratings and reviews as the signature
-feature (decided 2026-11-02). Sprint 2 story 1, `ratings`, is built on the
-`ratings` branch (HISTORY item 26, PR #30): 227 regular tests + 16 system
+feature (decided 2026-11-02). Sprint 2 story 1, `ratings`, is merged
+(HISTORY item 26, PR #30): 227 regular tests + 16 system
 tests green. The rest of Sprint 2 is planned in `.claude/PLAN.md`.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is
@@ -70,10 +70,11 @@ in the `.claude/PLAN.md` backlog.
 ## Next steps
 
 Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` is
-done and waiting on its PR; in order from here:
+done (merged); in order from here:
 
-1. **`reviews`** — short and long, spoiler markup, Report button (text only).
-   Start here after the `ratings` PR merges (branch off the updated `main`).
+1. **`reviews`** (in flight on the `reviews` branch) — three PRs: `reviews`
+   (table, form with a short/long toggle, own pages, cards row on the game
+   page), then `review-spoilers`, then `review-reports`. See `.claude/PLAN.md`.
 2. **`now-playing`**, then **`profiles`**, then image uploads for long-review
    screenshots. Realistically this week fits `reviews` as well.
 
