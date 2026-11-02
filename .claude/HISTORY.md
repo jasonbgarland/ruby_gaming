@@ -176,3 +176,20 @@ Last updated: 2026-10-22
     on the GitHub profile, then branch protection was applied with the
     `PLAN.md` payload (five required CI jobs, up-to-date branches, linear
     history, no force-pushes or deletions, admins included).
+26. **Ratings** (`1fa42de`, `8d27950`, `61c77b0`, `3c27d8c`, `cf3344e`) —
+    Sprint 2 story 1. `ratings` table (`user_id`, `game_id`, integer
+    `rating_halves` 1-10) with a unique user+game index and a DB check
+    constraint behind the model validations; separate from reviews, so a rating
+    needs no text. `User` and `Game` `has_many :ratings` (`dependent:
+    :destroy`, since the foreign keys would block deletes); `Game#average_stars`
+    is one SQL `AVG`, nil when unrated. `RatingsController` is a singular nested
+    resource (`/games/:game_id/rating`, the id is the IGDB id): `create` upserts
+    through `Current.user.ratings`, `destroy` clears. The game page gets a
+    "Your rating" card (`games/_rating`): ten radios drawn as five half-stars by
+    CSS (DOM runs 10..1 in a reversed flex row so `checked ~ label` fills lower
+    stars), the existing `autosubmit` Stimulus controller saves on click, a
+    Clear button, and the average with count. Pitfalls hit: a `<form>` inside a
+    `<p>` is closed early by the HTML parser, bare text in a flex container
+    becomes separate items, and the global `label` font-size beat an inherited
+    one. `db:migrate` reordered `schema.rb` columns again, so the new table was
+    hand-sorted. 227 regular tests + 16 system tests.

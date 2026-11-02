@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-11-02
+Last updated: 2026-11-02 (after `ratings`)
 
 ## What this project is
 
@@ -11,9 +11,9 @@ to grow into a larger demo project hosted on the web, possibly commercial.
 
 ## What's built
 
-Items 1–25 (scaffold → accounts → IGDB client → Postgres → collections →
+Items 1–26 (scaffold → accounts → IGDB client → Postgres → collections →
 system tests → live search → GitHub + CI → game details page → richer IGDB
-details → demo seeds → UI polish → portfolio README → going public) are in
+details → demo seeds → UI polish → portfolio README → going public → ratings) are in
 **`.claude/HISTORY.md`**, with commit hashes. The backlog is in `.claude/PLAN.md`.
 
 Facts worth having up front:
@@ -33,10 +33,10 @@ Facts worth having up front:
   required. The protection payload is in `.claude/PLAN.md`.
 
 State at last update: `main` is public with the portfolio README (HISTORY items
-24 and 25); 200 regular tests + 15 system tests green. Sprint 1 is complete.
-The product-direction discussion happened 2026-11-02: the site is **social**,
-and ratings and reviews are the signature feature. Sprint 2 is planned in
-`.claude/PLAN.md` (nothing built yet).
+24 and 25); the site is **social**, with ratings and reviews as the signature
+feature (decided 2026-11-02). Sprint 2 story 1, `ratings`, is built on the
+`ratings` branch (HISTORY item 26; PR to open): 227 regular tests + 16 system
+tests green. The rest of Sprint 2 is planned in `.claude/PLAN.md`.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is
 in the `.claude/PLAN.md` backlog.
@@ -69,14 +69,13 @@ in the `.claude/PLAN.md` backlog.
 
 ## Next steps
 
-Sprint 2 (social: ratings and reviews) is planned in `.claude/PLAN.md`;
-nothing is in flight. In order:
+Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` is
+done and waiting on its PR; in order from here:
 
-1. **`ratings`** — half-star ratings in their own table, plus the game page's
-   "your data" section. Start here.
-2. **`reviews`** — short and long, spoiler markup, Report button (text only).
-3. **`now-playing`**, then **`profiles`**, then image uploads for long-review
-   screenshots. Realistically this week fits 1 and 2.
+1. **`reviews`** — short and long, spoiler markup, Report button (text only).
+   Start here after the `ratings` PR merges (branch off the updated `main`).
+2. **`now-playing`**, then **`profiles`**, then image uploads for long-review
+   screenshots. Realistically this week fits `reviews` as well.
 
 Parked: the visual theme pass, tags, discovery, and the small cleanups under
 "Open items" below. They make good warm-ups between stories.
@@ -95,7 +94,7 @@ Optional polish on the public repo: a one-line About description and topics
   real add-to-collection form. Remove `GamesController#create`, its route and
   `games/_add_result` when convenient.
 - `GamesController#show` is accumulating lookups (game, collections, the
-  user's entries). When reviews land, move them into model methods
+  user's entries, now the user's rating). When reviews land, move them into model methods
   (e.g. `Game#entries_for(user)`).
 - `collections_flow_test.rb` is one ~30-test file; consider splitting by
   action or read/write if it grows.
@@ -105,7 +104,8 @@ Optional polish on the public repo: a one-line About description and topics
   it ever shows up.
 - Local `db:migrate` dumps `db/schema.rb` with columns in creation order, but
   the committed file is alphabetical; hand-sort new columns to keep diffs
-  clean (and find out why the dump order differs).
+  clean (and find out why the dump order differs). Hit again on `ratings`:
+  restore `schema.rb` from git and add only the new table, sorted.
 - Editor auto-format once un-indented methods under `private`; project
   convention (and Rails') is indented, rubocop allows both.
 - `image_processing` has no image backend; the fix (`ruby-vips`) is noted in
