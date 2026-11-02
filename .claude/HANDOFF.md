@@ -35,7 +35,7 @@ Facts worth having up front:
 State at last update: `main` is public with the portfolio README (HISTORY items
 24 and 25); the site is **social**, with ratings and reviews as the signature
 feature (decided 2026-11-02). Sprint 2 story 1, `ratings`, is built on the
-`ratings` branch (HISTORY item 26; PR to open): 227 regular tests + 16 system
+`ratings` branch (HISTORY item 26, PR #30): 227 regular tests + 16 system
 tests green. The rest of Sprint 2 is planned in `.claude/PLAN.md`.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is

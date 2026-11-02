@@ -176,7 +176,7 @@ Last updated: 2026-10-22
     on the GitHub profile, then branch protection was applied with the
     `PLAN.md` payload (five required CI jobs, up-to-date branches, linear
     history, no force-pushes or deletions, admins included).
-26. **Ratings** (`1fa42de`, `8d27950`, `61c77b0`, `3c27d8c`, `cf3344e`) —
+26. **Ratings** (`af1623a`, `8016c28`, `bcdf145`, `6faac6a`, `979f583`, PR #30) —
     Sprint 2 story 1. `ratings` table (`user_id`, `game_id`, integer
     `rating_halves` 1-10) with a unique user+game index and a DB check
     constraint behind the model validations; separate from reviews, so a rating
@@ -193,3 +193,7 @@ Last updated: 2026-10-22
     becomes separate items, and the global `label` font-size beat an inherited
     one. `db:migrate` reordered `schema.rb` columns again, so the new table was
     hand-sorted. 227 regular tests + 16 system tests.
+    CI was red on this PR for reasons outside the feature (PR #31, merged
+    first): `ubuntu-latest` moved to 26.04 where only the latest patch of each
+    Ruby is installable, so Ruby went 3.4.6 → 3.4.12, and new advisories
+    needed a conservative update of eight gems.
