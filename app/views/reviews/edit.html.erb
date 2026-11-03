@@ -1,0 +1,5 @@
+<p><%= link_to "← Reviews of #{@game.name}", game_reviews_path(@game.igdb_id) %></p>
+
+<h1>Edit your review of <%= @game.name %></h1>
+
+<%= render "form", game: @game, review: @review %>

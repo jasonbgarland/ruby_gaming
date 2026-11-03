@@ -286,6 +286,15 @@ class GameTest < ActiveSupport::TestCase
     assert_nil Game.create!(igdb_id: 6, name: "Unrated", refreshed_at: Time.current).rating_for(users(:one))
   end
 
+  test "review_for returns the user's own review, or nil" do
+    game = Game.create!(igdb_id: 8, name: "Reviewed", refreshed_at: Time.current)
+    mine = game.reviews.create!(user: users(:one), kind: "short", body: "Great.")
+    game.reviews.create!(user: users(:two), kind: "short", body: "Meh.")
+
+    assert_equal mine, game.review_for(users(:one))
+    assert_nil Game.create!(igdb_id: 9, name: "Unreviewed", refreshed_at: Time.current).review_for(users(:one))
+  end
+
   test "entries_for returns only the user's entries, ordered by collection then platform" do
     game = Game.create!(igdb_id: 7, name: "Owned", platforms: [ "PC", "Switch" ], refreshed_at: Time.current)
     favorites = users(:one).collections.create!(title: "Favorites")
