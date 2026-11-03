@@ -121,4 +121,14 @@ class UserTest < ActiveSupport::TestCase
       user.destroy
     end
   end
+
+  test "destroying a user destroys their reviews" do
+    user = users(:one)
+    game = Game.create!(igdb_id: 2, name: "Reviewed", refreshed_at: Time.current)
+    user.reviews.create!(game: game, kind: "short", body: "Great.")
+
+    assert_difference -> { Review.count }, -1 do
+      user.destroy
+    end
+  end
 end

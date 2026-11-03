@@ -6,6 +6,7 @@ class Game < ApplicationRecord
   has_many :game_companies, dependent: :destroy
   has_many :companies, through: :game_companies
   has_many :ratings, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   validates :igdb_id, presence: true, uniqueness: true
   validates :name, presence: true
