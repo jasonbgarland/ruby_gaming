@@ -10,6 +10,8 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :game
 
+  scope :short, -> { where(kind: "short") }
+
   validates :kind, inclusion: { in: KINDS }
   validates :body, presence: true
   validates :body, length: { maximum: ->(review) { BODY_LIMITS.fetch(review.kind, BODY_LIMITS["long"]) } }

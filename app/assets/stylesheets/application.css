@@ -623,6 +623,47 @@ textarea {
   color: var(--color-muted);
 }
 
+/* The game page's reviews section: a sideways-scrolling row of short-review
+   cards. */
+
+.game-reviews {
+  margin-top: 1.5rem;
+}
+
+.review-cards {
+  display: flex;
+  gap: 0.75rem;
+  margin: 0 0 0.75rem;
+  padding: 0 0 0.5rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+}
+
+.review-card {
+  flex: 0 0 15rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background-color: var(--color-bg);
+  scroll-snap-align: start;
+}
+
+.review-card-title {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.review-card .review-meta {
+  margin: 0.5rem 0 0;
+}
+
+.game-reviews-links {
+  display: flex;
+  gap: 1.25rem;
+  margin: 0;
+}
+
 /* Phone width: stack the cover above the details so the text can use the
    full width instead of a narrow column beside a 260px cover. */
 @media (max-width: 640px) {

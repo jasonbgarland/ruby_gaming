@@ -57,4 +57,29 @@ class ReviewsTest < ApplicationSystemTestCase
     assert_text "Deleted your review of The Legend of Zelda."
     assert_equal 0, Review.count
   end
+
+  # The game page is how people reach reviews: write one from there, then see
+  # it as a card with a link to all reviews.
+  test "write a review from the game page and see it as a card there" do
+    sign_in_via_browser
+    visit game_path(1022)
+    assert_text "No short reviews yet."
+    assert_no_link "See all reviews"
+
+    click_on "Write your review"
+    fill_in "Your review", with: "Charming from start to finish."
+    click_on "Post review"
+    assert_text "Posted your review of The Legend of Zelda."
+
+    visit game_path(1022)
+    within ".review-cards" do
+      assert_text "Charming from start to finish."
+      assert_text "ada"
+    end
+    assert_link "Edit your review"
+
+    click_on "See all reviews (1)"
+    assert_current_path game_reviews_path(1022)
+    assert_text "Charming from start to finish."
+  end
 end
