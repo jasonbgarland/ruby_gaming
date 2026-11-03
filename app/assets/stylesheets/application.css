@@ -556,6 +556,73 @@ select {
   text-decoration: underline;
 }
 
+/* Reviews: the write/edit form and the list of reviews on a game. */
+
+.review-kind {
+  margin: 0 0 1rem;
+  padding: 0;
+  border: none;
+}
+
+.review-kind legend {
+  padding: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.review-kind label {
+  margin-right: 1rem;
+}
+
+textarea {
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font: inherit;
+  max-width: 100%;
+}
+
+.field-hint {
+  color: var(--color-muted);
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.review-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+}
+
+.review-meta {
+  margin: 0 0 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.review-body {
+  margin: 0;
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+
+.review-actions {
+  margin: 0.75rem 0 0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.review-empty {
+  color: var(--color-muted);
+}
+
 /* Phone width: stack the cover above the details so the text can use the
    full width instead of a narrow column beside a 260px cover. */
 @media (max-width: 640px) {
