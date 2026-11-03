@@ -276,4 +276,26 @@ class GameTest < ActiveSupport::TestCase
       game.destroy
     end
   end
+
+  test "rating_for returns the user's own rating, or nil" do
+    game = Game.create!(igdb_id: 5, name: "Rated", refreshed_at: Time.current)
+    mine = game.ratings.create!(user: users(:one), rating_halves: 8)
+    game.ratings.create!(user: users(:two), rating_halves: 2)
+
+    assert_equal mine, game.rating_for(users(:one))
+    assert_nil Game.create!(igdb_id: 6, name: "Unrated", refreshed_at: Time.current).rating_for(users(:one))
+  end
+
+  test "entries_for returns only the user's entries, ordered by collection then platform" do
+    game = Game.create!(igdb_id: 7, name: "Owned", platforms: [ "PC", "Switch" ], refreshed_at: Time.current)
+    favorites = users(:one).collections.create!(title: "Favorites")
+    backlog = users(:one).collections.create!(title: "Backlog")
+    other_users_collection = users(:two).collections.create!(title: "Theirs")
+    favorites_pc = favorites.collection_games.create!(game: game, platform: "PC")
+    backlog_switch = backlog.collection_games.create!(game: game, platform: "Switch")
+    backlog_pc = backlog.collection_games.create!(game: game, platform: "PC")
+    other_users_collection.collection_games.create!(game: game, platform: "PC")
+
+    assert_equal [ backlog_pc, backlog_switch, favorites_pc ], game.entries_for(users(:one)).to_a
+  end
 end
