@@ -197,3 +197,38 @@ Last updated: 2026-10-22
     first): `ubuntu-latest` moved to 26.04 where only the latest patch of each
     Ruby is installable, so Ruby went 3.4.6 → 3.4.12, and new advisories
     needed a conservative update of eight gems.
+27. **Reviews** (`07a7ae0`, `2f95f80`, `813c2ba`, `2766ab5`, `6626141`,
+    `eb905c6`, `506c4e9`) — Sprint 2 story 2, the core PR of three
+    (`review-spoilers` and `review-reports` follow). `reviews` table (`user_id`,
+    `game_id`, `kind` "short" or "long", `title`, `body`) with a unique
+    user+game index and a check constraint on `kind` behind the model
+    validations: bodies cap at 280 (short) or 1000 (long) through a lambda
+    `maximum`, a long review needs a title, one review per user per game.
+    `kind` is a plain string with a hand-written inclusion check (a Rails enum
+    would replace the list and the `short?`/`long?` methods; optional cleanup).
+    The `Game` lookups that were piling up in `GamesController#show` moved into
+    model methods: `rating_for`, `review_for`, `entries_for` and
+    `ratings_by_user` (one query for a list of reviewers), plus a
+    `Review.short` scope. `ReviewsController` is nested under games by IGDB id
+    (`/games/:game_id/reviews`): index lists everyone's, new/create/edit/update/
+    destroy touch only your own because they look up through
+    `Current.user.reviews`, so someone else's review is a 404; `new` redirects
+    to edit when you already have one. One `_form` serves new and edit, with a
+    short/long radio pair and a `review-form` Stimulus controller that shows a
+    live character count against the chosen limit and a title hint (the form
+    still works without JavaScript, since the model enforces the limits). The
+    game page gets a "Reviews" card (`games/_reviews`): a sideways-scrolling row
+    of the 12 newest short reviews (CSS scroll-snap, native touch scrolling),
+    "Write your review" or "Edit your review", and "See all reviews (N)" with
+    long reviews counted. Each card shows its author's stars when they rated
+    the game, drawn read-only by `RatingsHelper#rating_stars` (a half star is a
+    gold-to-grey gradient clipped to the glyph). Bodies are plain text, escaped
+    by ERB, with line breaks kept by CSS. 278 regular tests + 19 system tests.
+    Pitfalls hit: Capybara's default fill for long text pastes most of it with
+    JavaScript, which skips `input` events and `maxlength` (use
+    `fill_options: { rapid: false }`); `CollectionGame` needs a platform the
+    game lists; `db:migrate` reordered `schema.rb` again, so the new table was
+    hand-sorted. Checked by hand in the browser with 15 fake reviewers (a
+    throwaway script, since removed). Backlog: long reviews would be surfaced
+    through the future top-reviews block, and `application.css` (about 700
+    lines) is queued for a split.
