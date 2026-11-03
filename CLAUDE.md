@@ -26,7 +26,9 @@ GitHub flow, one short-lived branch per story:
   updates the handoff, the last is "Update docs after <story>" so `main`
   never has stale status. The README's **Features** list is ongoing: a story
   that ships a user-facing feature adds it there in its docs commit, and
-  removes it from "What's next". Edits from a planning session with no branch yet
+  removes it from "What's next". At the end of a story, also look over
+  `PLAN.md` and `HANDOFF.md` for anything to compact (finished detail belongs
+  in `HISTORY.md`). Edits from a planning session with no branch yet
   are carried onto the next story's branch. If a doc change truly must land
   alone, say so and make it a one-off exception.
 - Commit messages and PR descriptions carry no Claude attribution lines.

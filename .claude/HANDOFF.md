@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-11-03 (`reviews` ready for its PR)
+Last updated: 2026-11-03 (`reviews` merged; `review-spoilers` next)
 
 ## What this project is
 
@@ -34,10 +34,10 @@ Facts worth having up front:
 
 State at last update: `main` is public with the portfolio README (HISTORY items
 24 and 25); the site is **social**, with ratings and reviews as the signature
-feature (decided 2026-11-02). `ratings` is merged (HISTORY item 26, PR #30).
-`reviews` (HISTORY item 27) is finished on its branch and checked by hand in
-the browser, but not yet pushed: 278 regular tests + 19 system tests green.
-The rest of Sprint 2 is planned in `.claude/PLAN.md`.
+feature (decided 2026-11-02). `ratings` (HISTORY item 26, PR #30) and `reviews`
+(HISTORY item 27, PR #33) are merged: 278 regular tests + 19 system tests
+green. The README's Features list covers both. The rest of Sprint 2 is planned
+in `.claude/PLAN.md`.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is
 in the `.claude/PLAN.md` backlog.
@@ -68,18 +68,11 @@ in the `.claude/PLAN.md` backlog.
 - No docs-only branches/PRs: docs ride the story branch (plan in the first
   commit, "Update docs after X" as the last). See `CLAUDE.md`.
 
-## Ready to open: `reviews` (core PR)
-
-The `reviews` branch holds the plan, handoff note, seven code commits (see
-HISTORY item 27) and the docs commit. Next: push the branch, open the PR, wait
-for the five CI jobs, then **Rebase and merge**. Record the PR number in
-HISTORY item 27 (the `ratings` story did the same in a small follow-up
-commit). Do not push or open the PR without the user saying so.
-
 ## Next steps
 
-Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` is
-merged; `reviews` is ready for its PR. In order from here:
+Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` and
+`reviews` are merged. In order from here (the `review-spoilers` branch exists,
+carrying only this docs update so far):
 
 1. **`review-spoilers`** — `||text||` markup (escape HTML first, then
    click-to-reveal), then **`review-reports`** — civility notice, Report
