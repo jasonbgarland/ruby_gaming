@@ -556,6 +556,29 @@ select {
   text-decoration: underline;
 }
 
+/* A read-only row of five stars (see RatingsHelper#rating_stars). A half star
+   is a gold-to-grey gradient clipped to the glyph. */
+.stars {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.star::before {
+  content: "\2605";
+  color: var(--color-star-empty);
+}
+
+.star-full::before {
+  color: var(--color-star);
+}
+
+.star-half::before {
+  background: linear-gradient(90deg, var(--color-star) 50%, var(--color-star-empty) 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 /* Reviews: the write/edit form and the list of reviews on a game. */
 
 .review-kind {

@@ -259,4 +259,18 @@ class ReviewsFlowTest < ActionDispatch::IntegrationTest
 
     assert_response :not_found
   end
+
+  test "index shows each reviewer's star rating when they rated the game" do
+    sign_in(@user)
+    @game.reviews.create!(user: @user, kind: "short", body: "Rated and reviewed.")
+    @game.ratings.create!(user: @user, rating_halves: 7)
+    @game.reviews.create!(user: @other_user, kind: "long", title: "T", body: "Reviewed only.")
+
+    get game_reviews_path(@game.igdb_id)
+
+    assert_select ".review .stars[aria-label=?]", "3.5 stars", count: 1
+    assert_select ".review", text: /Reviewed only/ do
+      assert_select ".stars", 0
+    end
+  end
 end
