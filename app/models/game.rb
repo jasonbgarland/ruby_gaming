@@ -90,6 +90,18 @@ class Game < ApplicationRecord
     ratings.count
   end
 
+  # The user's rating of this game, or nil if they haven't rated it.
+  def rating_for(user)
+    ratings.find_by(user: user)
+  end
+
+  # The user's collection entries for this game (one per collection and
+  # platform), ordered by collection title then platform.
+  def entries_for(user)
+    collection_games.where(collection: user.collections)
+      .includes(:collection).references(:collection).order("collections.title", :platform)
+  end
+
   def stale?
     refreshed_at.nil? || refreshed_at < REFRESH_INTERVAL.ago
   end
