@@ -8,6 +8,7 @@ class ReviewsController < ApplicationController
   def index
     @reviews = @game.reviews.includes(:user).order(created_at: :desc)
     @my_review = @game.review_for(Current.user)
+    @ratings_by_user = @game.ratings_by_user(@reviews.map(&:user_id))
   end
 
   # One review per user per game, so if you already have one, go edit it.

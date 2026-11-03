@@ -307,4 +307,13 @@ class GameTest < ActiveSupport::TestCase
 
     assert_equal [ backlog_pc, backlog_switch, favorites_pc ], game.entries_for(users(:one)).to_a
   end
+
+  test "ratings_by_user keys the given users' ratings by user id" do
+    game = Game.create!(igdb_id: 10, name: "Rated by some", refreshed_at: Time.current)
+    mine = game.ratings.create!(user: users(:one), rating_halves: 8)
+    game.ratings.create!(user: users(:two), rating_halves: 2)
+
+    assert_equal({ users(:one).id => mine }, game.ratings_by_user([ users(:one).id ]))
+    assert_equal({}, game.ratings_by_user([]))
+  end
 end

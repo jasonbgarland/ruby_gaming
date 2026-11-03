@@ -354,4 +354,18 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_select ".review-card script", 0
     assert_select ".review-card .review-body", text: "<script>alert(1)</script>"
   end
+
+  test "a review card shows its author's star rating, when they rated the game" do
+    @game.reviews.create!(user: @user, kind: "short", body: "Rated and reviewed.")
+    @game.ratings.create!(user: @user, rating_halves: 9)
+    @game.reviews.create!(user: users(:two), kind: "short", body: "Reviewed only.")
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".review-card", 2
+    assert_select ".review-card .stars[aria-label=?]", "4.5 stars", count: 1
+    assert_select ".review-card", text: /Reviewed only/ do
+      assert_select ".stars", 0
+    end
+  end
 end

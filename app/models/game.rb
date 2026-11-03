@@ -100,6 +100,12 @@ class Game < ApplicationRecord
     reviews.find_by(user: user)
   end
 
+  # The ratings these users gave this game, keyed by user id (one query), so a
+  # list of reviews can show each reviewer's stars without a query per row.
+  def ratings_by_user(user_ids)
+    ratings.where(user_id: user_ids).index_by(&:user_id)
+  end
+
   # The user's collection entries for this game (one per collection and
   # platform), ordered by collection title then platform.
   def entries_for(user)

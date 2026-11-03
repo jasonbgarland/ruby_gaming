@@ -6,7 +6,8 @@
       game          - the Game being shown
       my_review     - the user's Review of it, or nil
       short_reviews - the newest short reviews to show as cards
-      reviews_count - how many reviews the game has in all, long ones included %>
+      reviews_count - how many reviews the game has in all, long ones included
+      ratings_by_user - each reviewer's Rating of the game, keyed by user id (may be missing) %>
 <section class="game-reviews card">
   <h2 class="chip-group-label">Reviews</h2>
 
@@ -20,7 +21,10 @@
             <h3 class="review-card-title"><%= review.title %></h3>
           <% end %>
           <p class="review-body"><%= review.body %></p>
-          <p class="review-meta"><%= review.user.username %> · <%= l review.created_at.to_date, format: :long %></p>
+          <p class="review-meta">
+            <%= review.user.username %> · <%= l review.created_at.to_date, format: :long %>
+            <%= rating_stars(ratings_by_user[review.user_id]) if ratings_by_user[review.user_id] %>
+          </p>
         </li>
       <% end %>
     </ul>
