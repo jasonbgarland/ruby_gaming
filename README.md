@@ -1,7 +1,7 @@
 # Ruby Gaming
 
-A Rails 8.1 app for tracking the games you own or want: search IGDB, then sort
-games into your own collections by platform.
+A Rails 8.1 app for tracking the games you own or want: search IGDB, sort games
+into your own collections by platform, and rate and review them.
 
 ![A game's details page, with the user's collections below](docs/media/game_details.png)
 
@@ -12,6 +12,24 @@ games into your own collections by platform.
 </p>
 
 ![A 30 second walkthrough: browse a collection, search as you type, and add a game](docs/media/demo.gif)
+
+## Features
+
+- **Accounts:** sign up, sign in with a username or email, reset a password
+  and change account settings. Every page requires login.
+- **Live game search** from IGDB, with results as you type.
+- **Game pages:** cover, platforms, release date, developers and publishers,
+  game modes, themes, genres, age ratings and a summary. Games are cached
+  locally and refreshed daily, and a cached game still shows if IGDB is down.
+- **Collections:** make named collections and add a game to one by platform.
+- **Ratings:** five stars with half-star steps, one rating per user per game,
+  and the average and count on the game page.
+- **Reviews:** one review per user per game, written as a short take (up to
+  280 characters, title optional) or a long review (up to 1000 characters,
+  title required). Write, edit and delete your own. The game page shows the
+  newest short reviews as a scrolling row of cards, each with its author's
+  star rating, and links to a page with every review of the game.
+- **Demo data:** `bin/rails db:seed` loads 100 games and a demo user.
 
 ## Why this project
 
@@ -106,8 +124,9 @@ need `test:system`.
 **Features**
 
 - Screenshots and trailers on the game details page.
-- Ratings and play status.
-- Reviews, from short takes to longer write-ups with screenshots.
+- A now-playing list and public profiles.
+- Reviews: spoiler tags, reporting and moderation, and screenshots in long
+  write-ups.
 - Discussion boards.
 - News feed.
 - Friends and a social feed.

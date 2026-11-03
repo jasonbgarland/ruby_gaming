@@ -24,7 +24,9 @@ GitHub flow, one short-lived branch per story:
 - No docs-only branches or PRs. Docs (`.claude/PLAN.md`, `HANDOFF.md`,
   `HISTORY.md`, README) ride the story branch: the first commit plans or
   updates the handoff, the last is "Update docs after <story>" so `main`
-  never has stale status. Edits from a planning session with no branch yet
+  never has stale status. The README's **Features** list is ongoing: a story
+  that ships a user-facing feature adds it there in its docs commit, and
+  removes it from "What's next". Edits from a planning session with no branch yet
   are carried onto the next story's branch. If a doc change truly must land
   alone, say so and make it a one-off exception.
 - Commit messages and PR descriptions carry no Claude attribution lines.

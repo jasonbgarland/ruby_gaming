@@ -21,17 +21,10 @@ reviews are this iteration's signature feature. Social features arrive as
 individual slices; a follow/friends feed comes after enough slices exist. One
 branch and PR each, in order (realistically this week fits 1 and 2):
 
-1. `ratings` (done, HISTORY item 26) — 5 stars with half stars, stored as integer `rating_halves`
-   1-10 in its own `ratings` table (one per user per game, no review needed).
-   Game page gets a "your data" section: rate control, aggregate.
-2. `reviews` — sliced into three PRs (decided 2026-11-02), one review per user
-   per game, any game (no collection needed), text only, no HTML:
-   - `reviews`: `reviews` table; one form with a short/long toggle that sets
-     `kind` (short about 280 chars, optional title; long about 1000 chars with a
-     required title; switchable when editing). Own pages: `/games/:id/reviews`
-     (everyone's) and write/edit under it. The game page shows a horizontally
-     scrolling row of short-review cards plus "Write your review" (or a link to
-     yours) and "See all reviews".
+1. `ratings` — done (HISTORY item 26).
+2. `reviews` — three PRs (decided 2026-11-02), one review per user per game,
+   any game (no collection needed), text only, no HTML:
+   - `reviews` — done (HISTORY item 27).
    - `review-spoilers`: `||text||` markup (escape HTML first, then
      click-to-reveal).
    - `review-reports`: civility notice, Report button, `reports` table, `hidden`
@@ -58,7 +51,8 @@ plus the `hidden` flag.
 One-line prompts to flesh out when ready; not scheduled.
 
 - **Social follow-ups** — comments and likes on reviews; upvoting reviews and a
-  "top 3 reviews" block on the game page; follows, friends and an activity
+  "top 3 reviews" block on the game page (the place to feature long reviews,
+  which today only appear on the all-reviews page); follows, friends and an activity
   feed (after the individual slices); friends-only visibility.
 - **Play history** — dates and hours played. Works best with platform API
   integrations, but many platforms have no public API; needs its own design
@@ -99,13 +93,22 @@ One-line prompts to flesh out when ready; not scheduled.
   platform names, text fallback, check icon licensing). Reuse the `.card`,
   `.chip` and `.badge` styles and the CSS variables from `ui-polish`; add a
   phone-width check for each page.
+- **Tech debt: split `application.css`** — about 700 lines in one file and
+  growing (reviews added another section). Propshaft has no `@import`
+  bundling, so split into a few files (e.g. `base.css` with the `:root`
+  variables, `game.css`, `rating.css`, `reviews.css`) and change the layout's
+  `stylesheet_link_tag "application"` to `:app`, which links every file under
+  `app/assets/stylesheets` (the layout comment already claims this). Care
+  needed: load order (variables first) and cascade order between files. A good
+  light-day or tech-debt-day story, ideally paired with the theme pass above;
+  check every page afterward, phone width included.
 - **Undo a removal** (much later) — Remove on a collection entry deletes at
   once and only shows a "Removed ..." flash. Add an Undo on that flash. Decide
   first: re-create the row from the flash's data, or soft-delete (a
   `removed_at` column) so Undo is a true restore. Applies to every Remove
   button (collection page and the game page's collections card); deleting a
   whole collection already asks for confirmation.
-- **Reuse `games/_search`** elsewhere (e.g. a review form) via a different
+- **Reuse `games/_search`** elsewhere (e.g. a now-playing game picker) via a different
   `action_partial`.
 - **Auth hardening** — the Rails 8 authentication generator already throttles
   login and password-reset attempts (about 10 per 3 minutes via `rate_limit`).

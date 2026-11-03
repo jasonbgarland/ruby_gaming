@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-11-02 (`reviews` in flight)
+Last updated: 2026-11-03 (`reviews` ready for its PR)
 
 ## What this project is
 
@@ -11,9 +11,9 @@ to grow into a larger demo project hosted on the web, possibly commercial.
 
 ## What's built
 
-Items 1–26 (scaffold → accounts → IGDB client → Postgres → collections →
+Items 1–27 (scaffold → accounts → IGDB client → Postgres → collections →
 system tests → live search → GitHub + CI → game details page → richer IGDB
-details → demo seeds → UI polish → portfolio README → going public → ratings) are in
+details → demo seeds → UI polish → portfolio README → going public → ratings → reviews) are in
 **`.claude/HISTORY.md`**, with commit hashes. The backlog is in `.claude/PLAN.md`.
 
 Facts worth having up front:
@@ -34,9 +34,10 @@ Facts worth having up front:
 
 State at last update: `main` is public with the portfolio README (HISTORY items
 24 and 25); the site is **social**, with ratings and reviews as the signature
-feature (decided 2026-11-02). Sprint 2 story 1, `ratings`, is merged
-(HISTORY item 26, PR #30): 227 regular tests + 16 system
-tests green. The rest of Sprint 2 is planned in `.claude/PLAN.md`.
+feature (decided 2026-11-02). `ratings` is merged (HISTORY item 26, PR #30).
+`reviews` (HISTORY item 27) is finished on its branch and checked by hand in
+the browser, but not yet pushed: 278 regular tests + 19 system tests green.
+The rest of Sprint 2 is planned in `.claude/PLAN.md`.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is
 in the `.claude/PLAN.md` backlog.
@@ -67,32 +68,29 @@ in the `.claude/PLAN.md` backlog.
 - No docs-only branches/PRs: docs ride the story branch (plan in the first
   commit, "Update docs after X" as the last). See `CLAUDE.md`.
 
-## In flight: `reviews` (core PR)
+## Ready to open: `reviews` (core PR)
 
-On the `reviews` branch, one commit so far (the plan). Untracked first drafts,
-**never run**, sit in the working tree: `db/migrate/20261103120000_create_reviews.rb`,
-`app/models/review.rb`, `test/models/review_test.rb` (kind short/long, body
-caps 280/1000, title required for long, one review per user per game, DB check
-and unique index). Review them before trusting them. The migration is pending
-in the dev database and `db/schema.rb` does not have the table yet: run
-`bin/rails db:migrate`, then restore `schema.rb` from git and add only the
-`reviews` table, columns sorted (see the schema column-order open item).
-Then: associations and `Game` helpers, controller and routes, the form with the
-short/long toggle, the game page cards row, a system test, docs.
+The `reviews` branch holds the plan, handoff note, seven code commits (see
+HISTORY item 27) and the docs commit. Next: push the branch, open the PR, wait
+for the five CI jobs, then **Rebase and merge**. Record the PR number in
+HISTORY item 27 (the `ratings` story did the same in a small follow-up
+commit). Do not push or open the PR without the user saying so.
 
 ## Next steps
 
 Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` is
-done (merged); in order from here:
+merged; `reviews` is ready for its PR. In order from here:
 
-1. **`reviews`** (in flight on the `reviews` branch) — three PRs: `reviews`
-   (table, form with a short/long toggle, own pages, cards row on the game
-   page), then `review-spoilers`, then `review-reports`. See `.claude/PLAN.md`.
+1. **`review-spoilers`** — `||text||` markup (escape HTML first, then
+   click-to-reveal), then **`review-reports`** — civility notice, Report
+   button, `reports` table, `hidden` flag on reviews, `admin` boolean on
+   users. See `.claude/PLAN.md`.
 2. **`now-playing`**, then **`profiles`**, then image uploads for long-review
-   screenshots. Realistically this week fits `reviews` as well.
+   screenshots.
 
-Parked: the visual theme pass, tags, discovery, and the small cleanups under
-"Open items" below. They make good warm-ups between stories.
+Parked: the visual theme pass, the `application.css` split (a light-day
+story), tags, discovery, and the small cleanups under "Open items" below. They
+make good warm-ups between stories.
 
 Optional polish on the public repo: a one-line About description and topics
 (`rails`, `hotwire`) on the GitHub repo page.
@@ -107,9 +105,13 @@ Optional polish on the public repo: a one-line About description and topics
   link) is now redundant: result names link to the game page, which has the
   real add-to-collection form. Remove `GamesController#create`, its route and
   `games/_add_result` when convenient.
-- `GamesController#show` is accumulating lookups (game, collections, the
-  user's entries, now the user's rating). When reviews land, move them into model methods
-  (e.g. `Game#entries_for(user)`).
+- `GamesController#show` still sets about eight instance variables. The
+  user-specific lookups now live in `Game` methods (`rating_for`, `review_for`,
+  `entries_for`, `ratings_by_user`); if it keeps growing, consider a small
+  query or presenter object.
+- `Review#kind` is a string with a hand-written inclusion validation, DB check
+  and `short?`/`long?`; a Rails `enum :kind, {...}, validate: true` would
+  replace all three (optional cleanup).
 - `collections_flow_test.rb` is one ~30-test file; consider splitting by
   action or read/write if it grows.
 - `Game.upsert_from_igdb` is a find-then-save, not an atomic upsert; two
@@ -118,8 +120,8 @@ Optional polish on the public repo: a one-line About description and topics
   it ever shows up.
 - Local `db:migrate` dumps `db/schema.rb` with columns in creation order, but
   the committed file is alphabetical; hand-sort new columns to keep diffs
-  clean (and find out why the dump order differs). Hit again on `ratings`:
-  restore `schema.rb` from git and add only the new table, sorted.
+  clean (and find out why the dump order differs). Hit again on `ratings` and
+  `reviews`: restore `schema.rb` from git and add only the new table, sorted.
 - Editor auto-format once un-indented methods under `private`; project
   convention (and Rails') is indented, rubocop allows both.
 - `image_processing` has no image backend; the fix (`ruby-vips`) is noted in
