@@ -1,0 +1,39 @@
+<%# Reviews of this game, the same cards anyone sees: a row of the newest short
+    reviews that scrolls sideways, a link to write (or edit) your own, and a
+    link to all reviews, long ones included. Bodies are plain text, escaped by
+    ERB; CSS keeps their line breaks.
+    Locals:
+      game          - the Game being shown
+      my_review     - the user's Review of it, or nil
+      short_reviews - the newest short reviews to show as cards
+      reviews_count - how many reviews the game has in all, long ones included %>
+<section class="game-reviews card">
+  <h2 class="chip-group-label">Reviews</h2>
+
+  <% if short_reviews.empty? %>
+    <p class="review-empty">No short reviews yet.</p>
+  <% else %>
+    <ul class="review-cards">
+      <% short_reviews.each do |review| %>
+        <li class="review-card">
+          <% if review.title.present? %>
+            <h3 class="review-card-title"><%= review.title %></h3>
+          <% end %>
+          <p class="review-body"><%= review.body %></p>
+          <p class="review-meta"><%= review.user.username %> · <%= l review.created_at.to_date, format: :long %></p>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <p class="game-reviews-links">
+    <% if my_review %>
+      <%= link_to "Edit your review", edit_game_review_path(game.igdb_id, my_review) %>
+    <% else %>
+      <%= link_to "Write your review", new_game_review_path(game.igdb_id) %>
+    <% end %>
+    <% if reviews_count.positive? %>
+      <%= link_to "See all reviews (#{reviews_count})", game_reviews_path(game.igdb_id) %>
+    <% end %>
+  </p>
+</section>

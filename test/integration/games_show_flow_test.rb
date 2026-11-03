@@ -10,6 +10,12 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     )
   end
 
+  # An extra user (beyond the two fixtures), for tests that need many reviewers.
+  def reviewer(number)
+    User.create!(first_name: "Reviewer", last_name: number.to_s, username: "reviewer#{number}",
+                 email_address: "reviewer#{number}@example.com", password: "password1234")
+  end
+
   test "requires authentication" do
     get game_path(@game.igdb_id)
     assert_redirected_to new_session_path
@@ -286,5 +292,66 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     get game_path(@game.igdb_id)
 
     assert_select "input[type=radio][name=rating_halves][checked]", count: 0
+  end
+
+  test "says so when the game has no short reviews, and offers to write one" do
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".game-reviews .review-empty", text: "No short reviews yet."
+    assert_select ".game-reviews a[href=?]", new_game_review_path(@game.igdb_id), text: "Write your review"
+    assert_select ".game-reviews a", text: /See all reviews/, count: 0
+  end
+
+  test "shows short reviews from everyone as cards, newest first, and leaves long ones out" do
+    @game.reviews.create!(user: @user, kind: "short", body: "Older take.", created_at: 2.days.ago)
+    @game.reviews.create!(user: users(:two), kind: "short", title: "Brilliant", body: "Newer take.", created_at: 1.day.ago)
+    @game.reviews.create!(user: reviewer(1), kind: "long", title: "A deep dive", body: "Long thoughts.")
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_equal [ "Newer take.", "Older take." ], css_select(".review-card .review-body").map(&:text)
+    assert_select ".review-card-title", text: "Brilliant"
+    assert_select ".review-card .review-meta", text: /grace/
+    assert_select ".review-card", text: /Long thoughts/, count: 0
+  end
+
+  test "links to all reviews with the count, long ones included" do
+    @game.reviews.create!(user: users(:two), kind: "short", body: "Short.")
+    @game.reviews.create!(user: @user, kind: "long", title: "T", body: "Long.")
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".game-reviews a[href=?]", game_reviews_path(@game.igdb_id), text: "See all reviews (2)"
+  end
+
+  test "links to edit your own review instead of write" do
+    review = @game.reviews.create!(user: @user, kind: "short", body: "Mine.")
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".game-reviews a[href=?]", edit_game_review_path(@game.igdb_id, review), text: "Edit your review"
+    assert_select ".game-reviews a", text: "Write your review", count: 0
+  end
+
+  test "the card row shows at most the 12 newest short reviews" do
+    13.times do |i|
+      @game.reviews.create!(user: reviewer(i), kind: "short", body: "Take #{i}.", created_at: (20 - i).minutes.ago)
+    end
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".review-card", 12
+    assert_select ".review-card", text: /Take 0\./, count: 0
+    assert_select ".game-reviews a", text: "See all reviews (13)"
+  end
+
+  test "escapes HTML in a review card" do
+    @game.reviews.create!(user: users(:two), kind: "short", body: "<script>alert(1)</script>")
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+
+    assert_select ".review-card script", 0
+    assert_select ".review-card .review-body", text: "<script>alert(1)</script>"
   end
 end

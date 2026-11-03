@@ -1,4 +1,8 @@
 class GamesController < ApplicationController
+  # How many short-review cards the game page's row shows (newest first);
+  # "See all reviews" has the rest.
+  SHORT_REVIEWS_SHOWN = 12
+
   def search
     @query = params[:q]
     @results = @query.present? ? IgdbClient.new.search(@query) : []
@@ -12,6 +16,9 @@ class GamesController < ApplicationController
     @game = Game.find_or_refresh(params[:id]) or raise ActiveRecord::RecordNotFound
     @collections = Current.user.collections.order(:title)
     @rating = @game.rating_for(Current.user)
+    @my_review = @game.review_for(Current.user)
+    @short_reviews = @game.reviews.short.includes(:user).order(created_at: :desc).limit(SHORT_REVIEWS_SHOWN)
+    @reviews_count = @game.reviews.count
     @collection_games = @game.entries_for(Current.user)
   end
 

@@ -74,6 +74,13 @@ class ReviewTest < ActiveSupport::TestCase
     assert build(user: users(:two)).valid?
   end
 
+  test "the short scope returns only short reviews" do
+    short = build.tap(&:save!)
+    build(user: users(:two), kind: "long", title: "T").save!
+
+    assert_equal [ short ], Review.short.to_a
+  end
+
   test "short? and long? reflect the kind" do
     assert build.short?
     assert_not build.long?
