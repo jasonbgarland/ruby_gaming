@@ -197,8 +197,8 @@ Last updated: 2026-10-22
     first): `ubuntu-latest` moved to 26.04 where only the latest patch of each
     Ruby is installable, so Ruby went 3.4.6 → 3.4.12, and new advisories
     needed a conservative update of eight gems.
-27. **Reviews** (`07a7ae0`, `2f95f80`, `813c2ba`, `2766ab5`, `6626141`,
-    `eb905c6`, `506c4e9`) — Sprint 2 story 2, the core PR of three
+27. **Reviews** (`1f91f06`, `cd0f563`, `ca898c4`, `50b5be1`, `36b408f`,
+    `99320a9`, `96d5604`, PR #33) — Sprint 2 story 2, the core PR of three
     (`review-spoilers` and `review-reports` follow). `reviews` table (`user_id`,
     `game_id`, `kind` "short" or "long", `title`, `body`) with a unique
     user+game index and a check constraint on `kind` behind the model
