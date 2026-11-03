@@ -95,6 +95,11 @@ class Game < ApplicationRecord
     ratings.find_by(user: user)
   end
 
+  # The user's review of this game, or nil if they haven't written one.
+  def review_for(user)
+    reviews.find_by(user: user)
+  end
+
   # The user's collection entries for this game (one per collection and
   # platform), ordered by collection title then platform.
   def entries_for(user)

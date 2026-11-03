@@ -1,0 +1,38 @@
+<%# The review form, shared by new and edit. One form for both kinds: the
+    short/long radios set `kind`, and the review-form Stimulus controller
+    shows a live character count against that kind's limit. Without
+    JavaScript it still works, since the model enforces the limits.
+    The game in the URL is the IGDB id, so the URL is spelled out instead of
+    using `form_with model: [game, review]`.
+    Locals:
+      game   - the Game being reviewed
+      review - the Review (new or existing) %>
+<%= render "shared/errors", model: review %>
+
+<%= form_with model: review,
+      url: review.persisted? ? game_review_path(game.igdb_id, review) : game_reviews_path(game.igdb_id),
+      data: { controller: "review-form",
+              review_form_short_limit_value: Review::BODY_LIMITS["short"],
+              review_form_long_limit_value: Review::BODY_LIMITS["long"] } do |form| %>
+  <fieldset class="review-kind">
+    <legend>Kind of review</legend>
+    <% Review::KINDS.each do |kind| %>
+      <%= form.radio_button :kind, kind, data: { action: "change->review-form#update", review_form_target: "kind" } %>
+      <%= form.label "kind_#{kind}", kind == "short" ? "Short take" : "Long review" %>
+    <% end %>
+  </fieldset>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, maxlength: Review::TITLE_LIMIT %>
+    <small class="field-hint" data-review-form-target="titleHint"></small>
+  </div>
+
+  <div class="field">
+    <%= form.label :body, "Your review" %>
+    <%= form.text_area :body, rows: 6, required: true, data: { review_form_target: "body", action: "input->review-form#update" } %>
+    <small class="field-hint" data-review-form-target="count"></small>
+  </div>
+
+  <%= form.submit review.persisted? ? "Update review" : "Post review" %>
+<% end %>

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get "games/search", to: "games#search", as: :games_search
   resources :games, only: %i[ show create ] do
     resource :rating, only: %i[ create destroy ]
+    resources :reviews, only: %i[ index new create edit update destroy ]
   end
 
   # Create without a collection in the URL, for forms that pick the collection
