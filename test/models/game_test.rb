@@ -267,4 +267,13 @@ class GameTest < ActiveSupport::TestCase
       game.destroy
     end
   end
+
+  test "destroying a game destroys its reviews" do
+    game = Game.create!(igdb_id: 4, name: "Doomed too", refreshed_at: Time.current)
+    game.reviews.create!(user: users(:one), kind: "short", body: "Meh.")
+
+    assert_difference -> { Review.count }, -1 do
+      game.destroy
+    end
+  end
 end
