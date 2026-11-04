@@ -21,6 +21,7 @@
           <% if review.title.present? %>
             <h3 class="review-card-title"><%= review.title %></h3>
           <% end %>
+          <%= render "reviews/hidden_note", review: review %>
           <div class="review-body"><%= review_body(review) %></div>
           <p class="review-meta">
             <%= review.user.username %> · <%= l review.created_at.to_date, format: :long %>

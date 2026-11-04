@@ -29,12 +29,15 @@
           <% if review.long? %><span class="badge">Long review</span><% end %>
           <% if review.hidden? %><span class="badge">Hidden</span><% end %>
         </p>
+        <%= render "reviews/hidden_note", review: review %>
         <div class="review-body"><%= review_body(review) %></div>
         <% if review.user_id == Current.user.id %>
           <p class="review-actions">
             <%= link_to "Edit", edit_game_review_path(@game.igdb_id, review) %>
-            <%= button_to "Delete", game_review_path(@game.igdb_id, review), method: :delete,
-                  class: "button-quiet", form: { class: "inline-form", data: { turbo_confirm: "Delete your review?" } } %>
+            <% unless review.hidden? %>
+              <%= button_to "Delete", game_review_path(@game.igdb_id, review), method: :delete,
+                    class: "button-quiet", form: { class: "inline-form", data: { turbo_confirm: "Delete your review?" } } %>
+            <% end %>
           </p>
         <% end %>
         <%= render "reviews/report", game: @game, review: review, reported: @reported_review_ids.include?(review.id) %>

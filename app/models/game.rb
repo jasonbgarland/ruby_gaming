@@ -100,10 +100,11 @@ class Game < ApplicationRecord
     reviews.find_by(user: user)
   end
 
-  # The reviews this user may see in a list: all of them for an admin, and only
-  # the ones an admin hasn't hidden for everyone else.
+  # The reviews this user may see in a list: all of them for an admin; for
+  # everyone else, the ones an admin hasn't hidden, plus their own (so an
+  # author can see that their review was hidden).
   def reviews_visible_to(user)
-    user.admin? ? reviews : reviews.visible
+    user.admin? ? reviews : reviews.visible.or(reviews.where(user_id: user.id))
   end
 
   # The ratings these users gave this game, keyed by user id (one query), so a

@@ -40,7 +40,15 @@ class ReviewsController < ApplicationController
     end
   end
 
+  # A hidden review can't be deleted: deleting it would also delete its
+  # reports, and writing a new one would dodge the moderator's decision.
   def destroy
+    if @review.hidden?
+      return redirect_to game_reviews_path(@game.igdb_id),
+        alert: "A moderator hid this review, so it can't be deleted. You can still edit it.",
+        status: :see_other
+    end
+
     @review.destroy
     redirect_to game_path(@game.igdb_id), notice: "Deleted your review of #{@game.name}.", status: :see_other
   end
