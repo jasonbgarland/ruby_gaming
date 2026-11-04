@@ -16,6 +16,16 @@ class ReviewsHelperTest < ActionView::TestCase
     assert_equal [ "dies at the end" ], spoilers.map(&:text)
   end
 
+  test "a spoiler is a keyboard-reachable button wired to the spoiler controller" do
+    spoiler = render_body("||secret||").at_css(".spoiler")
+
+    assert_equal "spoiler", spoiler["data-controller"]
+    assert_includes spoiler["data-action"], "click->spoiler#toggle"
+    assert_equal "button", spoiler["role"]
+    assert_equal "0", spoiler["tabindex"]
+    assert_equal "false", spoiler["aria-pressed"]
+  end
+
   test "handles several spoilers in one review" do
     spoilers = render_body("||one|| and ||two||").css(".spoiler")
 
