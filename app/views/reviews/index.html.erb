@@ -27,6 +27,7 @@
           <%= review.user.username %> · <%= l review.created_at.to_date, format: :long %>
           <%= rating_stars(@ratings_by_user[review.user_id]) if @ratings_by_user[review.user_id] %>
           <% if review.long? %><span class="badge">Long review</span><% end %>
+          <% if review.hidden? %><span class="badge">Hidden</span><% end %>
         </p>
         <div class="review-body"><%= review_body(review) %></div>
         <% if review.user_id == Current.user.id %>

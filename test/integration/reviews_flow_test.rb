@@ -49,6 +49,24 @@ class ReviewsFlowTest < ActionDispatch::IntegrationTest
     assert_select "a", text: "Edit your review"
   end
 
+  test "index leaves out hidden reviews, but admins still see them marked" do
+    @game.reviews.create!(user: @other_user, kind: "short", body: "Fine take.")
+    hidden_author = User.create!(first_name: "Al", last_name: "Gore", username: "al", email_address: "al@example.com", password: "password1234")
+    @game.reviews.create!(user: hidden_author, kind: "short", body: "Rotten take.", hidden: true)
+
+    sign_in(@user)
+    get game_reviews_path(@game.igdb_id)
+    assert_select ".review", 1
+    assert_select ".review-body", text: /Rotten take/, count: 0
+
+    delete session_path
+    @user.update!(admin: true)
+    sign_in(@user)
+    get game_reviews_path(@game.igdb_id)
+    assert_select ".review", 2
+    assert_select ".review .badge", text: "Hidden", count: 1
+  end
+
   test "index offers to write a review when you have none, and says when there are none" do
     sign_in(@user)
 

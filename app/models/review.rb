@@ -12,6 +12,7 @@ class Review < ApplicationRecord
   has_many :reports, dependent: :destroy
 
   scope :short, -> { where(kind: "short") }
+  scope :visible, -> { where(hidden: false) }
 
   validates :kind, inclusion: { in: KINDS }
   validates :body, presence: true

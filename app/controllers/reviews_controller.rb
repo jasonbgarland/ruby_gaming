@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
   before_action :set_review, only: %i[ edit update destroy ]
 
   def index
-    @reviews = @game.reviews.includes(:user).order(created_at: :desc)
+    @reviews = @game.reviews_visible_to(Current.user).includes(:user).order(created_at: :desc)
     @my_review = @game.review_for(Current.user)
     @ratings_by_user = @game.ratings_by_user(@reviews.map(&:user_id))
   end
