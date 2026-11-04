@@ -9,6 +9,7 @@ class Review < ApplicationRecord
 
   belongs_to :user
   belongs_to :game
+  has_many :reports, dependent: :destroy
 
   scope :short, -> { where(kind: "short") }
 

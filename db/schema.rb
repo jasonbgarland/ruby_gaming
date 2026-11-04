@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_03_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_04_120200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -89,10 +89,23 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_03_120000) do
     t.check_constraint "rating_halves >= 1 AND rating_halves <= 10", name: "ratings_rating_halves_range"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "reason", null: false
+    t.bigint "review_id", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["review_id"], name: "index_reports_on_review_id"
+    t.index ["user_id", "review_id"], name: "index_reports_on_user_and_review", unique: true
+    t.index ["user_id"], name: "index_reports_on_user_id"
+    t.check_constraint "reason::text = ANY (ARRAY['spam'::character varying, 'abusive'::character varying, 'spoiler'::character varying, 'other'::character varying]::text[])", name: "reports_reason_values"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.bigint "game_id", null: false
+    t.boolean "hidden", default: false, null: false
     t.string "kind", null: false
     t.string "title"
     t.datetime "updated_at", null: false
@@ -113,6 +126,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_03_120000) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.boolean "admin", default: false, null: false
     t.datetime "created_at", null: false
     t.string "email_address", null: false
     t.string "first_name", null: false
@@ -132,6 +146,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_03_120000) do
   add_foreign_key "game_companies", "games"
   add_foreign_key "ratings", "games"
   add_foreign_key "ratings", "users"
+  add_foreign_key "reports", "reviews"
+  add_foreign_key "reports", "users"
   add_foreign_key "reviews", "games"
   add_foreign_key "reviews", "users"
   add_foreign_key "sessions", "users"
