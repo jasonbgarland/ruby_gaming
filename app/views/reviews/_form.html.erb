@@ -32,6 +32,7 @@
     <%= form.label :body, "Your review" %>
     <%= form.text_area :body, rows: 6, required: true, data: { review_form_target: "body", action: "input->review-form#update" } %>
     <small class="field-hint" data-review-form-target="count"></small>
+    <small class="field-hint">Hide spoilers by wrapping them in double bars: <code>||the butler did it||</code></small>
   </div>
 
   <%= form.submit review.persisted? ? "Update review" : "Post review" %>
