@@ -25,8 +25,7 @@ branch and PR each, in order (realistically this week fits 1 and 2):
 2. `reviews` — three PRs (decided 2026-11-02), one review per user per game,
    any game (no collection needed), text only, no HTML:
    - `reviews` — done (HISTORY item 27).
-   - `review-spoilers`: `||text||` markup (escape HTML first, then
-     click-to-reveal).
+   - `review-spoilers` — done (HISTORY item 28).
    - `review-reports`: civility notice, Report button, `reports` table, `hidden`
      flag on reviews, `admin` boolean on users.
 3. `now-playing` — up to 3 games per user, cover squares on the profile; a 4th
