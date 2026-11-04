@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-11-03 (`reviews` merged; `review-spoilers` next)
+Last updated: 2026-11-04 (`review-spoilers` done on its branch; `review-reports` next)
 
 ## What this project is
 
@@ -11,9 +11,9 @@ to grow into a larger demo project hosted on the web, possibly commercial.
 
 ## What's built
 
-Items 1–27 (scaffold → accounts → IGDB client → Postgres → collections →
+Items 1–28 (scaffold → accounts → IGDB client → Postgres → collections →
 system tests → live search → GitHub + CI → game details page → richer IGDB
-details → demo seeds → UI polish → portfolio README → going public → ratings → reviews) are in
+details → demo seeds → UI polish → portfolio README → going public → ratings → reviews → review spoilers) are in
 **`.claude/HISTORY.md`**, with commit hashes. The backlog is in `.claude/PLAN.md`.
 
 Facts worth having up front:
@@ -35,9 +35,10 @@ Facts worth having up front:
 State at last update: `main` is public with the portfolio README (HISTORY items
 24 and 25); the site is **social**, with ratings and reviews as the signature
 feature (decided 2026-11-02). `ratings` (HISTORY item 26, PR #30) and `reviews`
-(HISTORY item 27, PR #33) are merged: 278 regular tests + 19 system tests
-green. The README's Features list covers both. The rest of Sprint 2 is planned
-in `.claude/PLAN.md`.
+(HISTORY item 27, PR #33) are merged. `review-spoilers` (HISTORY item 28) is
+finished on its branch and awaiting its PR: 285 regular tests + 20 system tests
+green. The README's Features list covers all three. The rest of Sprint 2 is
+planned in `.claude/PLAN.md`.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is
 in the `.claude/PLAN.md` backlog.
@@ -71,13 +72,11 @@ in the `.claude/PLAN.md` backlog.
 ## Next steps
 
 Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` and
-`reviews` are merged. In order from here (the `review-spoilers` branch exists,
-carrying only this docs update so far):
+`reviews` are merged; `review-spoilers` is done and needs its PR. In order from
+here:
 
-1. **`review-spoilers`** — `||text||` markup (escape HTML first, then
-   click-to-reveal), then **`review-reports`** — civility notice, Report
-   button, `reports` table, `hidden` flag on reviews, `admin` boolean on
-   users. See `.claude/PLAN.md`.
+1. **`review-reports`** — civility notice, Report button, `reports` table,
+   `hidden` flag on reviews, `admin` boolean on users. See `.claude/PLAN.md`.
 2. **`now-playing`**, then **`profiles`**, then image uploads for long-review
    screenshots.
 

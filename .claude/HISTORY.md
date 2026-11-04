@@ -232,3 +232,19 @@ Last updated: 2026-10-22
     throwaway script, since removed). Backlog: long reviews would be surfaced
     through the future top-reviews block, and `application.css` (about 700
     lines) is queued for a split.
+28. **Review spoilers** (`14af196`, `7a49a9f`, `01f9edc`) — Sprint 2 story 2,
+    PR 2 of 3. Review bodies now render through `ReviewsHelper#review_body`,
+    which HTML-escapes the text first and only then wraps each `||text||` in a
+    `<span class="spoiler">`, so the only markup in the output is markup we
+    generated (a test covers injection, including inside a spoiler). It uses
+    `simple_format(..., sanitize: false)` for paragraphs and line breaks, which
+    replaced the old `white-space: pre-line` CSS (it would have doubled the
+    breaks) and the `<p class="review-body">` wrappers became `<div>`s. Each
+    spoiler is its own element with a tiny `spoiler` Stimulus controller that
+    toggles a `revealed` class (click again to hide); CSS draws the hidden
+    state as a solid block with transparent text. Spoilers are `role="button"`
+    with `tabindex`, `aria-pressed` and Enter/Space support. An unmatched `||`
+    stays as typed. The review form gets a one-line hint showing the syntax.
+    285 regular tests + 20 system tests. Pitfall: hidden spoiler text is still
+    in the DOM (just transparent), so the system test checks the `revealed`
+    class and `aria-pressed`, not text visibility.
