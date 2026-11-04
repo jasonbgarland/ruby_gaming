@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-11-04 (`review-spoilers` merged; `review-reports` planned, in progress)
+Last updated: 2026-11-04 (`review-reports` done on its branch, awaiting its PR; `now-playing` next)
 
 ## What this project is
 
@@ -11,9 +11,9 @@ to grow into a larger demo project hosted on the web, possibly commercial.
 
 ## What's built
 
-Items 1–28 (scaffold → accounts → IGDB client → Postgres → collections →
+Items 1–29 (scaffold → accounts → IGDB client → Postgres → collections →
 system tests → live search → GitHub + CI → game details page → richer IGDB
-details → demo seeds → UI polish → portfolio README → going public → ratings → reviews → review spoilers) are in
+details → demo seeds → UI polish → portfolio README → going public → ratings → reviews → review spoilers → review reports) are in
 **`.claude/HISTORY.md`**, with commit hashes. The backlog is in `.claude/PLAN.md`.
 
 Facts worth having up front:
@@ -32,13 +32,12 @@ Facts worth having up front:
   change, docs too, goes through a PR rebased onto `main`. No reviews are
   required. The protection payload is in `.claude/PLAN.md`.
 
-State at last update: `main` is public with the portfolio README (HISTORY items
-24 and 25); the site is **social**, with ratings and reviews as the signature
-feature (decided 2026-11-02). `ratings` (HISTORY item 26, PR #30) and `reviews`
-(HISTORY item 27, PR #33) are merged, as is `review-spoilers` (HISTORY item 28,
-PR #34), plus a Rails 8.1.4.1 security update (PR #35): 285 regular tests + 20
-system tests green. The README's Features list covers all three. The rest of Sprint 2 is
-planned in `.claude/PLAN.md`.
+State at last update: `main` is public with the portfolio README; the site is
+**social**, with ratings and reviews as the signature feature (decided
+2026-11-02). `ratings`, `reviews` and `review-spoilers` are merged (HISTORY
+items 26-28), plus a Rails 8.1.4.1 security update. `review-reports` (item 29)
+is finished on its branch and awaiting its PR: 336 regular tests + 20 system
+tests green. The rest of Sprint 2 is in `.claude/PLAN.md`.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is
 in the `.claude/PLAN.md` backlog.
@@ -49,7 +48,10 @@ in the `.claude/PLAN.md` backlog.
   reviews the diff and asks questions → commit. Explain Rails "why" as we go;
   the user is learning and re-asks things on purpose — keep answers short
   and don't deep-dive unprompted. Small, single-purpose commits are the goal
-  (many commits is fine; each should keep tests green).
+  (many commits is fine; each should keep tests green). Keep each step small:
+  build one piece, show the file table, wait for the review, commit, then start
+  the next, never building on an uncommitted change. The user expects to move
+  to bigger steps later, but not yet (2026-11-04).
 - The formal `/workflow` skill (Plan → Design → Build → Review via crit) is
   worth it only for large/ambiguous work; too much friction for well-scoped
   tasks. `crit <file>` is a good standalone tool for dense reviews.
@@ -72,12 +74,10 @@ in the `.claude/PLAN.md` backlog.
 ## Next steps
 
 Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` and
-`reviews` and `review-spoilers` are merged. In order from here:
+`reviews` and `review-spoilers` are merged, and `review-reports` is done and
+needs its PR. In order from here:
 
-1. **`review-reports`** (in progress, branch `review-reports`) — reasoned
-   reports, hidden flag, admin page, civility notice. Design and commit order
-   are in `.claude/PLAN.md`.
-2. **`now-playing`**, then **`profiles`**, then image uploads for long-review
+1. **`now-playing`**, then **`profiles`**, then image uploads for long-review
    screenshots.
 
 Parked: the visual theme pass, the `application.css` split (a light-day
@@ -89,6 +89,15 @@ Optional polish on the public repo: a one-line About description and topics
 
 ## Open items / decisions to revisit
 
+- Reporting and moderation have no browser (system) tests. They were written
+  and dropped because, run together, roughly half the runs lost the first
+  click after a page load (the sign-in POST never reached the server), while
+  each passed alone and the existing 20 stayed green. The cause wasn't found.
+  Leads: Turbo's hover prefetch, `data-turbo-track`, or state left by the
+  previous test. The model and integration tests cover the behavior. Revisit
+  from the backlog item in `.claude/PLAN.md`.
+- To make someone an admin, use the console:
+  `User.find_by(username: "...").update!(admin: true)`. There is no UI.
 - `CollectionsController#destroy` and `CollectionGamesController#destroy`
   both call `destroy` and always report success. Fine today (no
   `before_destroy` callbacks, DB errors raise); add a failure branch (or
@@ -97,7 +106,7 @@ Optional polish on the public repo: a one-line About description and topics
   link) is now redundant: result names link to the game page, which has the
   real add-to-collection form. Remove `GamesController#create`, its route and
   `games/_add_result` when convenient.
-- `GamesController#show` still sets about eight instance variables. The
+- `GamesController#show` still sets about ten instance variables. The
   user-specific lookups now live in `Game` methods (`rating_for`, `review_for`,
   `entries_for`, `ratings_by_user`); if it keeps growing, consider a small
   query or presenter object.
@@ -112,8 +121,10 @@ Optional polish on the public repo: a one-line About description and topics
   it ever shows up.
 - Local `db:migrate` dumps `db/schema.rb` with columns in creation order, but
   the committed file is alphabetical; hand-sort new columns to keep diffs
-  clean (and find out why the dump order differs). Hit again on `ratings` and
-  `reviews`: restore `schema.rb` from git and add only the new table, sorted.
+  clean (and find out why the dump order differs). It happens on every
+  migration (`ratings`, `reviews`, `reports`), and the dump also rewrites
+  unrelated check-constraint lines: restore `schema.rb` from git and add only
+  the new table or columns, sorted.
 - Editor auto-format once un-indented methods under `private`; project
   convention (and Rails') is indented, rubocop allows both.
 - `image_processing` has no image backend; the fix (`ruby-vips`) is noted in

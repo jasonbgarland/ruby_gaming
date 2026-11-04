@@ -19,23 +19,10 @@ net for live demos.
 Direction (decided in review, 2026-11-02): a **social** games site; ratings and
 reviews are this iteration's signature feature. Social features arrive as
 individual slices; a follow/friends feed comes after enough slices exist. One
-branch and PR each, in order (realistically this week fits 1 and 2):
+branch and PR each, in order:
 
-1. `ratings` — done (HISTORY item 26).
-2. `reviews` — three PRs (decided 2026-11-02), one review per user per game,
-   any game (no collection needed), text only, no HTML:
-   - `reviews` — done (HISTORY item 27).
-   - `review-spoilers` — done (HISTORY item 28).
-   - `review-reports` (decided 2026-11-04): a report is a reason from a fixed
-     list (spam, abusive, spoiler not hidden, other); one report per user per
-     review (unique index + validation; button becomes "Reported"). No
-     auto-hide: an admin decides. Hidden reviews are removed from lists for
-     everyone except admins. `users.admin` boolean, set from console/seeds
-     only. Small admin page: reported reviews with Hide/Restore and Dismiss.
-     Civility notice on the review form beside the spoiler hint. Commits:
-     (1) plan + handoff, (2) `reports` table, `reviews.hidden`, `users.admin`
-     and `Report` model, (3) filter hidden reviews, (4) Report button +
-     civility notice, (5) admin page, (6) docs.
+1. `ratings` and 2. `reviews` (three PRs: reviews, spoilers, reports) — done
+   (HISTORY items 26-29).
 3. `now-playing` — up to 3 games per user, cover squares on the profile; a 4th
    is refused with a nudge to finish one; no collection required; the game
    page shows how many people are playing it.
@@ -49,14 +36,23 @@ Visibility: ratings and reviews are public. Collections and Now Playing get a
 privacy setting (public / friends only / private); v1 ships public + private
 and stores the setting so friends-only slots in later.
 
-Provisional defaults (approved 2026-11-02): new accounts default to public;
-short reviews cap at 280 characters; moderation is an `admin` boolean on users
-plus the `hidden` flag.
+Provisional default (approved 2026-11-02): new accounts default to public.
 
 ## Backlog
 
 One-line prompts to flesh out when ready; not scheduled.
 
+- **`user-moderation`** — action against a person, not a review: suspend an
+  account or block it from reviewing, and a way to grant admin without the
+  console. Covers repeat offenders re-editing hidden reviews and the
+  second-account workaround, which review-level moderation can't.
+- **Moderation audit trail** — hiding clears the reports, so the reason a
+  review was hidden isn't recorded. Add a `hidden_at` and who/why, and show
+  "edited since hidden" precisely.
+- **Browser tests for reporting and moderation** — dropped from `review-reports`
+  because they were flaky (see HISTORY item 29). Try again with one session per
+  test, and look at what the previous test leaves in the browser; also check
+  whether Turbo's hover prefetch or `data-turbo-track` is involved.
 - **Social follow-ups** — comments and likes on reviews; upvoting reviews and a
   "top 3 reviews" block on the game page (the place to feature long reviews,
   which today only appear on the all-reviews page); follows, friends and an activity

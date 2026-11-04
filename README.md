@@ -29,7 +29,9 @@ into your own collections by platform, and rate and review them.
   title required). Write, edit and delete your own. The game page shows the
   newest short reviews as a scrolling row of cards, each with its author's
   star rating, and links to a page with every review of the game. Wrap a
-  spoiler in `||double bars||` and readers click to reveal it.
+  spoiler in `||double bars||` and readers click to reveal it. Report a
+  review for spam, abuse or an unhidden spoiler; admins work through the
+  reports on a moderation page and can hide or restore reviews.
 - **Demo data:** `bin/rails db:seed` loads 100 games and a demo user.
 
 ## Why this project
@@ -126,7 +128,7 @@ need `test:system`.
 
 - Screenshots and trailers on the game details page.
 - A now-playing list and public profiles.
-- Reviews: reporting and moderation, and screenshots in long write-ups.
+- Reviews: screenshots in long write-ups.
 - Discussion boards.
 - News feed.
 - Friends and a social feed.
