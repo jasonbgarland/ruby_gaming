@@ -46,6 +46,20 @@ class ReportTest < ActiveSupport::TestCase
     assert_not users(:one).admin?
   end
 
+  test "deleting a user deletes the reports they made" do
+    Report.create!(user: users(:two), review: @review, reason: "spam")
+    assert_difference "Report.count", -1 do
+      users(:two).destroy
+    end
+  end
+
+  test "deleting a user deletes reports of the reviews they wrote" do
+    Report.create!(user: users(:two), review: @review, reason: "spam")
+    assert_difference [ "Report.count", "Review.count" ], -1 do
+      users(:one).destroy
+    end
+  end
+
   test "deleting a review deletes its reports" do
     Report.create!(user: users(:two), review: @review, reason: "spam")
     assert_difference "Report.count", -1 do
