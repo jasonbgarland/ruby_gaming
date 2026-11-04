@@ -26,8 +26,16 @@ branch and PR each, in order (realistically this week fits 1 and 2):
    any game (no collection needed), text only, no HTML:
    - `reviews` — done (HISTORY item 27).
    - `review-spoilers` — done (HISTORY item 28).
-   - `review-reports`: civility notice, Report button, `reports` table, `hidden`
-     flag on reviews, `admin` boolean on users.
+   - `review-reports` (decided 2026-11-04): a report is a reason from a fixed
+     list (spam, abusive, spoiler not hidden, other); one report per user per
+     review (unique index + validation; button becomes "Reported"). No
+     auto-hide: an admin decides. Hidden reviews are removed from lists for
+     everyone except admins. `users.admin` boolean, set from console/seeds
+     only. Small admin page: reported reviews with Hide/Restore and Dismiss.
+     Civility notice on the review form beside the spoiler hint. Commits:
+     (1) plan + handoff, (2) `reports` table, `reviews.hidden`, `users.admin`
+     and `Report` model, (3) filter hidden reviews, (4) Report button +
+     civility notice, (5) admin page, (6) docs.
 3. `now-playing` — up to 3 games per user, cover squares on the profile; a 4th
    is refused with a nudge to finish one; no collection required; the game
    page shows how many people are playing it.

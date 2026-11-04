@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-11-04 (`review-spoilers` done on its branch; `review-reports` next)
+Last updated: 2026-11-04 (`review-spoilers` merged; `review-reports` planned, in progress)
 
 ## What this project is
 
@@ -35,9 +35,9 @@ Facts worth having up front:
 State at last update: `main` is public with the portfolio README (HISTORY items
 24 and 25); the site is **social**, with ratings and reviews as the signature
 feature (decided 2026-11-02). `ratings` (HISTORY item 26, PR #30) and `reviews`
-(HISTORY item 27, PR #33) are merged. `review-spoilers` (HISTORY item 28) is
-finished on its branch and awaiting its PR: 285 regular tests + 20 system tests
-green. The README's Features list covers all three. The rest of Sprint 2 is
+(HISTORY item 27, PR #33) are merged, as is `review-spoilers` (HISTORY item 28,
+PR #34), plus a Rails 8.1.4.1 security update (PR #35): 285 regular tests + 20
+system tests green. The README's Features list covers all three. The rest of Sprint 2 is
 planned in `.claude/PLAN.md`.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is
@@ -72,11 +72,11 @@ in the `.claude/PLAN.md` backlog.
 ## Next steps
 
 Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` and
-`reviews` are merged; `review-spoilers` is done and needs its PR. In order from
-here:
+`reviews` and `review-spoilers` are merged. In order from here:
 
-1. **`review-reports`** — civility notice, Report button, `reports` table,
-   `hidden` flag on reviews, `admin` boolean on users. See `.claude/PLAN.md`.
+1. **`review-reports`** (in progress, branch `review-reports`) — reasoned
+   reports, hidden flag, admin page, civility notice. Design and commit order
+   are in `.claude/PLAN.md`.
 2. **`now-playing`**, then **`profiles`**, then image uploads for long-review
    screenshots.
 
