@@ -334,6 +334,25 @@ class GamesShowFlowTest < ActionDispatch::IntegrationTest
     assert_select ".game-reviews a", text: "Write your review", count: 0
   end
 
+  test "hidden reviews are left out of the cards and the count, except for admins" do
+    @game.reviews.create!(user: users(:two), kind: "short", body: "Fine take.")
+    @game.reviews.create!(user: reviewer(1), kind: "short", body: "Rotten take.", hidden: true)
+
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+    assert_select ".review-card", 1
+    assert_select ".review-card", text: /Rotten take/, count: 0
+    assert_select ".game-reviews a", text: "See all reviews (1)"
+
+    delete session_path
+    @user.update!(admin: true)
+    sign_in(@user)
+    get game_path(@game.igdb_id)
+    assert_select ".review-card", 2
+    assert_select ".review-card .badge", text: "Hidden", count: 1
+    assert_select ".game-reviews a", text: "See all reviews (2)"
+  end
+
   test "the card row shows at most the 12 newest short reviews" do
     13.times do |i|
       @game.reviews.create!(user: reviewer(i), kind: "short", body: "Take #{i}.", created_at: (20 - i).minutes.ago)

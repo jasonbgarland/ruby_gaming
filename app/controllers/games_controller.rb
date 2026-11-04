@@ -17,8 +17,9 @@ class GamesController < ApplicationController
     @collections = Current.user.collections.order(:title)
     @rating = @game.rating_for(Current.user)
     @my_review = @game.review_for(Current.user)
-    @short_reviews = @game.reviews.short.includes(:user).order(created_at: :desc).limit(SHORT_REVIEWS_SHOWN)
-    @reviews_count = @game.reviews.count
+    visible_reviews = @game.reviews_visible_to(Current.user)
+    @short_reviews = visible_reviews.short.includes(:user).order(created_at: :desc).limit(SHORT_REVIEWS_SHOWN)
+    @reviews_count = visible_reviews.count
     @ratings_by_user = @game.ratings_by_user(@short_reviews.map(&:user_id))
     @collection_games = @game.entries_for(Current.user)
   end
