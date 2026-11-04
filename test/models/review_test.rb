@@ -161,8 +161,9 @@ class ReviewTest < ActiveSupport::TestCase
   end
 
   test "restore! unhides it and clears the reports and the edited flag" do
-    review = build(user: users(:two), hidden: true, awaiting_review: true).tap(&:save!)
+    review = build(user: users(:two)).tap(&:save!)
     Report.create!(user: users(:one), review: review, reason: "spam")
+    review.update!(hidden: true, awaiting_review: true)
 
     review.restore!
 

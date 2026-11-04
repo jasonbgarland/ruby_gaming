@@ -15,8 +15,14 @@ class Report < ApplicationRecord
   validates :reason, inclusion: { in: REASONS.keys }
   validates :review_id, uniqueness: { scope: :user_id, message: "has already been reported" }
   validate :not_own_review
+  validate :not_hidden_review
 
   private
+
+  # A hidden review has already been decided by a moderator.
+  def not_hidden_review
+    errors.add(:review, "is already hidden") if review&.hidden?
+  end
 
   def not_own_review
     errors.add(:review, "can't be your own") if review && review.user_id == user_id

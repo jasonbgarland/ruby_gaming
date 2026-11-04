@@ -1,11 +1,12 @@
-<%# The Report control under a review: nothing on your own review, "Reported"
-    once you have reported it, otherwise a <details> that opens a reason list.
+<%# The Report control under a review: nothing on your own review or on a hidden
+    one (already decided), "Reported" once you have reported it, otherwise a
+    <details> that opens a reason list.
     No JavaScript needed.
     Locals:
       game     - the Game the review is of
       review   - the Review
       reported - true if the signed-in user has already reported it %>
-<% if review.user_id != Current.user.id %>
+<% if review.user_id != Current.user.id && !review.hidden? %>
   <% if reported %>
     <span class="review-reported">Reported</span>
   <% else %>
