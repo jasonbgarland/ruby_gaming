@@ -60,6 +60,25 @@ class ReviewsTest < ApplicationSystemTestCase
 
   # The game page is how people reach reviews: write one from there, then see
   # it as a card with a link to all reviews.
+  # The hiding is CSS and the toggling is the spoiler Stimulus controller. The
+  # hidden text is still in the DOM (just transparent), so check the revealed
+  # class and aria-pressed rather than the text being visible.
+  test "a spoiler stays hidden until clicked, and clicking again hides it" do
+    Review.create!(user: users(:one), game: @game, kind: "short", body: "Great, but ||the butler did it||.")
+    sign_in_via_browser
+    visit game_path(1022)
+
+    assert_selector ".spoiler[aria-pressed='false']", text: "the butler did it"
+    assert_no_selector ".spoiler.revealed"
+
+    find(".spoiler").click
+    assert_selector ".spoiler.revealed[aria-pressed='true']"
+
+    find(".spoiler").click
+    assert_selector ".spoiler[aria-pressed='false']"
+    assert_no_selector ".spoiler.revealed"
+  end
+
   test "write a review from the game page and see it as a card there" do
     sign_in_via_browser
     visit game_path(1022)

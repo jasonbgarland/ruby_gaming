@@ -20,7 +20,7 @@
           <% if review.title.present? %>
             <h3 class="review-card-title"><%= review.title %></h3>
           <% end %>
-          <p class="review-body"><%= review.body %></p>
+          <div class="review-body"><%= review_body(review) %></div>
           <p class="review-meta">
             <%= review.user.username %> · <%= l review.created_at.to_date, format: :long %>
             <%= rating_stars(ratings_by_user[review.user_id]) if ratings_by_user[review.user_id] %>

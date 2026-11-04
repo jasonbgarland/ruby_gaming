@@ -28,7 +28,7 @@
           <%= rating_stars(@ratings_by_user[review.user_id]) if @ratings_by_user[review.user_id] %>
           <% if review.long? %><span class="badge">Long review</span><% end %>
         </p>
-        <p class="review-body"><%= review.body %></p>
+        <div class="review-body"><%= review_body(review) %></div>
         <% if review.user_id == Current.user.id %>
           <p class="review-actions">
             <%= link_to "Edit", edit_game_review_path(@game.igdb_id, review) %>

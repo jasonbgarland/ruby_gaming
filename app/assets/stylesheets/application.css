@@ -630,9 +630,30 @@ textarea {
 }
 
 .review-body {
-  margin: 0;
-  white-space: pre-line;
   overflow-wrap: anywhere;
+}
+
+/* simple_format wraps each paragraph in a <p>; keep the old tight spacing. */
+.review-body p {
+  margin: 0 0 0.5em;
+}
+
+.review-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ||spoiler|| text: a solid block until clicked (see spoiler_controller.js). */
+.spoiler {
+  background: var(--color-navy);
+  color: transparent;
+  border-radius: 4px;
+  padding: 0 0.25em;
+  cursor: pointer;
+}
+
+.spoiler.revealed {
+  background: var(--color-chip-bg);
+  color: var(--color-text);
 }
 
 .review-actions {
