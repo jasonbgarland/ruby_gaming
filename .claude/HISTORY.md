@@ -248,3 +248,29 @@ Last updated: 2026-10-22
     285 regular tests + 20 system tests. Pitfall: hidden spoiler text is still
     in the DOM (just transparent), so the system test checks the `revealed`
     class and `aria-pressed`, not text visibility.
+29. **Review reports and moderation** (`0b567c4`, `41b05ef`, `d798835`,
+    `cbf3b70`, `80abfb0`, `7b8b152`, `1647b08`, `45a8a6a`) — Sprint 2 story 2,
+    PR 3 of 3. A `reports` table (reason from a fixed list in `Report::REASONS`,
+    one per user per review via a unique index and a validation, no reporting
+    your own or a hidden review), `reviews.hidden`, `reviews.awaiting_review`
+    and `users.admin` (set from the console only). Reviews can be reported from
+    the game-page cards and the all-reviews list with a no-JavaScript
+    `<details>` control that becomes "Reported". Hidden reviews are removed
+    from lists for everyone except admins and the author, who sees the review
+    with a note and cannot delete it (delete-and-rewrite would dodge the
+    moderator, since deleting also deletes its reports); editing it keeps it
+    hidden and puts it back in the admin queue. `/admin/reviews` (404 for
+    non-admins) is a to-do list: "To review" holds reviews with open reports
+    and hidden reviews edited since, "Hidden" holds the settled ones. Hide,
+    Restore and Keep hidden each clear the reports (a decision leaves the
+    queue); Dismiss clears reports and leaves the review visible. The review
+    form carries a civility notice. 336 regular tests + 20 system tests.
+    Pitfalls: `db:migrate` reordered `schema.rb` again and rewrote an
+    unrelated check-constraint line (hand-fixed each time); an interactive
+    `git add -p` isn't available, so mixed files were split by hand.
+    System tests for reporting and moderation were written and dropped: run
+    together they were flaky (roughly half the runs lost the first click after
+    a page load, and the server log showed the sign-in POST never arriving,
+    while each passed alone and the existing 20 stayed green). Coverage is the
+    integration and model tests instead. Backlog: `user-moderation`, a
+    moderation audit trail, and those browser tests.
