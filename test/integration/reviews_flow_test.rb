@@ -93,6 +93,7 @@ class ReviewsFlowTest < ActionDispatch::IntegrationTest
 
     assert_select ".review .badge", text: "Hidden"
     assert_select ".review-hidden-note", 0
+    assert_select ".review-report", 0
   end
 
   test "editing a hidden review does not unhide it, and sends it back to the moderators" do
@@ -310,8 +311,9 @@ class ReviewsFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "a hidden review can't be deleted, and its list entry has no Delete button" do
-    review = @game.reviews.create!(user: @user, kind: "short", body: "Hidden.", hidden: true)
+    review = @game.reviews.create!(user: @user, kind: "short", body: "Hidden.")
     Report.create!(user: @other_user, review: review, reason: "spam")
+    review.update!(hidden: true)
     sign_in(@user)
 
     get game_reviews_path(@game.igdb_id)

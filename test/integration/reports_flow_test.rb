@@ -76,7 +76,7 @@ class ReportsFlowTest < ActionDispatch::IntegrationTest
     assert_match(/can't be your own/, flash[:alert])
   end
 
-  test "a review hidden from you is a 404, but an admin can still report it" do
+  test "a review hidden from you is a 404, and even an admin can't report a hidden one" do
     @review.update!(hidden: true)
     sign_in(@user)
     post report_path_for(@review), params: { reason: "spam" }
@@ -85,9 +85,10 @@ class ReportsFlowTest < ActionDispatch::IntegrationTest
     delete session_path
     @user.update!(admin: true)
     sign_in(@user)
-    assert_difference "Report.count", 1 do
+    assert_no_difference "Report.count" do
       post report_path_for(@review), params: { reason: "spam" }
     end
+    assert_match(/already hidden/, flash[:alert])
   end
 
   test "a review on another game is a 404" do

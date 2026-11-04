@@ -41,6 +41,13 @@ class ReportTest < ActiveSupport::TestCase
     assert_includes report.errors[:review], "can't be your own"
   end
 
+  test "you can't report a hidden review" do
+    @review.update!(hidden: true)
+    report = Report.new(user: users(:two), review: @review, reason: "spam")
+    assert_not report.valid?
+    assert_includes report.errors[:review], "is already hidden"
+  end
+
   test "reviews are not hidden and users are not admins by default" do
     assert_not @review.hidden?
     assert_not users(:one).admin?

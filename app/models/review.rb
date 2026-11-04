@@ -18,7 +18,8 @@ class Review < ApplicationRecord
   # moderator decides, a review leaves the list.
   scope :needing_attention, -> { where(awaiting_review: true).or(where(id: Report.select(:review_id))) }
   # Hidden and decided: not in the to-do list, but listed so it can be restored.
-  scope :hidden_and_settled, -> { where(hidden: true).where.not(id: needing_attention.select(:id)) }
+  # (A hidden review can't be reported, so it has no open reports.)
+  scope :hidden_and_settled, -> { where(hidden: true, awaiting_review: false) }
 
   # Editing a hidden review's text sends it back to the moderators.
   before_update :await_review, if: :edited_while_hidden?
