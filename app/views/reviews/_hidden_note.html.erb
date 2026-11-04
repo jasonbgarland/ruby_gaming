@@ -1,0 +1,7 @@
+<%# Tells an author their own review has been hidden by a moderator. Everyone
+    else who can see a hidden review is an admin, who gets the badge only.
+    Locals:
+      review - the Review %>
+<% if review.hidden? && review.user_id == Current.user.id %>
+  <p class="review-hidden-note">A moderator hid this review. Only you and moderators can see it.</p>
+<% end %>

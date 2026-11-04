@@ -67,6 +67,46 @@ class ReviewsFlowTest < ActionDispatch::IntegrationTest
     assert_select ".review .badge", text: "Hidden", count: 1
   end
 
+  test "authors still see their own hidden review, with a note, and others see no note" do
+    @game.reviews.create!(user: @user, kind: "short", body: "My hidden take.", hidden: true)
+
+    sign_in(@user)
+    get game_reviews_path(@game.igdb_id)
+    assert_select ".review", 1
+    assert_select ".review-body", text: "My hidden take."
+    assert_select ".review-hidden-note", text: /A moderator hid this review/
+    assert_select ".review .badge", text: "Hidden"
+
+    delete session_path
+    sign_in(@other_user)
+    get game_reviews_path(@game.igdb_id)
+    assert_select ".review", 0
+    assert_select ".review-hidden-note", 0
+  end
+
+  test "an admin sees someone else's hidden review with the badge but no note to the author" do
+    @game.reviews.create!(user: @other_user, kind: "short", body: "Their hidden take.", hidden: true)
+    @user.update!(admin: true)
+
+    sign_in(@user)
+    get game_reviews_path(@game.igdb_id)
+
+    assert_select ".review .badge", text: "Hidden"
+    assert_select ".review-hidden-note", 0
+  end
+
+  test "editing a hidden review does not unhide it, and sends it back to the moderators" do
+    review = @game.reviews.create!(user: @user, kind: "short", body: "Old.", hidden: true)
+    sign_in(@user)
+
+    patch game_review_path(@game.igdb_id, review), params: review_params(body: "New wording.", hidden: false)
+
+    assert_redirected_to game_reviews_path(@game.igdb_id)
+    assert_equal "New wording.", review.reload.body
+    assert review.hidden?
+    assert review.awaiting_review?
+  end
+
   test "index offers to write a review when you have none, and says when there are none" do
     sign_in(@user)
 
@@ -267,6 +307,33 @@ class ReviewsFlowTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to game_path(@game.igdb_id)
     assert_equal "Deleted your review of The Legend of Zelda.", flash[:notice]
+  end
+
+  test "a hidden review can't be deleted, and its list entry has no Delete button" do
+    review = @game.reviews.create!(user: @user, kind: "short", body: "Hidden.", hidden: true)
+    Report.create!(user: @other_user, review: review, reason: "spam")
+    sign_in(@user)
+
+    get game_reviews_path(@game.igdb_id)
+    assert_select ".review-actions a", text: "Edit"
+    assert_select "form[action=?]", game_review_path(@game.igdb_id, review), count: 0
+
+    assert_no_difference [ "Review.count", "Report.count" ] do
+      delete game_review_path(@game.igdb_id, review)
+    end
+
+    assert_redirected_to game_reviews_path(@game.igdb_id)
+    assert_match(/can't be deleted/, flash[:alert])
+  end
+
+  test "after a restore the author can delete it again" do
+    review = @game.reviews.create!(user: @user, kind: "short", body: "Back.", hidden: true)
+    review.restore!
+    sign_in(@user)
+
+    assert_difference -> { Review.count }, -1 do
+      delete game_review_path(@game.igdb_id, review)
+    end
   end
 
   test "you cannot delete someone else's review" do
