@@ -8,5 +8,5 @@
 </p>
 <%= render "games/rating", game: @game, rating: @rating %>
 <%= render "games/reviews", game: @game, my_review: @my_review, short_reviews: @short_reviews, reviews_count: @reviews_count,
-    ratings_by_user: @ratings_by_user %>
+    ratings_by_user: @ratings_by_user, reported_review_ids: @reported_review_ids %>
 <%= render "games/your_stuff", game: @game, collection_games: @collection_games, collections: @collections %>

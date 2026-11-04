@@ -116,6 +116,7 @@ class ReviewsFlowTest < ActionDispatch::IntegrationTest
     assert_select "input[type=radio][name='review[kind]'][value=long]"
     assert_select "textarea[name='review[body]']"
     assert_select ".field-hint", text: /Hide spoilers by wrapping them in double bars/
+    assert_select ".civility-notice", text: /Be kind/
   end
 
   test "new sends you to edit when you already have a review" do

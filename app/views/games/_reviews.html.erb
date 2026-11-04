@@ -7,7 +7,8 @@
       my_review     - the user's Review of it, or nil
       short_reviews - the newest short reviews to show as cards
       reviews_count - how many reviews the game has in all, long ones included
-      ratings_by_user - each reviewer's Rating of the game, keyed by user id (may be missing) %>
+      ratings_by_user - each reviewer's Rating of the game, keyed by user id (may be missing)
+      reported_review_ids - ids of the shown reviews the signed-in user has reported %>
 <section class="game-reviews card">
   <h2 class="chip-group-label">Reviews</h2>
 
@@ -26,6 +27,7 @@
             <%= rating_stars(ratings_by_user[review.user_id]) if ratings_by_user[review.user_id] %>
             <% if review.hidden? %><span class="badge">Hidden</span><% end %>
           </p>
+          <%= render "reviews/report", game: game, review: review, reported: reported_review_ids.include?(review.id) %>
         </li>
       <% end %>
     </ul>

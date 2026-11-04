@@ -37,6 +37,7 @@
                   class: "button-quiet", form: { class: "inline-form", data: { turbo_confirm: "Delete your review?" } } %>
           </p>
         <% end %>
+        <%= render "reviews/report", game: @game, review: review, reported: @reported_review_ids.include?(review.id) %>
       </li>
     <% end %>
   </ul>
