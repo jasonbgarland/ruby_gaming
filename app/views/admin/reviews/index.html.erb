@@ -1,0 +1,26 @@
+<%= tag.div(flash[:alert], class: "flash flash-alert") if flash[:alert] %>
+<%= tag.div(flash[:notice], class: "flash flash-notice") if flash[:notice] %>
+
+<h1>Moderation</h1>
+
+<section class="moderation-queue">
+  <h2 class="chip-group-label">To review</h2>
+  <% if @queue.empty? %>
+    <p class="review-empty">Nothing to look at. No reports, and no hidden reviews have been edited.</p>
+  <% else %>
+    <ul class="reviews">
+      <%= render partial: "admin/reviews/review", collection: @queue, as: :review %>
+    </ul>
+  <% end %>
+</section>
+
+<section class="moderation-hidden">
+  <h2 class="chip-group-label">Hidden</h2>
+  <% if @hidden.empty? %>
+    <p class="review-empty">No hidden reviews.</p>
+  <% else %>
+    <ul class="reviews">
+      <%= render partial: "admin/reviews/review", collection: @hidden, as: :review %>
+    </ul>
+  <% end %>
+</section>

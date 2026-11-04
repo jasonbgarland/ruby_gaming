@@ -1,0 +1,37 @@
+<%# One review on the moderation page, with the actions that fit its state.
+    Locals:
+      review - the Review (its reports and their users should be preloaded) %>
+<li class="review card">
+  <p class="review-meta">
+    <%= link_to review.game.name, game_path(review.game.igdb_id) %> ·
+    <%= review.user.username %> · <%= l review.created_at.to_date, format: :long %>
+    <% if review.hidden? %><span class="badge">Hidden</span><% end %>
+    <% if review.awaiting_review? %><span class="badge">Edited since hidden</span><% end %>
+  </p>
+  <% if review.title.present? %>
+    <h2 class="review-title"><%= review.title %></h2>
+  <% end %>
+  <div class="review-body"><%= review_body(review) %></div>
+
+  <% if review.reports.any? %>
+    <ul class="report-list">
+      <% review.reports.each do |report| %>
+        <li><%= Report::REASONS[report.reason] %> <span class="review-meta">— <%= report.user.username %></span></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <p class="review-actions">
+    <% if review.hidden? %>
+      <%= button_to "Restore", restore_admin_review_path(review), method: :patch %>
+      <% if review.awaiting_review? %>
+        <%= button_to "Keep hidden", keep_hidden_admin_review_path(review), method: :patch, class: "button-quiet" %>
+      <% end %>
+    <% else %>
+      <%= button_to "Hide", hide_admin_review_path(review), method: :patch %>
+    <% end %>
+    <% if review.reports.any? %>
+      <%= button_to "Dismiss reports", dismiss_admin_review_path(review), method: :delete, class: "button-quiet" %>
+    <% end %>
+  </p>
+</li>

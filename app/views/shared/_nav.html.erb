@@ -6,6 +6,7 @@
     <% if authenticated? %>
       <%= link_to "My collections", collections_path %>
       <%= link_to "Search games", games_search_path %>
+      <%= link_to "Moderation", admin_reviews_path if Current.user.admin? %>
       <%= link_to "Settings", settings_path %>
       <%= button_to "Log out", session_path, method: :delete %>
     <% else %>

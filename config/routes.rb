@@ -15,6 +15,20 @@ Rails.application.routes.draw do
     end
   end
 
+  # Moderation, admins only (a 404 for everyone else): the reviews to look at
+  # (reported, or edited since hidden) and the hidden ones, with hide, restore,
+  # keep_hidden and dismiss actions.
+  namespace :admin do
+    resources :reviews, only: %i[ index ] do
+      member do
+        patch :hide
+        patch :restore
+        patch :keep_hidden
+        delete :dismiss
+      end
+    end
+  end
+
   # Create without a collection in the URL, for forms that pick the collection
   # from a dropdown (the game page). Same action as the nested route below.
   resources :collection_games, only: %i[ create ]

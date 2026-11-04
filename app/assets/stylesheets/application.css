@@ -682,6 +682,12 @@ textarea {
   margin-top: 0.4rem;
 }
 
+/* The reports against a review, on the moderation page. */
+.report-list {
+  margin: 0.75rem 0 0;
+  padding-left: 1.25rem;
+}
+
 .review-empty {
   color: var(--color-muted);
 }
