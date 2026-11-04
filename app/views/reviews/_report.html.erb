@@ -1,0 +1,21 @@
+<%# The Report control under a review: nothing on your own review, "Reported"
+    once you have reported it, otherwise a <details> that opens a reason list.
+    No JavaScript needed.
+    Locals:
+      game     - the Game the review is of
+      review   - the Review
+      reported - true if the signed-in user has already reported it %>
+<% if review.user_id != Current.user.id %>
+  <% if reported %>
+    <span class="review-reported">Reported</span>
+  <% else %>
+    <details class="review-report">
+      <summary>Report</summary>
+      <%= form_with url: game_review_report_path(game.igdb_id, review), class: "review-report-form" do |form| %>
+        <%= form.select :reason, options_for_select(Report::REASONS.map { |key, label| [ label, key ] }),
+              { prompt: "Why?" }, { required: true, id: nil, "aria-label": "Reason for reporting" } %>
+        <%= form.submit "Send report", class: "button-quiet", id: nil %>
+      <% end %>
+    </details>
+  <% end %>
+<% end %>

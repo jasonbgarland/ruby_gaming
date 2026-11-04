@@ -6,6 +6,12 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :reports, dependent: :destroy
 
+  # The ids, among these reviews, that this user has reported (one query), so a
+  # list can show "Reported" without a query per review.
+  def reported_review_ids(reviews)
+    reports.where(review_id: reviews.map(&:id)).pluck(:review_id)
+  end
+
   normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   validates :first_name, presence: true

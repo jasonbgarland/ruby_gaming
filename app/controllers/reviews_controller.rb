@@ -8,6 +8,7 @@ class ReviewsController < ApplicationController
   def index
     @reviews = @game.reviews_visible_to(Current.user).includes(:user).order(created_at: :desc)
     @my_review = @game.review_for(Current.user)
+    @reported_review_ids = Current.user.reported_review_ids(@reviews)
     @ratings_by_user = @game.ratings_by_user(@reviews.map(&:user_id))
   end
 
