@@ -1,6 +1,6 @@
 # Project handoff / status
 
-Last updated: 2026-11-04 (`review-reports` done on its branch, awaiting its PR; `now-playing` next)
+Last updated: 2026-11-05 (Sprint 2 wrapped up; `now-playing` is first in Sprint 3)
 
 ## What this project is
 
@@ -34,10 +34,10 @@ Facts worth having up front:
 
 State at last update: `main` is public with the portfolio README; the site is
 **social**, with ratings and reviews as the signature feature (decided
-2026-11-02). `ratings`, `reviews` and `review-spoilers` are merged (HISTORY
-items 26-28), plus a Rails 8.1.4.1 security update. `review-reports` (item 29)
-is finished on its branch and awaiting its PR: 336 regular tests + 20 system
-tests green. The rest of Sprint 2 is in `.claude/PLAN.md`.
+2026-11-02). Sprint 2 is complete: `ratings`, `reviews`, `review-spoilers` and
+`review-reports` are merged (HISTORY items 26-29, PRs #30-#36), plus a Rails
+8.1.4.1 security update. 336 regular tests + 20 system tests green. The
+unfinished slices moved to Sprint 3 in `.claude/PLAN.md` on 2026-11-05.
 
 Deferred work (auth hardening, email verification, tags, play history, ...) is
 in the `.claude/PLAN.md` backlog.
@@ -73,9 +73,7 @@ in the `.claude/PLAN.md` backlog.
 
 ## Next steps
 
-Sprint 2 (social: ratings and reviews) is in `.claude/PLAN.md`. `ratings` and
-`reviews` and `review-spoilers` are merged, and `review-reports` is done and
-needs its PR. In order from here:
+Sprint 3 (not yet scheduled) is in `.claude/PLAN.md`. In order:
 
 1. **`now-playing`**, then **`profiles`**, then image uploads for long-review
    screenshots.

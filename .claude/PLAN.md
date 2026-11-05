@@ -14,20 +14,23 @@ hosting yet (local demo and video only). Stretch, never built: an
 `IGDB_OFFLINE=1` mode where search queries the local `games` table, as a safety
 net for live demos.
 
-## Sprint 2, social: ratings and reviews (week of 2026-11-02)
+## Sprint 2, social: ratings and reviews (week of 2026-11-02) — complete
 
 Direction (decided in review, 2026-11-02): a **social** games site; ratings and
 reviews are this iteration's signature feature. Social features arrive as
-individual slices; a follow/friends feed comes after enough slices exist. One
-branch and PR each, in order:
+individual slices; a follow/friends feed comes after enough slices exist.
+Shipped as HISTORY items 26-29 (`ratings`, `reviews`, `review-spoilers`,
+`review-reports`). The remaining slices moved to Sprint 3 on 2026-11-05.
 
-1. `ratings` and 2. `reviews` (three PRs: reviews, spoilers, reports) — done
-   (HISTORY items 26-29).
-3. `now-playing` — up to 3 games per user, cover squares on the profile; a 4th
+## Sprint 3, social slices (not yet scheduled)
+
+One branch and PR each, in order:
+
+1. `now-playing` — up to 3 games per user, cover squares on the profile; a 4th
    is refused with a nudge to finish one; no collection required; the game
    page shows how many people are playing it.
-4. `profiles` — public profile showing now-playing, ratings and reviews.
-5. Image uploads for long-review screenshots, then theme and UI polish. Uploads
+2. `profiles` — public profile showing now-playing, ratings and reviews.
+3. Image uploads for long-review screenshots, then theme and UI polish. Uploads
    need Active Storage and `gem "ruby-vips"` added explicitly: `image_processing`
    2.x (updated 2026-10-08) no longer pulls in an image backend, and CI already
    installs `libvips`. Until then the `image_processing` gem could be dropped.
